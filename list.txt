@@ -1,0 +1,5 @@
+-load fbx correctly
+-figure out model animations
+-implement basic lighting
+-figure out collisions
+-implement 3rd person follow camera
