@@ -11,6 +11,7 @@ glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 glm::vec3 objectPos = glm::vec3(0.0f, 0.0f, 0.0f);
+glm::vec3 lightColor = glm::vec3(0.94f, 0.62f, 0.1f);
 
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
@@ -43,8 +44,6 @@ int main()
 		glfwTerminate();
 		return -1;
 	}
-
-	stbi_set_flip_vertically_on_load(true);
 	
 	glfwMakeContextCurrent(window);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
@@ -58,10 +57,17 @@ int main()
 	}
 
 	glEnable(GL_DEPTH_TEST);
-	/*	glEnable(GL_LIGHTING);
-		glEnable(GL_LIGHT0);*/
+
 	Shader shaderProgram("default.vert.glsl", "default.frag.glsl");
-	Model ak((char*)"C:/Dev/assets/Main.1_Sponza/NewSponza_Main_glTF_003.gltf");
+
+	Shader lightShaderProgram("light.vert.glsl", "light.frag.glsl");
+
+	Model ak((char*)"C:/Users/alcor/Downloads/LearnOpenGL-master/LearnOpenGL-master/resources/objects/backpack/backpack.obj");
+	Model cube((char*)"C:/Dev/assets/cube.glb");
+
+	unsigned int lightVAO;
+	glGenVertexArrays(1, &lightVAO);
+	glBindVertexArray(lightVAO);
 	
 	while (!glfwWindowShouldClose(window))
 	{
@@ -84,12 +90,32 @@ int main()
 		glUniformMatrix4fv(glGetUniformLocation(shaderProgram.ID, "view"), 1, GL_FALSE, &view[0][0]);
 		glUniformMatrix4fv(glGetUniformLocation(shaderProgram.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
-
 		glm::mat4 model = glm::mat4(1.0f);
 		model = glm::translate(model, objectPos);
 		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+
 		shaderProgram.setMat4("model", model);
+		shaderProgram.setVec3("lightColor", lightColor);
+		shaderProgram.setVec3("lightPos", glm::vec3(5.0f, 0.0f, 0.0f));
+		shaderProgram.setVec3("viewPos", cameraPos);
+
+
 		ak.draw(shaderProgram);
+
+		lightShaderProgram.use();
+
+		glUniformMatrix4fv(glGetUniformLocation(lightShaderProgram.ID, "view"), 1, GL_FALSE, &view[0][0]);
+		glUniformMatrix4fv(glGetUniformLocation(lightShaderProgram.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+
+		glm::mat4 light = glm::mat4(1.0f);
+		light = glm::translate(light, glm::vec3(5.0f, 0.0f, 0.0f));
+		light = glm::scale(light, glm::vec3(1.0f, 1.0f, 1.0f));
+
+		lightShaderProgram.setMat4("model", light);
+		lightShaderProgram.setVec3("lightColor", lightColor);
+		
+
+		cube.draw(lightShaderProgram);
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

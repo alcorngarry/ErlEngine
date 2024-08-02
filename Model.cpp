@@ -8,6 +8,7 @@
 
 	Model::Model(char* path)
 	{
+		stbi_set_flip_vertically_on_load(true);
 		loadModel(path);
 	}
 
@@ -22,7 +23,23 @@
 	void Model::loadModel(std::string path)
 	{
 		Assimp::Importer importer;
-		const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_JoinIdenticalVertices | aiProcess_GenSmoothNormals);
+
+		/*aiProcess_CalcTangentSpace | // calculate tangents and bitangents if possible
+			aiProcess_JoinIdenticalVertices | // join identical vertices/ optimize indexing
+			aiProcess_Triangulate | // Ensure all verticies are triangulated (each 3 vertices are triangle)
+			aiProcess_SortByPType | // ?
+			aiProcess_ImproveCacheLocality | // improve the cache locality of the output vertices
+			aiProcess_RemoveRedundantMaterials | // remove redundant materials
+			aiProcess_FindDegenerates | // remove degenerated polygons from the import
+			aiProcess_FindInvalidData | // detect invalid model data, such as invalid normal vectors
+			aiProcess_GenUVCoords | // convert spherical, cylindrical, box and planar mapping to proper UVs
+			aiProcess_TransformUVCoords | // preprocess UV transformations (scaling, translation ...)
+			aiProcess_FindInstances | // search for instanced meshes and remove them by references to one master
+			aiProcess_LimitBoneWeights | // limit bone weights to 4 per vertex
+			aiProcess_OptimizeMeshes | // join small meshes, if possible;
+			aiProcess_PreTransformVertices | //-- fixes the transformation issue.
+			aiProcess_SplitByBoneCount */
+		const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
 
 		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 		{
@@ -39,6 +56,7 @@
 			std::cout << "Null Scene" << std::endl;
 		}
 	}
+
 	void Model::processNode(aiNode* node, const aiScene* scene)
 	{
 		for (unsigned int i = 0; i < node->mNumMeshes; i++)
@@ -73,6 +91,10 @@
 				vector.y = mesh->mNormals[i].y;
 				vector.z = mesh->mNormals[i].z;
 				vertex.Normal = vector;
+			}
+			else
+			{
+				std::cout << "Missing normal" << std::endl;
 			}
 
 			if (mesh->mTextureCoords[0])
@@ -122,7 +144,7 @@
 
 		for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
 		{
-			aiString str;
+			aiString str;  
 			mat->GetTexture(type, i, &str);
 
 			bool skip = false;
@@ -131,7 +153,7 @@
 			{
 				if (std::strcmp(textures_loaded[j].path.data(), str.C_Str()) == 0)
 				{
-					textures.push_back(textures_loaded[j]);
+					std::cout << "Strings the same" << std::endl;
 					skip = true;
 					break;
 				}
@@ -147,7 +169,7 @@
 				textures_loaded.push_back(texture);
 			}
 		}
-
+		std::cout << textures_loaded.size() << std::endl;
 		return textures;
 	}
 
@@ -184,7 +206,7 @@
 		}
 		else
 		{
-			std::cout << "Texture failed to load at path: " << path << std::endl;
+			std::cout << filename << " Texture failed to load at path: " << path << std::endl;
 			stbi_image_free(data);
 		}
 

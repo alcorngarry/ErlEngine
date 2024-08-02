@@ -38,6 +38,12 @@
     <None Include="default.frag.glsl">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="light.frag.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light.vert.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">
@@ -50,6 +56,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dependency-source-downloads\json-3.11.3\json-3.11.3\single_include\nlohmann\json.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

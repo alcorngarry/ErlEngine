@@ -167,8 +167,11 @@
   <ItemGroup>
     <None Include="default.frag.glsl" />
     <None Include="default.vert.glsl" />
+    <None Include="light.frag.glsl" />
+    <None Include="light.vert.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\dependency-source-downloads\json-3.11.3\json-3.11.3\single_include\nlohmann\json.hpp" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Shader.h" />
