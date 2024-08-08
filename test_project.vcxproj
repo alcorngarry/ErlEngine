@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\dependency-source-downloads\glad\glad.c" />
+    <ClCompile Include="CharacterController.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="stb_image.cpp" />
@@ -172,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dependency-source-downloads\json-3.11.3\json-3.11.3\single_include\nlohmann\json.hpp" />
+    <ClInclude Include="CharacterController.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Shader.h" />

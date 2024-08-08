@@ -4,23 +4,27 @@
 
 #include"Shader.h"
 #include"Model.h"
+#include"CharacterController.h"
 
 #include<GLFW/glfw3.h>
 
-glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+CharacterController controller;
 glm::vec3 objectPos = glm::vec3(0.0f, 0.0f, 0.0f);
-glm::vec3 lightColor = glm::vec3(0.94f, 0.62f, 0.1f);
+glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
+
 
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
+float rotation = 0.0f;
+
+int window_width;
+int window_height;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void proccessInput(GLFWwindow* window);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+void get_resolution();
 
-bool isWireframe = false;
+
 unsigned int texture1, texture2;
 
 bool firstMouse = true;
@@ -28,7 +32,7 @@ float yaw = -90.0f;
 float pitch = 0.0f;
 float lastX = 800.0f / 2.0;
 float lastY = 600.0 / 2.0;
-float fov = 45.0f;
+float fov = 60.0f;
 
 int main()
 {
@@ -37,7 +41,11 @@ int main()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	GLFWwindow* window = glfwCreateWindow(800, 800, "Triangle", NULL, NULL);
+	
+	get_resolution();
+	GLFWwindow* window = glfwCreateWindow(window_width, window_height, "test_game", NULL, NULL);
+	
+	
 	if (window == NULL)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
@@ -62,12 +70,15 @@ int main()
 
 	Shader lightShaderProgram("light.vert.glsl", "light.frag.glsl");
 
-	Model ak((char*)"C:/Users/alcor/Downloads/LearnOpenGL-master/LearnOpenGL-master/resources/objects/backpack/backpack.obj");
+	Model backpack((char*)"C:/Users/alcor/Downloads/LearnOpenGL-master/LearnOpenGL-master/resources/objects/backpack/backpack.obj");
 	Model cube((char*)"C:/Dev/assets/cube.glb");
+	Model floor((char*)"C:/Dev/assets/plane/plane.obj");
 
 	unsigned int lightVAO;
 	glGenVertexArrays(1, &lightVAO);
 	glBindVertexArray(lightVAO);
+
+	controller = CharacterController();
 	
 	while (!glfwWindowShouldClose(window))
 	{
@@ -75,7 +86,7 @@ int main()
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 
-		proccessInput(window);
+		controller.proccessInput(window, deltaTime, objectPos, rotation);
 		
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -83,7 +94,7 @@ int main()
 		shaderProgram.use();
 
 		glm::mat4 projection = glm::mat4(1.0f);
-		glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+		glm::mat4 view = glm::lookAt(controller.getCameraPos(), controller.getCameraPos() + controller.getCameraFront(), controller.getCameraUp());
 
 		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
 		projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
@@ -92,15 +103,23 @@ int main()
 
 		glm::mat4 model = glm::mat4(1.0f);
 		model = glm::translate(model, objectPos);
+		model = glm::rotate(model, rotation, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 
 		shaderProgram.setMat4("model", model);
 		shaderProgram.setVec3("lightColor", lightColor);
 		shaderProgram.setVec3("lightPos", glm::vec3(5.0f, 0.0f, 0.0f));
-		shaderProgram.setVec3("viewPos", cameraPos);
+		shaderProgram.setVec3("viewPos", controller.getCameraPos());
 
 
-		ak.draw(shaderProgram);
+		backpack.draw(shaderProgram);
+
+		glm::mat4 model2 = glm::mat4(1.0f);
+		model2 = glm::translate(model2, glm::vec3(0.0f, -5.0f, 0.0f));
+		model2 = glm::scale(model2 , glm::vec3(25.0f, 25.0f, 25.0f));
+		shaderProgram.setMat4("model", model2);
+
+		floor.draw(shaderProgram);
 
 		lightShaderProgram.use();
 
@@ -114,7 +133,6 @@ int main()
 		lightShaderProgram.setMat4("model", light);
 		lightShaderProgram.setVec3("lightColor", lightColor);
 		
-
 		cube.draw(lightShaderProgram);
 
 		glfwSwapBuffers(window);
@@ -128,67 +146,17 @@ int main()
 	return 0;
 }
 
-
-
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
 }
 
-void proccessInput(GLFWwindow* window)
+void get_resolution() 
 {
-	if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
-	{
-		if (isWireframe)
-		{
-			isWireframe = false;
-			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		}
-		else {
-			isWireframe = true;
-			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		}
-	}
-	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-	{
-		glfwSetWindowShouldClose(window, true);
-	}
+	const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
-	float cameraSpeed = static_cast<float>(2.5 * deltaTime);
-	
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-	{
-		cameraPos += cameraSpeed * cameraFront;
-	}
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-	{
-		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-	}
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-	{
-		cameraPos -= cameraSpeed * cameraFront;
-	}
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-	{
-		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS)
-	{
-		objectPos.x += 0.01f;
-	}
-	if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
-	{
-		objectPos.y -= 0.01f;
-	}
-	if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
-	{
-		objectPos.x -= 0.01f;
-	}
-	if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
-	{
-		objectPos.y += 0.01f;
-	}
+	window_width = mode->width;
+	window_height = mode->height;
 }
 
 void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
@@ -224,6 +192,5 @@ void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
 	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
 	front.y = sin(glm::radians(pitch));
 	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-	cameraFront = glm::normalize(front);
+	controller.setCameraFront(glm::normalize(front));
 }
-
