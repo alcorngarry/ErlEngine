@@ -2,6 +2,10 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include<imgui.h>
+#include<imgui_impl_glfw.h>
+#include<imgui_impl_opengl3.h>
+
 #include"Shader.h"
 #include"Model.h"
 #include"CharacterController.h"
@@ -15,13 +19,14 @@ glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
 
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
-float rotation = 0.0f;
+float rotationY = 0.0f;
+float rotationX = 0.0f;
 
 int window_width;
 int window_height;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+//void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void get_resolution();
 
 
@@ -55,7 +60,7 @@ int main()
 	
 	glfwMakeContextCurrent(window);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-	glfwSetCursorPosCallback(window, mouse_callback);
+	//glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -67,7 +72,6 @@ int main()
 	glEnable(GL_DEPTH_TEST);
 
 	Shader shaderProgram("default.vert.glsl", "default.frag.glsl");
-
 	Shader lightShaderProgram("light.vert.glsl", "light.frag.glsl");
 
 	Model backpack((char*)"C:/Users/alcor/Downloads/LearnOpenGL-master/LearnOpenGL-master/resources/objects/backpack/backpack.obj");
@@ -79,6 +83,16 @@ int main()
 	glBindVertexArray(lightVAO);
 
 	controller = CharacterController();
+
+	//Imgui setup
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO();
+	(void)io;
+	ImGui::StyleColorsDark();
+	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplOpenGL3_Init("#version 330");
+	//
 	
 	while (!glfwWindowShouldClose(window))
 	{
@@ -86,15 +100,19 @@ int main()
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 
-		controller.proccessInput(window, deltaTime, objectPos, rotation);
+		controller.proccessInput(window, deltaTime, objectPos, rotationY, rotationX);
 		
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
+
 		shaderProgram.use();
 
 		glm::mat4 projection = glm::mat4(1.0f);
-		glm::mat4 view = glm::lookAt(controller.getCameraPos(), controller.getCameraPos() + controller.getCameraFront(), controller.getCameraUp());
+		glm::mat4 view = glm::lookAt(controller.getCameraPos(), objectPos, controller.getCameraUp());	
 
 		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
 		projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
@@ -103,7 +121,8 @@ int main()
 
 		glm::mat4 model = glm::mat4(1.0f);
 		model = glm::translate(model, objectPos);
-		model = glm::rotate(model, rotation, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, rotationY, glm::vec3(0.0f, 1.0f, 0.0f));
+		//model = glm::rotate(model, rotationX, glm::vec3(1.0f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 
 		shaderProgram.setMat4("model", model);
@@ -135,11 +154,65 @@ int main()
 		
 		cube.draw(lightShaderProgram);
 
+
+		std::string fps = std::to_string((int) (1000.0f / deltaTime));
+		fps = "fps = " + fps;
+		char const* fpsChar = fps.c_str();
+
+			
+		ImGui::Begin("Open this window mother fuckers!!!");
+		ImGui::Text(fpsChar);
+
+		std::string objectX = std::to_string((int)objectPos.x);
+		objectX = "object X = " + objectX;
+		char const* objectXChar = objectX.c_str();
+		ImGui::Text(objectXChar);
+
+		std::string objectY = std::to_string((int)objectPos.y);
+		objectY = "object Y = " + objectY;
+		char const* objectYChar = objectY.c_str();
+		ImGui::Text(objectYChar);
+
+		std::string objectZ = std::to_string((int)objectPos.z);
+		objectZ = "object Z = " + objectZ;
+		char const* objectZChar = objectZ.c_str();
+		ImGui::Text(objectZChar);
+
+
+
+		std::string cameraX = std::to_string((int)controller.getCameraPos().x);
+		cameraX = "camera X = " + cameraX;
+		char const* cameraXChar = cameraX.c_str();
+		ImGui::Text(cameraXChar);
+
+		std::string cameraY = std::to_string((int)controller.getCameraPos().y);
+		cameraY = "camera Y = " + cameraY;
+		char const* cameraYChar = cameraY.c_str();
+		ImGui::Text(cameraYChar);
+
+		std::string cameraZ = std::to_string((int)controller.getCameraPos().z);
+		cameraZ = "camera Z = " + cameraZ;
+		char const* cameraZChar = cameraZ.c_str();
+		ImGui::Text(cameraZChar);
+
+		std::string rotation = std::to_string((int)rotationY);
+		rotation = "rotation = " + rotation;
+		char const* rotationChar = rotation.c_str();
+		ImGui::Text(rotationChar);
+
+		ImGui::End();
+
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
 	
-	
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
+
 	glfwDestroyWindow(window);
 	glfwTerminate();
 
@@ -159,7 +232,7 @@ void get_resolution()
 	window_height = mode->height;
 }
 
-void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
+/*void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
 {
 	float xpos = static_cast<float>(xposIn);
 	float ypos = static_cast<float>(yposIn);
@@ -193,4 +266,4 @@ void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
 	front.y = sin(glm::radians(pitch));
 	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
 	controller.setCameraFront(glm::normalize(front));
-}
+} */

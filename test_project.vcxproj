@@ -96,6 +96,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Dev\third-party-dependencies\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -111,6 +112,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Dev\third-party-dependencies\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -126,8 +128,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\third-party-dependencies\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -143,8 +144,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\third-party-dependencies\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -156,6 +156,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\dependency-source-downloads\glad\glad.c" />
+    <ClCompile Include="..\..\third-party-dependencies\imgui\imgui.cpp" />
+    <ClCompile Include="..\..\third-party-dependencies\imgui\imgui_demo.cpp" />
+    <ClCompile Include="..\..\third-party-dependencies\imgui\imgui_draw.cpp" />
+    <ClCompile Include="..\..\third-party-dependencies\imgui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="..\..\third-party-dependencies\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="..\..\third-party-dependencies\imgui\imgui_tables.cpp" />
+    <ClCompile Include="..\..\third-party-dependencies\imgui\imgui_widgets.cpp" />
     <ClCompile Include="CharacterController.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
@@ -173,6 +180,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dependency-source-downloads\json-3.11.3\json-3.11.3\single_include\nlohmann\json.hpp" />
+    <ClInclude Include="..\..\third-party-dependencies\imgui\imconfig.h" />
+    <ClInclude Include="..\..\third-party-dependencies\imgui\imgui.h" />
+    <ClInclude Include="..\..\third-party-dependencies\imgui\imgui_impl_glfw.h" />
+    <ClInclude Include="..\..\third-party-dependencies\imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="..\..\third-party-dependencies\imgui\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="..\..\third-party-dependencies\imgui\imgui_internal.h" />
+    <ClInclude Include="..\..\third-party-dependencies\imgui\imstb_rectpack.h" />
+    <ClInclude Include="..\..\third-party-dependencies\imgui\imstb_textedit.h" />
+    <ClInclude Include="..\..\third-party-dependencies\imgui\imstb_truetype.h" />
     <ClInclude Include="CharacterController.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />

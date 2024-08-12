@@ -4,9 +4,10 @@
 CharacterController::CharacterController()
 {
 	isWireframe = false;
-	cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-	cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-	cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+	cameraPos = glm::vec3(0.0f, 15.0f, 20.0f);
+	cameraFront = glm::vec3(0.0f, 0.0f, 0.0f);
+	cameraUp = glm::vec3(0.0f, 15.0f, 0.0f);
+	isMenuOpen = false;
 }
 
 glm::vec3 CharacterController::getCameraPos()
@@ -29,7 +30,7 @@ glm::vec3 CharacterController::getCameraFront()
 	return cameraFront;
 }
 
-void CharacterController::proccessInput(GLFWwindow* window, float deltaTime, glm::vec3& objectPos, float& rotation)
+void CharacterController::proccessInput(GLFWwindow* window, float deltaTime, glm::vec3& objectPos, float& rotationY, float& rotationX)
 {
 	if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
 	{
@@ -67,14 +68,53 @@ void CharacterController::proccessInput(GLFWwindow* window, float deltaTime, glm
 		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 	}
 
-	if (glfwJoystickPresent(GLFW_JOYSTICK_1))
+	if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS)
+	{
+		isMenuOpen = !isMenuOpen;
+		if (isMenuOpen)
+		{
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		}
+		else
+		{
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		}
+	}
+
+	if (glfwJoystickPresent(GLFW_JOYSTICK_1) && isMenuOpen == false)
 	{
 		int axesCount;
 		const float* axes = glfwGetJoystickAxes(GLFW_JOYSTICK_1, &axesCount);
 
-		objectPos.x += axes[0] * 0.01f;
-		objectPos.y -= axes[1] * 0.01f;
+		//objectPos.x += axes[0] * 0.1f;
 
-		rotation += axes[2] * 0.01f;
+		//rotationX += axes[3] * 0.01f;
+		if (rotationY > 6.28319f || rotationY < -6.28319f)
+		{
+			//save from overflow lol
+			rotationY = 0.0f;
+		}
+		rotationY -= axes[2] * 0.01f;
+
+		float camX = sin(rotationY) * 25;
+		float camZ = cos(rotationY) * 25;
+
+		objectPos.x += sin(rotationY) * axes[1] * 0.1f;
+		objectPos.z += cos(rotationY) * axes[1] * 0.1f;
+
+		cameraPos.x = objectPos.x + camX;
+		cameraPos.z = objectPos.z + camZ;
+
+
+		//only x and z need to change for the camera, when right stick moves left or right.... think about it dummy
+
+		//glm::vec3 offset(0, 3, 20);
+		//glm::vec3 cp = glm::rotate(glm::vec3(0, 0, rotationY), cameraFront, glm::vec3(0, 1, 0));
+
+		//cameraPos = objectPos + cp + cameraPos;
+
+
+		//follow camera
+
 	}
 }

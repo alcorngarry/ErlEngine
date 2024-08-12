@@ -4,6 +4,7 @@
 
 #include<GLFW/glfw3.h>
 #include<glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 class CharacterController
 {
@@ -17,10 +18,11 @@ class CharacterController
 		void setCameraFront(glm::vec3 front);
 		glm::vec3 getCameraUp();
 		glm::vec3 getCameraFront();
-		void proccessInput(GLFWwindow* window, float deltaTime, glm::vec3& objectPos, float &rotation);
+		void proccessInput(GLFWwindow* window, float deltaTime, glm::vec3& objectPos, float &rotationY, float& rotationX);
 
 	private:
 		bool isWireframe;
+		bool isMenuOpen;
 };
 
 
