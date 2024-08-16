@@ -24,8 +24,4 @@ class CharacterController
 		bool isWireframe;
 		bool isMenuOpen;
 };
-
-
-
-
 #endif // !CHARACTERCONTROLLER_H

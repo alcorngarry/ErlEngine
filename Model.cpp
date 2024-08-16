@@ -1,4 +1,6 @@
 #include "Model.h"
+#include <glm/ext/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 	std::vector<Texture> textures_loaded;
 	std::vector<Mesh> meshes;
@@ -39,7 +41,7 @@
 			aiProcess_OptimizeMeshes | // join small meshes, if possible;
 			aiProcess_PreTransformVertices | //-- fixes the transformation issue.
 			aiProcess_SplitByBoneCount */
-		const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+		const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace | aiProcess_GenBoundingBoxes);
 
 		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 		{
@@ -211,4 +213,37 @@
 		}
 
 		return textureID;
+	}
+
+	glm::vec3 Model::getBBSize(aiMesh* mesh)
+	{
+		const aiAABB& aabb = mesh->mAABB;
+
+
+		float max_x = mesh->mAABB.mMax.x;
+		float max_y = mesh->mAABB.mMax.y;
+		float max_z = mesh->mAABB.mMax.z;
+		float min_x = mesh->mAABB.mMin.x;
+		float min_y = mesh->mAABB.mMin.y;
+		float min_z = mesh->mAABB.mMin.z;
+
+		return glm::vec3(max_x - min_x, max_y - min_y, max_z - min_z);
+	}
+
+	glm::vec3 Model::getBBLocation(aiMesh* mesh)
+	{
+		const aiAABB& aabb = mesh->mAABB;
+
+		float max_x = mesh->mAABB.mMax.x;
+		float max_y = mesh->mAABB.mMax.y;
+		float max_z = mesh->mAABB.mMax.z;
+		float min_x = mesh->mAABB.mMin.x;
+		float min_y = mesh->mAABB.mMin.y;
+		float min_z = mesh->mAABB.mMin.z;
+
+		glm::vec3 a = glm::vec3((min_x + max_x) / 2, (min_y + max_y) / 2, (min_z + max_z) / 2);
+
+		std::cout << a.x << " " << a.y << " " << a.z << "TEST" <<  std::endl;
+
+		return glm::vec3((min_x + max_x) / 2, (min_y + max_y) / 2, (min_z + max_z) / 2);
 	}

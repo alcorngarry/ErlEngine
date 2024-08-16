@@ -164,6 +164,7 @@
     <ClCompile Include="..\..\third-party-dependencies\imgui\imgui_tables.cpp" />
     <ClCompile Include="..\..\third-party-dependencies\imgui\imgui_widgets.cpp" />
     <ClCompile Include="CharacterController.cpp" />
+    <ClCompile Include="DebugMenu.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="stb_image.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="..\..\third-party-dependencies\imgui\imstb_textedit.h" />
     <ClInclude Include="..\..\third-party-dependencies\imgui\imstb_truetype.h" />
     <ClInclude Include="CharacterController.h" />
+    <ClInclude Include="DebugMenu.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Shader.h" />
