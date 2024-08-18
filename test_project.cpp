@@ -10,6 +10,7 @@
 #include<GLFW/glfw3.h>
 
 CharacterController controller;
+Camera camera;
 DebugMenu debugMenu;
 
 glm::vec3 objectPos = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -81,6 +82,7 @@ int main()
 	glGenVertexArrays(1, &lightVAO);
 	glBindVertexArray(lightVAO);
 
+	camera = Camera();
 	controller = CharacterController();
 	debugMenu = DebugMenu(window);
 
@@ -90,12 +92,21 @@ int main()
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 
-		controller.proccessInput(window, deltaTime, objectPos, rotationY, rotationX);
+		controller.proccessInput(window, camera, objectPos, deltaTime, rotationY, rotationX);
 		
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		shaderProgram.use();
+
+		if (selected)
+		{
+			if (glfwGetKey(window, GLFW_KEY_UP))
+			{
+				objectPos.y += .001f;
+			}
+			//objectPos = objcoord;
+		}
 
 		glm::mat4 model = glm::mat4(1.0f);
 		model = glm::translate(model, objectPos);
@@ -103,7 +114,15 @@ int main()
 		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 
 		projection = glm::mat4(1.0f);
-		view = glm::lookAt(controller.getCameraPos(), objectPos, controller.getCameraUp());	
+		if (selected)
+		{
+			view = glm::lookAt(camera.getCameraPos(), glm::vec3(0.0f), camera.getCameraUp());
+		}
+		else
+		{
+			view = glm::lookAt(camera.getCameraPos(), objectPos, camera.getCameraUp());
+		}
+
 
 		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
 		projection = glm::perspective(glm::radians(45.0f), 1024.0f / 768.0f, 0.1f, 10000.0f);
@@ -114,7 +133,7 @@ int main()
 		shaderProgram.setMat4("model", model);
 		shaderProgram.setVec3("lightColor", lightColor);
 		shaderProgram.setVec3("lightPos", glm::vec3(5.0f, 0.0f, 0.0f));
-		shaderProgram.setVec3("viewPos", controller.getCameraPos());
+		shaderProgram.setVec3("viewPos", camera.getCameraPos());
 
 		backpack.draw(shaderProgram);
 
@@ -150,8 +169,6 @@ int main()
 		debugMenu.create_menu(deltaTime, objectPos, controller, rotationY);
 
 		cube.draw(lightShaderProgram);
-
-		//std::cout << backpack.getLocation()->x << std::endl;
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
@@ -226,38 +243,44 @@ void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
 	ray_wor = glm::normalize(ray_wor);
 	//std::cout << "x = " << ray_nds.x << " y = " << ray_nds.y << " z = " << ray_nds.z << std::endl;
 
+	int w_width = 1024;
+	int w_height = 768;
 
-	if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS)
+	GLbyte color[4];
+	GLfloat depth;
+
+	//read the color of the pixel
+	glReadPixels(xpos, w_height - ypos - 1, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, color);
+	//read the depth of the pixel
+	glReadPixels(xpos, w_height - ypos - 1, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
+
+	std::printf("Clicked on pixel %f, %f, color %02hhx%02hhx%02hhx%02hhx, depth %f\n", xpos, ypos, color[0], color[1], color[2], color[3], depth);
+
+	glm::vec4 viewport = glm::vec4(0, 0, w_width, w_height);
+	glm::vec3 wincoord = glm::vec3(xpos, w_height - ypos - 1, depth);
+	glm::vec3 objcoord = glm::unProject(wincoord, view, projection, viewport);
+
+	std::printf("Coordinates in object space: %f, %f, %f\n", objcoord.x, objcoord.y, objcoord.z);
+
+	int distance = glm::distance(objcoord, objectPos);
+
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
 	{
-		int w_width = 1024;
-		int w_height = 768;
-
-		GLbyte color[4];
-		GLfloat depth;
-		//GLuint index;
-
-		//read the color of the pixel
-		glReadPixels(xpos, w_height - ypos - 1, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, color);
-		//read the depth of the pixel
-		glReadPixels(xpos, w_height - ypos - 1, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
-
-		std::printf("Clicked on pixel %f, %f, color %02hhx%02hhx%02hhx%02hhx, depth %f\n", xpos, ypos, color[0], color[1], color[2], color[3], depth);
-
-		glm::vec4 viewport = glm::vec4(0, 0, w_width, w_height);
-		glm::vec3 wincoord = glm::vec3(xpos, w_height - ypos - 1, depth);
-		glm::vec3 objcoord = glm::unProject(wincoord, view, projection, viewport);
-
-		std::printf("Coordinates in object space: %f, %f, %f\n", objcoord.x, objcoord.y, objcoord.z);
-
-		int distance = glm::distance(objcoord, objectPos);
+		//essentially the distance function squares the difference of each vertice(xyz) adds them up and returns the sqrroot.
 		//sqrt((objectcoord.x - objectpos.x) * *2 + (objectcoord.y - objectpos.y) * *2 + (objectcoord.z - objectpos.z)**2);
 
 		if (distance < 4)
 		{
 			std::cout << "hit" << std::endl;
 			selected = true;
-		}
-		else
+		} 		
+	}
+
+	if (selected)
+	{
+		objectPos = objcoord;
+
+		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
 		{
 			selected = false;
 		}

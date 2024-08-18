@@ -4,33 +4,10 @@
 CharacterController::CharacterController()
 {
 	isWireframe = false;
-	cameraPos = glm::vec3(0.0f, 10.0f, 30.0f);
-	cameraFront = glm::vec3(0.0f, 0.0f, 0.0f);
-	cameraUp = glm::vec3(0.0f, 5.0f, 0.0f);
 	isMenuOpen = false;
 }
 
-glm::vec3 CharacterController::getCameraPos()
-{
-	return cameraPos;
-}
-
-void CharacterController::setCameraFront(glm::vec3 front)
-{
-	cameraFront = front;
-}
-
-glm::vec3 CharacterController::getCameraUp()
-{
-	return cameraUp;
-}
-
-glm::vec3 CharacterController::getCameraFront()
-{
-	return cameraFront;
-}
-
-void CharacterController::proccessInput(GLFWwindow* window, float deltaTime, glm::vec3& objectPos, float& rotationY, float& rotationX)
+void CharacterController::proccessInput(GLFWwindow* window, Camera& camera, glm::vec3& objectPos, float deltaTime, float& rotationY, float& rotationX)
 {
 	if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
 	{
@@ -53,19 +30,19 @@ void CharacterController::proccessInput(GLFWwindow* window, float deltaTime, glm
 
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 	{
-		cameraPos += cameraSpeed * cameraFront;
+		camera.setCameraPos(camera.getCameraPos() + cameraSpeed * camera.getCameraFront());
 	}
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 	{
-		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+		camera.setCameraPos(camera.getCameraPos() - glm::normalize(glm::cross(camera.getCameraFront(), camera.getCameraUp())) * cameraSpeed);
 	}
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 	{
-		cameraPos -= cameraSpeed * cameraFront;
+		camera.setCameraPos(camera.getCameraPos() - cameraSpeed * camera.getCameraFront());
 	}
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 	{
-		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+		camera.setCameraPos(camera.getCameraPos() + glm::normalize(glm::cross(camera.getCameraFront(), camera.getCameraUp())) * cameraSpeed);
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS)
@@ -100,8 +77,6 @@ void CharacterController::proccessInput(GLFWwindow* window, float deltaTime, glm
 		objectPos.x += sin(rotationY) * axes[1] * 0.1f;
 		objectPos.z += cos(rotationY) * axes[1] * 0.1f;
 
-		cameraPos.x = objectPos.x + camX;
-		cameraPos.z = objectPos.z + camZ;
-		cameraPos.y = cos(rotationX) * 20;
+		camera.setCameraPos(glm::vec3(objectPos.x + camX, cos(rotationX) * 20, objectPos.z + camZ));
 	}
 }

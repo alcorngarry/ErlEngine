@@ -1,9 +1,12 @@
-﻿  test_project.cpp
-C:\Dev\opengl_code\test_project\test_project.cpp(240,38): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
-C:\Dev\opengl_code\test_project\test_project.cpp(240,16): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
-C:\Dev\opengl_code\test_project\test_project.cpp(242,38): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
-C:\Dev\opengl_code\test_project\test_project.cpp(242,16): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
-C:\Dev\opengl_code\test_project\test_project.cpp(252,16): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
+﻿  Camera.cpp
+  CharacterController.cpp
+  Generating Code...
+  test_project.cpp
+C:\Dev\opengl_code\test_project\test_project.cpp(253,37): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
+C:\Dev\opengl_code\test_project\test_project.cpp(253,15): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
+C:\Dev\opengl_code\test_project\test_project.cpp(255,37): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
+C:\Dev\opengl_code\test_project\test_project.cpp(255,15): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
+C:\Dev\opengl_code\test_project\test_project.cpp(265,15): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
           with
           [
               T=float

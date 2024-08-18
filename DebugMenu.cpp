@@ -48,7 +48,7 @@ void DebugMenu::create_menu(float deltaTime, glm::vec3 objectPos, CharacterContr
 	char const* objectZChar = objectZ.c_str();
 	ImGui::Text(objectZChar);
 
-	std::string cameraX = std::to_string((int)controller.getCameraPos().x);
+	/*std::string cameraX = std::to_string((int)controller.getCameraPos().x);
 	cameraX = "camera X = " + cameraX;
 	char const* cameraXChar = cameraX.c_str();
 	ImGui::Text(cameraXChar);
@@ -61,7 +61,7 @@ void DebugMenu::create_menu(float deltaTime, glm::vec3 objectPos, CharacterContr
 	std::string cameraZ = std::to_string((int)controller.getCameraPos().z);
 	cameraZ = "camera Z = " + cameraZ;
 	char const* cameraZChar = cameraZ.c_str();
-	ImGui::Text(cameraZChar);
+	ImGui::Text(cameraZChar);*/
 
 	std::string rotation = std::to_string((int)rotationY);
 	rotation = "rotation = " + rotation;
