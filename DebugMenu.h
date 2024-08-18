@@ -11,11 +11,16 @@
 class DebugMenu
 {
 	public:
-		DebugMenu();
-		DebugMenu(GLFWwindow* window);
-		void new_frame();
-		void create_menu(float deltaTime, glm::vec3 objectPos, CharacterController controller, float rotationY);
+		DebugMenu(GLFWwindow* glfwWindow);
+		
+		void create_menu(Camera camera, glm::vec3 objectPos, float deltaTime,  float rotationY);
 		void shut_down();
+	private:
+		bool isWireframe;
+		bool isMenuOpen;
+		GLFWwindow* window;
+
+		void process_menu_input();
 };
 
 

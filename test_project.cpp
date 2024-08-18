@@ -11,7 +11,6 @@
 
 CharacterController controller;
 Camera camera;
-DebugMenu debugMenu;
 
 glm::vec3 objectPos = glm::vec3(0.0f, 0.0f, 0.0f);
 glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -22,6 +21,7 @@ int window_width, window_height;
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void get_resolution();
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+void toggleMenu(GLFWwindow* window, DebugMenu debugMenu);
 
 
 unsigned int texture1, texture2;
@@ -29,8 +29,9 @@ glm::mat4 projection, view;
 glm::vec3 ray_wor, front;
 
 bool selected = false;
-
 bool firstMouse = true;
+bool isMenuOpen = false;
+
 float yaw = -90.0f;
 float pitch = 0.0f;
 float lastX = 1024.0f / 2.0;
@@ -84,7 +85,7 @@ int main()
 
 	camera = Camera();
 	controller = CharacterController();
-	debugMenu = DebugMenu(window);
+	DebugMenu debugMenu = DebugMenu(window);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -92,7 +93,11 @@ int main()
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 
-		controller.proccessInput(window, camera, objectPos, deltaTime, rotationY, rotationX);
+		if (!isMenuOpen)
+		{
+			controller.proccessInput(window, camera, objectPos, deltaTime, rotationY, rotationX);
+
+		}
 		
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -105,7 +110,6 @@ int main()
 			{
 				objectPos.y += .001f;
 			}
-			//objectPos = objcoord;
 		}
 
 		glm::mat4 model = glm::mat4(1.0f);
@@ -114,9 +118,10 @@ int main()
 		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 
 		projection = glm::mat4(1.0f);
-		if (selected)
+		
+		if (isMenuOpen)
 		{
-			view = glm::lookAt(camera.getCameraPos(), glm::vec3(0.0f), camera.getCameraUp());
+			view = glm::lookAt(camera.getCameraPos(), camera.getCameraPos() + camera.getCameraFront(), camera.getCameraUp());
 		}
 		else
 		{
@@ -165,9 +170,37 @@ int main()
 		lightShaderProgram.setMat4("model", light);
 		lightShaderProgram.setVec3("lightColor", glm::vec3(0.5f, 0.0f, 0.0f));
 
-		debugMenu.new_frame();
-		debugMenu.create_menu(deltaTime, objectPos, controller, rotationY);
+		if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS)
+		{
+			toggleMenu(window, debugMenu);
+		}
+		
+		if (isMenuOpen)
+		{
+			debugMenu.create_menu(camera, objectPos, deltaTime, rotationY);
 
+			camera.setCameraFront(glm::normalize(glm::vec3(cos(glm::radians(yaw)) * cos(glm::radians(pitch)), sin(glm::radians(pitch)), sin(glm::radians(yaw)) * cos(glm::radians(pitch)))));
+
+			float cameraSpeed = static_cast<float>(10 * deltaTime);
+
+			if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+			{
+				camera.setCameraPos(camera.getCameraPos() + cameraSpeed * camera.getCameraFront());
+			}
+			if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+			{
+				camera.setCameraPos(camera.getCameraPos() - glm::normalize(glm::cross(camera.getCameraFront(), camera.getCameraUp())) * cameraSpeed);
+			}
+			if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+			{
+				camera.setCameraPos(camera.getCameraPos() - cameraSpeed * camera.getCameraFront());
+			}
+			if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+			{
+				camera.setCameraPos(camera.getCameraPos() + glm::normalize(glm::cross(camera.getCameraFront(), camera.getCameraUp())) * cameraSpeed);
+			}
+		}
+		
 		cube.draw(lightShaderProgram);
 
 		glfwSwapBuffers(window);
@@ -239,7 +272,7 @@ void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
 	ray_eye = glm::vec4(ray_eye.x, ray_eye.y, -1.0, 0.0);
 	glm::vec4 test = glm::inverse(view) * ray_eye;
 	ray_wor = glm::vec3(test.x,test.y,test.z);
-	// don't forget to normalise the vector at some point
+	// don't forget to normalize the vector at some point
 	ray_wor = glm::normalize(ray_wor);
 	//std::cout << "x = " << ray_nds.x << " y = " << ray_nds.y << " z = " << ray_nds.z << std::endl;
 
@@ -284,5 +317,18 @@ void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
 		{
 			selected = false;
 		}
+	}
+}
+
+void toggleMenu(GLFWwindow* window, DebugMenu debugMenu)
+{
+	isMenuOpen = !isMenuOpen;
+	if (isMenuOpen)
+	{
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	}
+	else
+	{
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	}
 }

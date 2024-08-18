@@ -1,11 +1,11 @@
 #include"DebugMenu.h"
 
-DebugMenu::DebugMenu()
+DebugMenu::DebugMenu(GLFWwindow* glfwWindow)
 {
-}
+	window = glfwWindow;
+	isWireframe = false;
+	isMenuOpen = false;
 
-DebugMenu::DebugMenu(GLFWwindow* window)
-{
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
@@ -15,23 +15,20 @@ DebugMenu::DebugMenu(GLFWwindow* window)
 	ImGui_ImplOpenGL3_Init("#version 330");
 }
 
-
-void DebugMenu::new_frame()
+void DebugMenu::create_menu(Camera camera, glm::vec3 objectPos, float deltaTime, float rotationY)
 {
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
-}
 
-void DebugMenu::create_menu(float deltaTime, glm::vec3 objectPos, CharacterController controller, float rotationY)
-{
+	process_menu_input();
+
 	std::string fps = std::to_string((int)(1000.0f / deltaTime));
 	fps = "fps = " + fps;
 	char const* fpsChar = fps.c_str();
 
-	ImGui::Begin("Open this window mother fuckers!!!");
+	ImGui::Begin("Open this window, Thanks McDonalds for giving me this opportunity");
 	ImGui::Text(fpsChar);
-	//ImGui::Checkbox("drawCube", drawBox);
 
 	std::string objectX = std::to_string((int)objectPos.x);
 	objectX = "object X = " + objectX;
@@ -48,20 +45,20 @@ void DebugMenu::create_menu(float deltaTime, glm::vec3 objectPos, CharacterContr
 	char const* objectZChar = objectZ.c_str();
 	ImGui::Text(objectZChar);
 
-	/*std::string cameraX = std::to_string((int)controller.getCameraPos().x);
+	std::string cameraX = std::to_string((int)camera.getCameraPos().x);
 	cameraX = "camera X = " + cameraX;
 	char const* cameraXChar = cameraX.c_str();
 	ImGui::Text(cameraXChar);
 
-	std::string cameraY = std::to_string((int)controller.getCameraPos().y);
+	std::string cameraY = std::to_string((int)camera.getCameraPos().y);
 	cameraY = "camera Y = " + cameraY;
 	char const* cameraYChar = cameraY.c_str();
 	ImGui::Text(cameraYChar);
 
-	std::string cameraZ = std::to_string((int)controller.getCameraPos().z);
+	std::string cameraZ = std::to_string((int)camera.getCameraPos().z);
 	cameraZ = "camera Z = " + cameraZ;
 	char const* cameraZChar = cameraZ.c_str();
-	ImGui::Text(cameraZChar);*/
+	ImGui::Text(cameraZChar);
 
 	std::string rotation = std::to_string((int)rotationY);
 	rotation = "rotation = " + rotation;
@@ -78,4 +75,24 @@ void DebugMenu::shut_down()
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
+}
+
+void DebugMenu::process_menu_input()
+{
+	if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
+	{
+		if (isWireframe)
+		{
+			isWireframe = false;
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		}
+		else {
+			isWireframe = true;
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		}
+	}
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+	{
+		glfwSetWindowShouldClose(window, true);
+	}
 }

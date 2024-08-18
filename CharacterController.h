@@ -13,8 +13,5 @@ class CharacterController
 	public:
 		CharacterController();
 		void proccessInput(GLFWwindow* window, Camera& camera, glm::vec3& objectPos, float deltaTime, float &rotationY, float& rotationX);
-	private:
-		bool isWireframe;
-		bool isMenuOpen;
 };
 #endif // !CHARACTERCONTROLLER_H

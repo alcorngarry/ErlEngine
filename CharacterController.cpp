@@ -1,64 +1,12 @@
 #include "CharacterController.h"
 
-
 CharacterController::CharacterController()
 {
-	isWireframe = false;
-	isMenuOpen = false;
 }
 
 void CharacterController::proccessInput(GLFWwindow* window, Camera& camera, glm::vec3& objectPos, float deltaTime, float& rotationY, float& rotationX)
 {
-	if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
-	{
-		if (isWireframe)
-		{
-			isWireframe = false;
-			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		}
-		else {
-			isWireframe = true;
-			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		}
-	}
-	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-	{
-		glfwSetWindowShouldClose(window, true);
-	}
-
-	float cameraSpeed = static_cast<float>(2.5 * deltaTime);
-
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-	{
-		camera.setCameraPos(camera.getCameraPos() + cameraSpeed * camera.getCameraFront());
-	}
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-	{
-		camera.setCameraPos(camera.getCameraPos() - glm::normalize(glm::cross(camera.getCameraFront(), camera.getCameraUp())) * cameraSpeed);
-	}
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-	{
-		camera.setCameraPos(camera.getCameraPos() - cameraSpeed * camera.getCameraFront());
-	}
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-	{
-		camera.setCameraPos(camera.getCameraPos() + glm::normalize(glm::cross(camera.getCameraFront(), camera.getCameraUp())) * cameraSpeed);
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS)
-	{
-		isMenuOpen = !isMenuOpen;
-		if (isMenuOpen)
-		{
-			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-		}
-		else
-		{
-			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-		}
-	}
-
-	if (glfwJoystickPresent(GLFW_JOYSTICK_1) && isMenuOpen == false)
+	if (glfwJoystickPresent(GLFW_JOYSTICK_1))
 	{
 		int axesCount;
 		const float* axes = glfwGetJoystickAxes(GLFW_JOYSTICK_1, &axesCount);
