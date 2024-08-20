@@ -6,6 +6,7 @@
 #include"Model.h"
 #include"CharacterController.h"
 #include"DebugMenu.h"
+#include"Map.h"
 
 #include<GLFW/glfw3.h>
 
@@ -14,9 +15,10 @@ Camera camera;
 
 glm::vec3 objectPos = glm::vec3(0.0f, 0.0f, 0.0f);
 glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
+glm::vec3 objcoord;
 
 float deltaTime = 0.0f, lastFrame = 0.0f, rotationY = 0.0f, rotationX = 0.0f;
-int window_width, window_height;
+float window_width, window_height;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void get_resolution();
@@ -34,8 +36,8 @@ bool isMenuOpen = false;
 
 float yaw = -90.0f;
 float pitch = 0.0f;
-float lastX = 1024.0f / 2.0;
-float lastY = 768.0 / 2.0;
+float lastX = window_width / 2.0;
+float lastY = window_height / 2.0;
 float fov = 60.0f;
 
 unsigned int id;
@@ -48,7 +50,7 @@ int main()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	
 	get_resolution();
-	GLFWwindow* window = glfwCreateWindow(1024, 768, "test_game", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(window_width, window_height, "test_game", NULL, NULL);
 	
 	if (window == NULL)
 	{
@@ -78,6 +80,8 @@ int main()
 	Model backpack((char*)"C:/Users/alcor/Downloads/LearnOpenGL-master/LearnOpenGL-master/resources/objects/backpack/backpack.obj");
 	Model cube((char*)"C:/Dev/assets/cube.glb");
 	Model floor((char*)"C:/Dev/assets/plane/plane.obj");
+	Model test((char*)"C:/Dev/assets/untitled.obj");
+
 
 	unsigned int lightVAO;
 	glGenVertexArrays(1, &lightVAO);
@@ -106,9 +110,47 @@ int main()
 
 		if (selected)
 		{
+
+			glm::mat4 model3 = glm::mat4(1.0f);
+			model3 = glm::translate(model3, objectPos);
+			model3 = glm::rotate(model3, (float)glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+			shaderProgram.setMat4("model", model3);
+			test.draw(shaderProgram);
+
 			if (glfwGetKey(window, GLFW_KEY_UP))
 			{
-				objectPos.y += .001f;
+				objectPos.y += .01f;
+			}
+
+			if (glfwGetKey(window, GLFW_KEY_DOWN))
+			{
+				objectPos.y -= .01f;
+			}
+			if (glfwGetKey(window, GLFW_KEY_LEFT))
+			{
+				objectPos.x += .01f;
+			}
+			if (glfwGetKey(window, GLFW_KEY_RIGHT))
+			{
+				objectPos.x -= .01f;
+			}
+
+			if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
+			{
+				selected = false;
+			}
+
+		}
+
+		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+		{
+			//essentially the distance function squares the difference of each vertice(xyz) adds them up and returns the sqrroot.
+			//sqrt((objectcoord.x - objectpos.x) * *2 + (objectcoord.y - objectpos.y) * *2 + (objectcoord.z - objectpos.z)**2);
+
+			if (glm::distance(objcoord, objectPos) < 4)
+			{
+				std::cout << "hit" << std::endl;
+				selected = true;
 			}
 		}
 
@@ -130,7 +172,7 @@ int main()
 
 
 		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
-		projection = glm::perspective(glm::radians(45.0f), 1024.0f / 768.0f, 0.1f, 10000.0f);
+		projection = glm::perspective(glm::radians(45.0f), window_width / window_height, 0.1f, 10000.0f);
 		glUniformMatrix4fv(glGetUniformLocation(shaderProgram.ID, "view"), 1, GL_FALSE, &view[0][0]);
 		glUniformMatrix4fv(glGetUniformLocation(shaderProgram.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 		glUniform1i(glGetUniformLocation(shaderProgram.ID, "selected"), selected);
@@ -207,6 +249,9 @@ int main()
 		glfwPollEvents();
 	}
 
+	Map testMap = Map();
+	testMap.save(objectPos);
+
 	glfwDestroyWindow(window);
 	glfwTerminate();
 
@@ -260,8 +305,8 @@ void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
 	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
 	front = glm::normalize(front); //deriv
 
-	float x = (2.0f * xpos) / 1024 - 1.0f;
-	float y = 1.0f - (2.0f * ypos) / 768;
+	float x = (2.0f * xpos) / window_width - 1.0f;
+	float y = 1.0f - (2.0f * ypos) / window_height;
 	float z = 1.0f;
 	
 	// ray casting alg
@@ -276,8 +321,8 @@ void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
 	ray_wor = glm::normalize(ray_wor);
 	//std::cout << "x = " << ray_nds.x << " y = " << ray_nds.y << " z = " << ray_nds.z << std::endl;
 
-	int w_width = 1024;
-	int w_height = 768;
+	int w_width = window_width;
+	int w_height = window_height;
 
 	GLbyte color[4];
 	GLfloat depth;
@@ -291,37 +336,19 @@ void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
 
 	glm::vec4 viewport = glm::vec4(0, 0, w_width, w_height);
 	glm::vec3 wincoord = glm::vec3(xpos, w_height - ypos - 1, depth);
-	glm::vec3 objcoord = glm::unProject(wincoord, view, projection, viewport);
+	objcoord = glm::unProject(wincoord, view, projection, viewport);
 
 	std::printf("Coordinates in object space: %f, %f, %f\n", objcoord.x, objcoord.y, objcoord.z);
 
-	int distance = glm::distance(objcoord, objectPos);
-
-	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
-	{
-		//essentially the distance function squares the difference of each vertice(xyz) adds them up and returns the sqrroot.
-		//sqrt((objectcoord.x - objectpos.x) * *2 + (objectcoord.y - objectpos.y) * *2 + (objectcoord.z - objectpos.z)**2);
-
-		if (distance < 4)
-		{
-			std::cout << "hit" << std::endl;
-			selected = true;
-		} 		
-	}
-
 	if (selected)
-	{
+	{	
 		objectPos = objcoord;
-
-		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
-		{
-			selected = false;
-		}
 	}
 }
 
 void toggleMenu(GLFWwindow* window, DebugMenu debugMenu)
 {
+	glfwSetCursorPos(window, window_width / 2.0f, window_height / 2.0f);
 	isMenuOpen = !isMenuOpen;
 	if (isMenuOpen)
 	{

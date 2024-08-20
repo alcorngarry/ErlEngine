@@ -15,7 +15,7 @@ DebugMenu::DebugMenu(GLFWwindow* glfwWindow)
 	ImGui_ImplOpenGL3_Init("#version 330");
 }
 
-void DebugMenu::create_menu(Camera camera, glm::vec3 objectPos, float deltaTime, float rotationY)
+void DebugMenu::create_menu(Camera camera, glm::vec3 &objectPos, float deltaTime, float rotationY)
 {
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
@@ -34,6 +34,8 @@ void DebugMenu::create_menu(Camera camera, glm::vec3 objectPos, float deltaTime,
 	objectX = "object X = " + objectX;
 	char const* objectXChar = objectX.c_str();
 	ImGui::Text(objectXChar);
+
+	ImGui::SliderFloat("XXXXXX", &objectPos.x, 0.0f, 1000.0f);
 
 	std::string objectY = std::to_string((int)objectPos.y);
 	objectY = "object Y = " + objectY;

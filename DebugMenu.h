@@ -13,7 +13,7 @@ class DebugMenu
 	public:
 		DebugMenu(GLFWwindow* glfwWindow);
 		
-		void create_menu(Camera camera, glm::vec3 objectPos, float deltaTime,  float rotationY);
+		void create_menu(Camera camera, glm::vec3 &objectPos, float deltaTime,  float rotationY);
 		void shut_down();
 	private:
 		bool isWireframe;
