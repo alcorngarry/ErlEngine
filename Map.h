@@ -7,11 +7,13 @@
 class Map 
 {
 	public:
-		Map();
+		Map(std::string mapName);
 		void save(glm::vec3 objLoc);
-		void load();
+		glm::vec3 load();
 	private:
-		std::ofstream MapFile;
+		std::ofstream writeMap;
+		std::ifstream readMap;
+		std::string fileName;
 };
 
 #endif // !MAP_H

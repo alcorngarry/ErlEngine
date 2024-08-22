@@ -91,6 +91,11 @@ int main()
 	controller = CharacterController();
 	DebugMenu debugMenu = DebugMenu(window);
 
+	Map testMap = Map("test_map_1");
+
+	
+	objectPos = testMap.load();
+
 	while (!glfwWindowShouldClose(window))
 	{
 		float currentFrame = static_cast<float>(glfwGetTime());
@@ -248,8 +253,6 @@ int main()
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
-
-	Map testMap = Map();
 	testMap.save(objectPos);
 
 	glfwDestroyWindow(window);
