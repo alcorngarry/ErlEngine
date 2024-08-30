@@ -6,6 +6,9 @@
 	std::vector<Mesh> meshes;
 	std::string directory;
 
+	glm::vec3 size;
+	glm::vec3 location;
+
 	bool gammaCorrection;
 
 	Model::Model(char* path)
@@ -49,6 +52,8 @@
 		}
 
 		directory = path.substr(0, path.find_last_of('/'));
+		
+		std::cout << path << std::endl;
 
 		if (scene != NULL)
 		{
@@ -59,12 +64,31 @@
 		}
 	}
 
+	bool isGreaterThan(const glm::vec3& v1, const glm::vec3& v2) {
+		return (v1.x > v2.x) && (v1.y > v2.y) && (v1.z > v2.z);
+	}
+
 	void Model::processNode(aiNode* node, const aiScene* scene)
 	{
+		size = glm::vec3(0.0f);
+		location = glm::vec3(0.0f);
+
 		for (unsigned int i = 0; i < node->mNumMeshes; i++)
 		{
 			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 			meshes.push_back(processMesh(mesh, scene));
+
+			glm::vec3 testSize = getBBSize(mesh);
+			glm::vec3 testLocation = getBBLocation(mesh);
+
+			if( isGreaterThan(testSize, size))
+			{
+				size = testSize;
+			}
+			if (isGreaterThan(testLocation, location))
+			{
+				location = testLocation;
+			}
 		}
 		for (unsigned int i = 0; i < node->mNumChildren; i++)
 		{
@@ -74,6 +98,7 @@
 
 	Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 	{
+		std::cout << "Mesh" << std::endl;
 		std::vector<Vertex> vertices;
 		std::vector<unsigned int> indices;
 		std::vector<Texture> textures;
@@ -106,6 +131,11 @@
 				vec.x = mesh->mTextureCoords[0][i].x;
 				vec.y = mesh->mTextureCoords[0][i].y;
 				vertex.texCoords = vec;
+
+				if (vec.x < 0.0f || vec.x > 1.0f || vec.y < 0.0f || vec.y > 1.0f)
+				{
+					std::cout << "UV[" << i << "] out of range: (" << vec.x << ", " << vec.y << ")" << std::endl;
+				}
 			}
 			else {
 				vertex.texCoords = glm::vec2(0.0f, 0.0f);
@@ -155,7 +185,6 @@
 			{
 				if (std::strcmp(textures_loaded[j].path.data(), str.C_Str()) == 0)
 				{
-					std::cout << "Strings the same" << std::endl;
 					skip = true;
 					break;
 				}
@@ -171,7 +200,6 @@
 				textures_loaded.push_back(texture);
 			}
 		}
-		std::cout << textures_loaded.size() << std::endl;
 		return textures;
 	}
 
@@ -187,7 +215,7 @@
 		unsigned char* data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
 		if (data)
 		{
-			GLenum format;
+			GLenum format{};
 			if (nrComponents == 1)
 				format = GL_RED;
 			else if (nrComponents == 3)
@@ -243,7 +271,15 @@
 
 		glm::vec3 a = glm::vec3((min_x + max_x) / 2, (min_y + max_y) / 2, (min_z + max_z) / 2);
 
-		std::cout << a.x << " " << a.y << " " << a.z << "TEST" <<  std::endl;
-
 		return glm::vec3((min_x + max_x) / 2, (min_y + max_y) / 2, (min_z + max_z) / 2);
+	}
+
+	glm::vec3 Model::getSize()
+	{
+		return size;
+	}
+
+	glm::vec3 Model::getLocation()
+	{
+		return location;
 	}

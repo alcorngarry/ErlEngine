@@ -6,23 +6,26 @@ Map::Map(std::string mapName)
 	fileName = mapName;
 }
 
-void Map::save(glm::vec3 objLoc)
+void Map::save(std::vector<glm::vec3> objLoc)
 {
 	writeMap = std::ofstream{ fileName + ".txt" };
-	writeMap << objLoc.x << "," << objLoc.y << "," << objLoc.z << std::endl;
+	for (int i = 0; i < objLoc.size(); i++)
+	{
+		writeMap << objLoc.at(i).x << "," << objLoc.at(i).y << "," << objLoc.at(i).z << std::endl;
+	}
 	writeMap.close();
 }
 
-glm::vec3 Map::load()
+std::vector<glm::vec3> Map::load()
 {
+	std::vector<glm::vec3> output;
 	readMap.open(fileName + ".txt");
 	std::string line;
 	float x, y, z;
 
-	getline(readMap, line, ',');
-
-	if (line.length() > 0)
+	while (getline(readMap, line, ','))
 	{
+		//parse x
 		x = std::stof(line);
 
 		// Parse y
@@ -30,13 +33,17 @@ glm::vec3 Map::load()
 		y = std::stof(line);
 
 		// Parse z
-		getline(readMap, line, ',');
+		getline(readMap, line);
 		z = std::stof(line);
 
-		readMap.close();
 		// Return the constructed glm::vec3
-		return glm::vec3(x, y, z);
+		output.push_back(glm::vec3(x, y, z));
 	}
-	
-	return glm::vec3(0.0f, 0.0f, 0.0f);
+	if (output.empty())
+	{
+		output.push_back(glm::vec3(0.0f, 0.0f, 0.0f));
+	} 
+	readMap.close();
+
+	return output;
 }

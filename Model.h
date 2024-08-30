@@ -26,8 +26,8 @@ class Model
 		glm::vec3 getBBSize(aiMesh* mesh);
 		glm::vec3 getBBLocation(aiMesh* mesh);
 
-		//glm::vec3* getScale();
-		//glm::vec3* getLocation();
+		glm::vec3 getSize();
+		glm::vec3 getLocation();
 
 	private:
 
