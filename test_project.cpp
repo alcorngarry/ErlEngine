@@ -14,7 +14,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void get_resolution();
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void toggleMenu(GLFWwindow* window);
-void drawFacelessCube(Shader& shader, glm::vec3 location, glm::vec3 size);
+void drawFacelessCube(Shader& shader, glm::vec3 location, glm::vec3 size, glm::mat4 model);
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 void duplicateModel();
 void removeModel();
@@ -135,7 +135,7 @@ int main()
 		glUniformMatrix4fv(glGetUniformLocation(shaderProgram.ID, "view"), 1, GL_FALSE, &view[0][0]);
 		glUniformMatrix4fv(glGetUniformLocation(shaderProgram.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 		// populate selected
-		glUniform1i(glGetUniformLocation(shaderProgram.ID, "selected"), selected);
+		//glUniform1i(glGetUniformLocation(shaderProgram.ID, "selected"), selected);
 		shaderProgram.setVec3("lightColor", lightColor);
 		shaderProgram.setVec3("lightPos", glm::vec3(5.0f, 0.0f, 0.0f));
 		shaderProgram.setVec3("viewPos", camera.getCameraPos());
@@ -143,12 +143,21 @@ int main()
 
 		for (int i = 0; i < objectsInScene.size(); i++)
 		{
+			if (selectedObjectIndex == i)
+			{
+				glUniform1i(glGetUniformLocation(shaderProgram.ID, "selected"), selected);
+			}
+			else {
+				glUniform1i(glGetUniformLocation(shaderProgram.ID, "selected"), false);
+			}
 			glm::mat4 platModel = glm::mat4(1.0f);
 			platModel = glm::scale(platModel, glm::vec3(10.0f));
 			platModel = glm::translate(platModel, objectsInScene.at(i));
 			shaderProgram.setMat4("model", platModel);
 			platform.draw(shaderProgram);
+			drawFacelessCube(shaderProgram, platform.getMinAABB(), platform.getMaxAABB(), platModel);
 		}
+		glUniform1i(glGetUniformLocation(shaderProgram.ID, "selected"), false);
 		
 		// Die
 		glm::mat4 diceModel = glm::mat4(1.0f);
@@ -176,7 +185,6 @@ int main()
 		planeModel = glm::translate(planeModel, glm::vec3(0.0f, -5.0f, 0.0f));
 		planeModel = glm::scale(planeModel, glm::vec3(1000.0f, 1000.0f, 1000.0f));
 		shaderProgram.setMat4("model", planeModel);
-		glUniform1i(glGetUniformLocation(shaderProgram.ID, "selected"), false);
 		floor.draw(shaderProgram);
 		//
 		
@@ -185,7 +193,7 @@ int main()
 		glUniformMatrix4fv(glGetUniformLocation(lightShaderProgram.ID, "view"), 1, GL_FALSE, &view[0][0]);
 		glUniformMatrix4fv(glGetUniformLocation(lightShaderProgram.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 		glm::mat4 light = glm::mat4(1.0f);
-		light = glm::translate(light, glm::vec3(5.0f, 0.0f, 0.0f));
+		light = glm::translate(light, glm::vec3(5.0f, 100.0f, 0.0f));
 		light = glm::scale(light, glm::vec3(1.0f, 1.0f, 1.0f));
 		lightShaderProgram.setMat4("model", light);
 		lightShaderProgram.setVec3("lightColor", lightColor);
@@ -339,29 +347,27 @@ void toggleMenu(GLFWwindow* window)
 	}
 }
 
-void drawFacelessCube(Shader& shader, glm::vec3 location, glm::vec3 scale)
+void drawFacelessCube(Shader& shader, glm::vec3 minAABB, glm::vec3 maxAABB, glm::mat4 model)
 {
 	// Define the vertices and indices for the faceless cube (edges only)
 	const GLfloat vertices[] = {
-		// Front face
-		-0.5f, -0.5f,  0.5f, // 0
-		 0.5f, -0.5f,  0.5f, // 1
-		 0.5f,  0.5f,  0.5f, // 2
-		-0.5f,  0.5f,  0.5f, // 3
-
-		// Back face
-		-0.5f, -0.5f, -0.5f, // 4
-		 0.5f, -0.5f, -0.5f, // 5
-		 0.5f,  0.5f, -0.5f, // 6
-		-0.5f,  0.5f, -0.5f  // 7
+		minAABB.x, minAABB.y, minAABB.z, // 0
+		minAABB.x, minAABB.y, maxAABB.z, // 1
+		minAABB.x, maxAABB.y, minAABB.z, // 2
+		minAABB.x, maxAABB.y, maxAABB.z, // 3
+		maxAABB.x, minAABB.y, minAABB.z, // 4
+		maxAABB.x, minAABB.y, maxAABB.z, // 5
+		maxAABB.x, maxAABB.y, minAABB.z, // 6
+		maxAABB.x, maxAABB.y,maxAABB.z  // 7
 	};
 
+	// Define the indices for drawing the edges
 	const GLuint indices[] = {
 		// Front face
-		0, 1, 1, 2, 2, 3, 3, 0,
+		0, 1, 1, 3, 3, 2, 2, 0,
 
 		// Back face
-		4, 5, 5, 6, 6, 7, 7, 4,
+		4, 5, 5, 7, 7, 6, 6, 4,
 
 		// Sides
 		0, 4, 1, 5, 2, 6, 3, 7
@@ -389,10 +395,7 @@ void drawFacelessCube(Shader& shader, glm::vec3 location, glm::vec3 scale)
 	// Use the shader program
 	shader.use();
 
-	glm::mat4 model2 = glm::mat4(1.0f);
-	model2 = glm::translate(model2, glm::vec3(0.0f));
-	model2 = glm::scale(model2, scale);
-	shader.setMat4("model", model2);
+	shader.setMat4("model", model);
 
 	// Bind VAO and draw the cube
 	glBindVertexArray(VAO);

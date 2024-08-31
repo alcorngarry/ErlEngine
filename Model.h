@@ -16,20 +16,17 @@ class Model
 		std::vector<Texture> textures_loaded;
 		std::vector<Mesh> meshes;
 		std::string directory;
-
 		bool gammaCorrection;
 
 		Model(char* path);
 
 		void draw(Shader& shader);
-
-		glm::vec3 getBBSize(aiMesh* mesh);
-		glm::vec3 getBBLocation(aiMesh* mesh);
-
-		glm::vec3 getSize();
-		glm::vec3 getLocation();
+		glm::vec3 getMinAABB();
+		glm::vec3 getMaxAABB();
 
 	private:
+		glm::vec3 minAABB;
+		glm::vec3 maxAABB;
 
 		void loadModel(std::string path);
 	

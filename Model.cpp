@@ -29,21 +29,6 @@
 	{
 		Assimp::Importer importer;
 
-		/*aiProcess_CalcTangentSpace | // calculate tangents and bitangents if possible
-			aiProcess_JoinIdenticalVertices | // join identical vertices/ optimize indexing
-			aiProcess_Triangulate | // Ensure all verticies are triangulated (each 3 vertices are triangle)
-			aiProcess_SortByPType | // ?
-			aiProcess_ImproveCacheLocality | // improve the cache locality of the output vertices
-			aiProcess_RemoveRedundantMaterials | // remove redundant materials
-			aiProcess_FindDegenerates | // remove degenerated polygons from the import
-			aiProcess_FindInvalidData | // detect invalid model data, such as invalid normal vectors
-			aiProcess_GenUVCoords | // convert spherical, cylindrical, box and planar mapping to proper UVs
-			aiProcess_TransformUVCoords | // preprocess UV transformations (scaling, translation ...)
-			aiProcess_FindInstances | // search for instanced meshes and remove them by references to one master
-			aiProcess_LimitBoneWeights | // limit bone weights to 4 per vertex
-			aiProcess_OptimizeMeshes | // join small meshes, if possible;
-			aiProcess_PreTransformVertices | //-- fixes the transformation issue.
-			aiProcess_SplitByBoneCount */
 		const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace | aiProcess_GenBoundingBoxes);
 
 		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
@@ -64,10 +49,6 @@
 		}
 	}
 
-	bool isGreaterThan(const glm::vec3& v1, const glm::vec3& v2) {
-		return (v1.x > v2.x) && (v1.y > v2.y) && (v1.z > v2.z);
-	}
-
 	void Model::processNode(aiNode* node, const aiScene* scene)
 	{
 		size = glm::vec3(0.0f);
@@ -78,17 +59,9 @@
 			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 			meshes.push_back(processMesh(mesh, scene));
 
-			glm::vec3 testSize = getBBSize(mesh);
-			glm::vec3 testLocation = getBBLocation(mesh);
+			maxAABB = glm::vec3(mesh->mAABB.mMax.x, mesh->mAABB.mMax.y, mesh->mAABB.mMax.z);
+			minAABB = glm::vec3(mesh->mAABB.mMin.x, mesh->mAABB.mMin.y, mesh->mAABB.mMin.z);
 
-			if( isGreaterThan(testSize, size))
-			{
-				size = testSize;
-			}
-			if (isGreaterThan(testLocation, location))
-			{
-				location = testLocation;
-			}
 		}
 		for (unsigned int i = 0; i < node->mNumChildren; i++)
 		{
@@ -243,43 +216,12 @@
 		return textureID;
 	}
 
-	glm::vec3 Model::getBBSize(aiMesh* mesh)
+	glm::vec3 Model::getMinAABB()
 	{
-		const aiAABB& aabb = mesh->mAABB;
-
-
-		float max_x = mesh->mAABB.mMax.x;
-		float max_y = mesh->mAABB.mMax.y;
-		float max_z = mesh->mAABB.mMax.z;
-		float min_x = mesh->mAABB.mMin.x;
-		float min_y = mesh->mAABB.mMin.y;
-		float min_z = mesh->mAABB.mMin.z;
-
-		return glm::vec3(max_x - min_x, max_y - min_y, max_z - min_z);
+		return minAABB;
 	}
 
-	glm::vec3 Model::getBBLocation(aiMesh* mesh)
+	glm::vec3 Model::getMaxAABB()
 	{
-		const aiAABB& aabb = mesh->mAABB;
-
-		float max_x = mesh->mAABB.mMax.x;
-		float max_y = mesh->mAABB.mMax.y;
-		float max_z = mesh->mAABB.mMax.z;
-		float min_x = mesh->mAABB.mMin.x;
-		float min_y = mesh->mAABB.mMin.y;
-		float min_z = mesh->mAABB.mMin.z;
-
-		glm::vec3 a = glm::vec3((min_x + max_x) / 2, (min_y + max_y) / 2, (min_z + max_z) / 2);
-
-		return glm::vec3((min_x + max_x) / 2, (min_y + max_y) / 2, (min_z + max_z) / 2);
-	}
-
-	glm::vec3 Model::getSize()
-	{
-		return size;
-	}
-
-	glm::vec3 Model::getLocation()
-	{
-		return location;
+		return maxAABB;
 	}
