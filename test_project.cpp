@@ -14,11 +14,11 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void get_resolution();
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void toggleMenu(GLFWwindow* window);
-void drawFacelessCube(Shader& shader, glm::vec3 location, glm::vec3 size, glm::mat4 model);
+void drawFacelessCube(Shader& shader, glm::vec3 min, glm::vec3 max, glm::mat4 model);
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 void duplicateModel();
 void removeModel();
-void selectObject(GLFWwindow* window);
+void selectObject(GLFWwindow* window, Shader shader, Model model);
 
 float roll_dice();
 
@@ -28,13 +28,17 @@ Camera camera;
 std::vector<glm::vec3> objectsInScene;
 
 glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
-glm::vec3 objcoord;
+glm::vec3 ray_coord;
 glm::vec3 ray_wor, front;
+glm::vec3 out_direction;
 
 glm::mat4 projection, view;
 
 float deltaTime = 0.0f, lastFrame = 0.0f, rotationY = 0.0f, rotationX = 0.0f;
 float window_width, window_height;
+
+float xpos;
+float ypos;
 
 unsigned int texture1, texture2, selectedObjectIndex;
 
@@ -80,6 +84,7 @@ int main()
 
 	Shader shaderProgram("default.vert.glsl", "default.frag.glsl");
 	Shader lightShaderProgram("light.vert.glsl", "light.frag.glsl");
+	Shader pickingShaderProgram("picking.vert.glsl", "picking.frag.glsl");
 
 	//Model backpack((char*)"C:/Users/alcor/Downloads/LearnOpenGL-master/LearnOpenGL-master/resources/objects/backpack/backpack.obj");
 	//Model test((char*)"C:/Dev/assets/untitled.obj");
@@ -103,6 +108,8 @@ int main()
 
 	while (!glfwWindowShouldClose(window))
 	{
+		selectObject(window, pickingShaderProgram, platform);
+
 		float currentFrame = static_cast<float>(glfwGetTime());
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
@@ -117,7 +124,7 @@ int main()
 
 		shaderProgram.use();
 
-		selectObject(window);
+		
 
 		// populate model view projection	
 		if (isMenuOpen)
@@ -143,6 +150,7 @@ int main()
 
 		for (int i = 0; i < objectsInScene.size(); i++)
 		{
+			
 			if (selectedObjectIndex == i)
 			{
 				glUniform1i(glGetUniformLocation(shaderProgram.ID, "selected"), selected);
@@ -157,6 +165,7 @@ int main()
 			platform.draw(shaderProgram);
 			drawFacelessCube(shaderProgram, platform.getMinAABB(), platform.getMaxAABB(), platModel);
 		}
+
 		glUniform1i(glGetUniformLocation(shaderProgram.ID, "selected"), false);
 		
 		// Die
@@ -175,6 +184,7 @@ int main()
 			diceModel = glm::rotate(diceModel, roll, glm::vec3(1.0f, 0.0f, 0.0f));
 
 		}
+		drawFacelessCube(shaderProgram, die.getMinAABB(), die.getMaxAABB(), diceModel);
 		shaderProgram.setMat4("model", diceModel);
 		die.draw(shaderProgram);
 		//
@@ -263,8 +273,8 @@ void get_resolution()
 
 void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
 {
-	float xpos = static_cast<float>(xposIn);
-	float ypos = static_cast<float>(yposIn);
+	xpos = static_cast<float>(xposIn);
+	ypos = static_cast<float>(yposIn);
 
 	if (firstMouse)
 	{
@@ -293,44 +303,63 @@ void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
 	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
 	front.y = sin(glm::radians(pitch));
 	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-	front = glm::normalize(front); //deriv
-	//old camerag
-	//camera.setCameraFront(glm::normalize(front));
+	front = glm::normalize(front);
 
-	float x = (2.0f * xpos) / window_width - 1.0f;
-	float y = 1.0f - (2.0f * ypos) / window_height;
-	float z = 1.0f;
-	
+	glm::vec4 mouse_dir = glm::vec4((2.0f * xpos) / window_width - 1.0f, 1.0f - (2.0f * ypos) / window_height, -1.0f, 1.0f);
+	//glm::vec3 d = glm::unProject(screen_coords_normalized);
+	glm::mat4 inverseProjMatrix = glm::inverse(projection);
+	glm::vec4 ray_eye = mouse_dir * inverseProjMatrix;
+	ray_eye.z = -1.0f;
+	ray_eye.w = 0.0f;
+
 	// ray casting alg
 	// [0,0] center screen.
-	glm::vec3 ray_nds = glm::vec3(x, y, z);
+	/*glm::vec3 ray_nds = glm::vec3(x, y, z);
 	glm::vec4 ray_clip = glm::vec4(ray_nds.x, ray_nds.y, -1.0, 1.0);
 	glm::vec4 ray_eye = glm::inverse(projection) * ray_clip;
 	ray_eye = glm::vec4(ray_eye.x, ray_eye.y, -1.0, 0.0);
 	glm::vec4 test = glm::inverse(view) * ray_eye;
-	ray_wor = glm::vec3(test.x,test.y,test.z);
+	ray_wor = glm::vec3(test.x,test.y,test.z);*/
+
+	//std::cout << "screem cooords:" << x << ", " << y << ", " << z << ", " << std::endl;
 	// don't forget to normalize the vector at some point
-	ray_wor = glm::normalize(ray_wor);
+	//ray_wor = glm::normalize(ray_wor);
 	//std::cout << "x = " << ray_nds.x << " y = " << ray_nds.y << " z = " << ray_nds.z << std::endl;
 
-	int w_width = window_width;
-	int w_height = window_height;
 
+	
+
+	/*glm::vec4 lRayStart_camera = ray_eye * ray_clip;									lRayStart_camera /= lRayStart_camera.w;
+	glm::vec4 lRayStart_world = test * lRayStart_camera;								lRayStart_world /= lRayStart_world.w;
+	glm::vec4 lRayEnd_camera = ray_eye * glm::vec4(ray_nds.x, ray_nds.y, 0.0f, 1.0f);   lRayEnd_camera /= lRayEnd_camera.w;
+	glm::vec4 lRayEnd_world = test * lRayEnd_camera;									lRayEnd_world /= lRayEnd_world.w;
+
+
+	glm::vec3 lRayDir_world(lRayEnd_world - lRayStart_world);
+	lRayDir_world = glm::normalize(lRayDir_world);
+	out_direction = glm::normalize(lRayDir_world);
+
+	int w_width = window_width;
+	int w_height = window_height;*/
+
+
+
+	// Reading the depth buffer
 	//GLbyte color[4];
-	GLfloat depth;
+	//GLfloat depth;
 
 	//read the color of the pixel
-	//glReadPixels(xpos, w_height - ypos - 1, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, color);
+	//glReadPixels(xpos, 768 - ypos - 1, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, color);
 	//read the depth of the pixel
-	glReadPixels(xpos, w_height - ypos - 1, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
+	//glReadPixels(xpos, window_height - ypos - 1, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
 
-	//std::printf("Clicked on pixel %f, %f, color %02hhx%02hhx%02hhx%02hhx, depth %f\n", xpos, ypos, color[0], color[1], color[2], color[3], depth);
+	//std::printf("Clicked on pixel %f, %f, color %02hhx%02hhx%02hhx%02hhx\n", xpos, ypos, color[0], color[1], color[2], color[3]);
 
-	glm::vec4 viewport = glm::vec4(0, 0, w_width, w_height);
-	glm::vec3 wincoord = glm::vec3(xpos, w_height - ypos - 1, depth);
-	objcoord = glm::unProject(wincoord, view, projection, viewport);
+	//glm::vec4 viewport = glm::vec4(0, 0, window_width, window_height);
+	//glm::vec3 wincoord = glm::vec3(xpos, window_height - ypos - 1, depth);
+	//ray_coord = glm::unProject(wincoord, view, projection, viewport);
 
-	//std::printf("Coordinates in object space: %f, %f, %f\n", objcoord.x, objcoord.y, objcoord.z);
+	//std::printf("Coordinates in object space: %f, %f, %f\n", ray_coord.x, ray_coord.y, ray_coord.z);
 }
 
 void toggleMenu(GLFWwindow* window)
@@ -394,7 +423,7 @@ void drawFacelessCube(Shader& shader, glm::vec3 minAABB, glm::vec3 maxAABB, glm:
 
 	// Use the shader program
 	shader.use();
-
+	
 	shader.setMat4("model", model);
 
 	// Bind VAO and draw the cube
@@ -475,7 +504,7 @@ void removeModel()
 	selected = false;
 }
 
-void selectObject(GLFWwindow* window)
+void selectObject(GLFWwindow* window, Shader shader, Model model)
 {
 	if (selected)
 	{
@@ -515,16 +544,56 @@ void selectObject(GLFWwindow* window)
 	{
 		//essentially the distance function squares the difference of each vertice(xyz) adds them up and returns the sqrroot.
 		//sqrt((objectcoord.x - objectpos.x) * *2 + (objectcoord.y - objectpos.y) * *2 + (objectcoord.z - objectpos.z)**2);
-		std::cout << "object cooords:" << objcoord.x << ", " << objcoord.y << ", " << objcoord.z << ", " << std::endl;
+		//std::cout << "object cooords:" << min.x << ", " << min.y << ", " << min.z << ", " << std::endl;
+
+		//color picking lol
+		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		shader.use();
+		glEnableVertexAttribArray(0);
 
 		for (int i = 0; i < objectsInScene.size(); i++)
 		{
-			if (glm::distance(objcoord, objectsInScene[i]) < 10)
-			{
-				selectedObjectIndex = i;
-				std::cout << "hit" << objectsInScene[i].x << ", " << objectsInScene[i].y << ", " << objectsInScene[i].z << ", " << std::endl;
-				selected = true;
-			}
+			glm::mat4 platModel = glm::mat4(1.0f);
+			platModel = glm::scale(platModel, glm::vec3(10.0f));
+			platModel = glm::translate(platModel, objectsInScene.at(i));
+			shader.setMat4("model", platModel);
+
+			glUniformMatrix4fv(glGetUniformLocation(shader.ID, "view"), 1, GL_FALSE, &view[0][0]);
+			glUniformMatrix4fv(glGetUniformLocation(shader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+
+			// Convert "i", the integer mesh ID, into an RGB color
+			int r = (i & 0x000000FF) >> 0;
+			int g = (i & 0x0000FF00) >> 8;
+			int b = (i & 0x00FF0000) >> 16;
+
+			shader.setVec4("PickingColor", glm::vec4((float)r / 255.0, (float)g / 255.0, (float)b / 255.0, 1.0f));
+
+			model.draw(shader);
 		}
+
+		glDisableVertexAttribArray(0);
+		glFlush();
+		glFinish();
+
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+		unsigned char data[4];
+		glReadPixels(xpos, 768 - ypos - 1, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
+
+		int pickedID = data[0] + (data[1] * 256) + (data[2] * 256 * 256);
+
+		if (!(pickedID == 0x00ffffff)) 
+		{
+			selected = true;
+			selectedObjectIndex = pickedID;
+			//std::cout << pickedID << std::endl;
+			
+			std::ostringstream oss;
+			oss << "mesh " << pickedID;
+			std::cout << oss.str() << std::endl;
+		}
+
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 }

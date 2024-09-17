@@ -86,6 +86,12 @@
     <None Include="light.vert.glsl">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="picking.vert.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="picking.frag.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shader.h">

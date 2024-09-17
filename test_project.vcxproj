@@ -181,6 +181,8 @@
     <None Include="default.vert.glsl" />
     <None Include="light.frag.glsl" />
     <None Include="light.vert.glsl" />
+    <None Include="picking.frag.glsl" />
+    <None Include="picking.vert.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dependency-source-downloads\json-3.11.3\json-3.11.3\single_include\nlohmann\json.hpp" />
