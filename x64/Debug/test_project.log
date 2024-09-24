@@ -1,17 +1,18 @@
 ﻿  test_project.cpp
-C:\Dev\opengl_code\test_project\test_project.cpp(49,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Dev\opengl_code\test_project\test_project.cpp(50,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Dev\opengl_code\test_project\test_project.cpp(62,54): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Dev\opengl_code\test_project\test_project.cpp(62,40): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Dev\opengl_code\test_project\test_project.cpp(442,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Dev\opengl_code\test_project\test_project.cpp(448,10): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
-C:\Dev\opengl_code\test_project\test_project.cpp(453,10): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
-C:\Dev\opengl_code\test_project\test_project.cpp(459,10): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
-C:\Dev\opengl_code\test_project\test_project.cpp(464,10): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
-C:\Dev\opengl_code\test_project\test_project.cpp(470,10): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
-C:\Dev\opengl_code\test_project\test_project.cpp(475,10): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
-C:\Dev\opengl_code\test_project\test_project.cpp(589,33): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
-C:\Dev\opengl_code\test_project\test_project.cpp(589,16): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
-C:\Dev\opengl_code\test_project\test_project.cpp(477): warning C4715: 'roll_dice': not all control paths return a value
-glfw3.lib(input.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(input.obj)' or at 'C:\Dev\opengl_code\test_project\x64\Debug\glfw3.pdb'; linking object as if no debug info
+C:\Dev\opengl_code\test_project\test_project.cpp(54,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Dev\opengl_code\test_project\test_project.cpp(55,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Dev\opengl_code\test_project\test_project.cpp(70,54): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Dev\opengl_code\test_project\test_project.cpp(70,40): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Dev\opengl_code\test_project\test_project.cpp(177,80): warning C4267: '-=': conversion from 'size_t' to 'int', possible loss of data
+C:\Dev\opengl_code\test_project\test_project.cpp(547,33): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
+C:\Dev\opengl_code\test_project\test_project.cpp(547,16): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
+C:\Dev\opengl_code\test_project\test_project.cpp(578,25): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+C:\Dev\opengl_code\test_project\test_project.cpp(594,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Dev\opengl_code\test_project\test_project.cpp(600,10): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+C:\Dev\opengl_code\test_project\test_project.cpp(605,10): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+C:\Dev\opengl_code\test_project\test_project.cpp(611,10): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+C:\Dev\opengl_code\test_project\test_project.cpp(616,10): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+C:\Dev\opengl_code\test_project\test_project.cpp(622,10): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+C:\Dev\opengl_code\test_project\test_project.cpp(627,10): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+C:\Dev\opengl_code\test_project\test_project.cpp(629): warning C4715: 'roll_dice': not all control paths return a value
   test_project.vcxproj -> C:\Dev\opengl_code\test_project\x64\Debug\test_project.exe

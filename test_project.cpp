@@ -19,6 +19,8 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 void duplicateModel();
 void removeModel();
 void selectObject(GLFWwindow* window, Shader shader, Model model);
+void characterMove(Model character, Shader shader);
+void diceRoll(Shader shader, Model die);
 
 float roll_dice();
 
@@ -32,7 +34,10 @@ glm::vec3 ray_coord;
 glm::vec3 ray_wor, front;
 glm::vec3 out_direction;
 
+glm::vec3 charStartPos;
+
 glm::mat4 projection, view;
+
 
 float deltaTime = 0.0f, lastFrame = 0.0f, rotationY = 0.0f, rotationX = 0.0f;
 float window_width, window_height;
@@ -42,7 +47,7 @@ float ypos;
 
 unsigned int texture1, texture2, selectedObjectIndex;
 
-bool selected = false,  firstMouse = true, isMenuOpen = false, isDiceRolled = false, preDiceRoll = true;
+bool selected = false, firstMouse = true, isMenuOpen = false, isDiceRolled = false, preDiceRoll = true;
 
 float yaw = -90.0f;
 float pitch = 0.0f;
@@ -50,6 +55,9 @@ float lastX = window_width / 2.0;
 float lastY = window_height / 2.0;
 float fov = 60.0f;
 float roll = 0.0f;
+float startTime = 0.0f;
+int totalMoves = 0;
+int startPos = 0;
 
 int main()
 {
@@ -86,7 +94,7 @@ int main()
 	Shader lightShaderProgram("light.vert.glsl", "light.frag.glsl");
 	Shader pickingShaderProgram("picking.vert.glsl", "picking.frag.glsl");
 
-	//Model backpack((char*)"C:/Users/alcor/Downloads/LearnOpenGL-master/LearnOpenGL-master/resources/objects/backpack/backpack.obj");
+	Model backpack((char*)"C:/Users/alcor/Downloads/LearnOpenGL-master/LearnOpenGL-master/resources/objects/backpack/backpack.obj");
 	//Model test((char*)"C:/Dev/assets/untitled.obj");
 	
 	Model cube((char*)"C:/Dev/assets/cube.glb");
@@ -110,6 +118,8 @@ int main()
 	{
 		selectObject(window, pickingShaderProgram, platform);
 
+		charStartPos = objectsInScene[0];
+
 		float currentFrame = static_cast<float>(glfwGetTime());
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
@@ -123,8 +133,6 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		shaderProgram.use();
-
-		
 
 		// populate model view projection	
 		if (isMenuOpen)
@@ -164,31 +172,22 @@ int main()
 			shaderProgram.setMat4("model", platModel);
 			platform.draw(shaderProgram);
 			drawFacelessCube(shaderProgram, platform.getMinAABB(), platform.getMaxAABB(), platModel);
+
+			//will need to fix because player is also selected
+			if (totalMoves >= objectsInScene.size()) totalMoves -= objectsInScene.size();
+			if (i == totalMoves)
+			{
+				characterMove(backpack, shaderProgram);
+			}
 		}
 
 		glUniform1i(glGetUniformLocation(shaderProgram.ID, "selected"), false);
 		
-		// Die
-		glm::mat4 diceModel = glm::mat4(1.0f);
-		diceModel = glm::translate(diceModel, glm::vec3(0.0f, 0.0f, 0.0f));
-		if (isDiceRolled && preDiceRoll)
-		{
-		    roll = roll_dice();
-			preDiceRoll = false;
-			isDiceRolled = false;
-		}
-		else if (preDiceRoll) {
-			diceModel = glm::rotate(diceModel, (float)glfwGetTime() * 10, glm::vec3(1.0f, 1.0f, 1.0f));
-		}
-		else {
-			diceModel = glm::rotate(diceModel, roll, glm::vec3(1.0f, 0.0f, 0.0f));
+		//dice mechanic
+		diceRoll(shaderProgram, die);
 
-		}
-		drawFacelessCube(shaderProgram, die.getMinAABB(), die.getMaxAABB(), diceModel);
-		shaderProgram.setMat4("model", diceModel);
-		die.draw(shaderProgram);
-		//
-
+		//move if dice rolled
+		//characterMove()
 
 		//Floor
 		glm::mat4 planeModel = glm::mat4(1.0f);
@@ -437,44 +436,7 @@ void drawFacelessCube(Shader& shader, glm::vec3 minAABB, glm::vec3 maxAABB, glm:
 	glDeleteBuffers(1, &EBO);
 }
 
-float roll_dice()
-{
-	srand(time(0));
-	int roll = rand() % 6;
 
-	if (roll == 0)
-	{
-		std::cout << "rolled " << 1 << std::endl;
-		return roll;
-	}	
-	else if (roll == 1)
-	{
-		std::cout << "rolled " << 2 << std::endl;
-		return roll;
-
-	}
-	else if (roll == 2)
-	{
-		std::cout << "rolled " << 3 << std::endl;
-		return roll;
-	}
-	else if (roll == 3)
-	{
-		std::cout << "rolled " << 4 << std::endl;
-		return roll;
-
-	}
-	else if (roll == 4)
-	{
-		std::cout << "rolled " << 5 << std::endl;
-		return roll;
-	}
-	else if (roll == 5)
-	{
-		std::cout << "rolled " << 6 << roll << std::endl;
-		return roll;
-	}
-}
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
@@ -500,7 +462,10 @@ void duplicateModel()
 
 void removeModel()
 {
+	std::cout << selectedObjectIndex << std::endl;
+
 	objectsInScene.erase(objectsInScene.begin() + selectedObjectIndex);
+	selectedObjectIndex = 0;
 	selected = false;
 }
 
@@ -546,7 +511,7 @@ void selectObject(GLFWwindow* window, Shader shader, Model model)
 		//sqrt((objectcoord.x - objectpos.x) * *2 + (objectcoord.y - objectpos.y) * *2 + (objectcoord.z - objectpos.z)**2);
 		//std::cout << "object cooords:" << min.x << ", " << min.y << ", " << min.z << ", " << std::endl;
 
-		//color picking lol
+		//color picking lol. Slow but not noticeable especially since it's used for map building.
 		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		shader.use();
@@ -587,13 +552,116 @@ void selectObject(GLFWwindow* window, Shader shader, Model model)
 		{
 			selected = true;
 			selectedObjectIndex = pickedID;
-			//std::cout << pickedID << std::endl;
-			
+
 			std::ostringstream oss;
 			oss << "mesh " << pickedID;
 			std::cout << oss.str() << std::endl;
 		}
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+}
+
+void diceRoll(Shader shader, Model die)
+{
+	// Die
+	glm::mat4 diceModel = glm::mat4(1.0f);
+	diceModel = glm::translate(diceModel, glm::vec3(0.0f, 0.0f, 0.0f));
+	if (isDiceRolled && preDiceRoll)
+	{
+		roll = roll_dice();
+		//preDiceRoll = false;
+		isDiceRolled = false;
+		startTime = (float)glfwGetTime();
+
+		startPos = totalMoves;
+		totalMoves += roll + 1;
+		//fix view
+		diceModel = glm::rotate(diceModel, roll, glm::vec3(1.0f, 0.0f, 0.0f));
+	}
+	else if (preDiceRoll) {
+		diceModel = glm::rotate(diceModel, (float)glfwGetTime() * 10, glm::vec3(1.0f, 1.0f, 1.0f));
+	}
+
+	drawFacelessCube(shader, die.getMinAABB(), die.getMaxAABB(), diceModel);
+	shader.setMat4("model", diceModel);
+	die.draw(shader);
+	//
+}
+
+float roll_dice()
+{
+	srand(time(0));
+	int roll = rand() % 6;
+
+	if (roll == 0)
+	{
+		std::cout << "rolled " << 1 << std::endl;
+		return roll;
+	}
+	else if (roll == 1)
+	{
+		std::cout << "rolled " << 2 << std::endl;
+		return roll;
+
+	}
+	else if (roll == 2)
+	{
+		std::cout << "rolled " << 3 << std::endl;
+		return roll;
+	}
+	else if (roll == 3)
+	{
+		std::cout << "rolled " << 4 << std::endl;
+		return roll;
+
+	}
+	else if (roll == 4)
+	{
+		std::cout << "rolled " << 5 << std::endl;
+		return roll;
+	}
+	else if (roll == 5)
+	{
+		std::cout << "rolled " << 6 << std::endl;
+		return roll;
+	}
+}
+
+void characterMove(Model character, Shader shader)
+{
+	float delta = 5.0f;
+	if ((float)glfwGetTime() < startTime + delta)
+	{
+	//A + (B -A)(t - t0)/deltaT
+	//while (objectPos != objectsInScene[totalMoves])
+	//while((float)glfwGetTime() - start < 10.0f)
+	//for(int i = 0; i < totalMoves - startPos; i++)
+	//while((float)glfwGetTime() < start + delta)
+	//{
+	//float playerSpeed = static_cast<float>(150 * deltaTime);
+	//camera.setCameraPos(camera.getCameraPos() + playerSpeed * camera.getCameraFront());
+	//test = glm::scale(test, glm::vec3(1.0f));
+	
+	glm::vec3 objectPos = objectsInScene[startPos] * 10.0f;
+
+	glm::vec3 direction = (objectsInScene[totalMoves] - objectsInScene[startPos]) * 10.0f;
+	std::cout << startTime + delta << " test " << (float)glfwGetTime() << std::endl;
+	glm::mat4 test = glm::mat4(1.0f);
+
+	test = glm::translate(test, objectPos  +  direction  * ((float)glfwGetTime() - startTime) / delta + glm::vec3(0, 2, 0));
+	shader.setMat4("model", test);
+	character.draw(shader);
+	//startPos = totalMoves;
+
+		//}
+	
+	}
+	else {
+		glm::mat4 test = glm::mat4(1.0f);
+		//test = glm::scale(test, glm::vec3(1.0f));
+		test = glm::translate(test, objectsInScene[totalMoves] * 10.0f + glm::vec3(0, 2, 0));
+		shader.setMat4("model", test);
+		character.draw(shader);
 	}
 }
