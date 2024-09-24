@@ -23,7 +23,7 @@ void DebugMenu::create_menu(Camera camera, glm::vec3 &objectPos, float deltaTime
 
 	process_menu_input();
 
-	std::string fps = std::to_string((int)(1000.0f / deltaTime));
+	std::string fps = std::to_string((int)(1.0f / deltaTime));
 	fps = "fps = " + fps;
 	char const* fpsChar = fps.c_str();
 

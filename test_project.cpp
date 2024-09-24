@@ -630,37 +630,33 @@ float roll_dice()
 
 void characterMove(Model character, Shader shader)
 {
-	float delta = 5.0f;
-	if ((float)glfwGetTime() < startTime + delta)
+	int nextPos = startPos == objectsInScene.size() - 1 ? 0 : startPos + 1;
+	float delta = 1.0f;
+
+	if (startPos != totalMoves)
 	{
-	//A + (B -A)(t - t0)/deltaT
-	//while (objectPos != objectsInScene[totalMoves])
-	//while((float)glfwGetTime() - start < 10.0f)
-	//for(int i = 0; i < totalMoves - startPos; i++)
-	//while((float)glfwGetTime() < start + delta)
-	//{
-	//float playerSpeed = static_cast<float>(150 * deltaTime);
-	//camera.setCameraPos(camera.getCameraPos() + playerSpeed * camera.getCameraFront());
-	//test = glm::scale(test, glm::vec3(1.0f));
-	
-	glm::vec3 objectPos = objectsInScene[startPos] * 10.0f;
+		if ((float)glfwGetTime() < startTime + delta)
+		{
+			//algorithm to travel distance given start and delta time.
+			//A + (B -A)(t - t0)/deltaT
+			glm::vec3 objectPos = objectsInScene[startPos] * 10.0f;
+			glm::vec3 direction = (objectsInScene[nextPos] - objectsInScene[startPos]) * 10.0f;
+			glm::mat4 test = glm::mat4(1.0f);
+			test = glm::translate(test, objectPos + direction * ((float)glfwGetTime() - startTime) / delta + glm::vec3(0, 3, 0));
+			shader.setMat4("model", test);
+			character.draw(shader);
+		} else {
+			startPos = nextPos;
+			startTime = (float)glfwGetTime();
+			glm::mat4 test = glm::mat4(1.0f);
 
-	glm::vec3 direction = (objectsInScene[totalMoves] - objectsInScene[startPos]) * 10.0f;
-	std::cout << startTime + delta << " test " << (float)glfwGetTime() << std::endl;
-	glm::mat4 test = glm::mat4(1.0f);
-
-	test = glm::translate(test, objectPos  +  direction  * ((float)glfwGetTime() - startTime) / delta + glm::vec3(0, 2, 0));
-	shader.setMat4("model", test);
-	character.draw(shader);
-	//startPos = totalMoves;
-
-		//}
-	
-	}
-	else {
+			test = glm::translate(test, objectsInScene[startPos] * 10.0f + glm::vec3(0, 3, 0));
+			shader.setMat4("model", test);
+			character.draw(shader);
+		}
+	} else {
 		glm::mat4 test = glm::mat4(1.0f);
-		//test = glm::scale(test, glm::vec3(1.0f));
-		test = glm::translate(test, objectsInScene[totalMoves] * 10.0f + glm::vec3(0, 2, 0));
+		test = glm::translate(test, objectsInScene[startPos] * 10.0f + glm::vec3(0, 3, 0));
 		shader.setMat4("model", test);
 		character.draw(shader);
 	}
