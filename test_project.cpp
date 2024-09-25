@@ -141,9 +141,10 @@ int main()
 		}
 		else
 		{
-			//view = glm::lookAt(camera.getCameraPos(), objectPos, camera.getCameraUp());
-			view = glm::lookAt(camera.getCameraPos(), camera.getCameraPos() + camera.getCameraFront(), camera.getCameraUp());
+			view = glm::lookAt(camera.getCameraPos(), camera.getCameraFront(), camera.getCameraUp());
+			//view = glm::lookAt(camera.getCameraPos(), camera.getCameraPos() + camera.getCameraFront(), camera.getCameraUp());
 		}
+
 		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
 		projection = glm::mat4(1.0f);
 		projection = glm::perspective(glm::radians(45.0f), window_width / window_height, 0.1f, 10000.0f);
@@ -642,7 +643,13 @@ void characterMove(Model character, Shader shader)
 			glm::vec3 objectPos = objectsInScene[startPos] * 10.0f;
 			glm::vec3 direction = (objectsInScene[nextPos] - objectsInScene[startPos]) * 10.0f;
 			glm::mat4 test = glm::mat4(1.0f);
-			test = glm::translate(test, objectPos + direction * ((float)glfwGetTime() - startTime) / delta + glm::vec3(0, 3, 0));
+			glm::vec3 currPos = objectPos + direction * ((float)glfwGetTime() - startTime) / delta + glm::vec3(0, 3, 0);
+			if (!isMenuOpen)
+			{
+				camera.setCameraPos(currPos + glm::vec3(0.0f, 30.0f, 50.0f));
+				camera.setCameraFront(currPos);
+			}
+			test = glm::translate(test, currPos);
 			shader.setMat4("model", test);
 			character.draw(shader);
 		} else {
@@ -653,11 +660,18 @@ void characterMove(Model character, Shader shader)
 			test = glm::translate(test, objectsInScene[startPos] * 10.0f + glm::vec3(0, 3, 0));
 			shader.setMat4("model", test);
 			character.draw(shader);
+
 		}
 	} else {
 		glm::mat4 test = glm::mat4(1.0f);
 		test = glm::translate(test, objectsInScene[startPos] * 10.0f + glm::vec3(0, 3, 0));
 		shader.setMat4("model", test);
 		character.draw(shader);
+
+		if (!isMenuOpen)
+		{
+			camera.setCameraPos(objectsInScene[startPos] * 10.0f + glm::vec3(0, 3, 0) + glm::vec3(0.0f, 30.0f, 50.0f));
+			camera.setCameraFront(objectsInScene[startPos] * 10.0f + glm::vec3(0, 3, 0));
+		}
 	}
 }
