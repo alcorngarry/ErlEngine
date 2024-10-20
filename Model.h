@@ -17,7 +17,7 @@ class Model
 		std::vector<Mesh> meshes;
 		std::string directory;
 		bool gammaCorrection;
-
+		Model() = default;
 		Model(char* path);
 
 		void draw(Shader& shader);

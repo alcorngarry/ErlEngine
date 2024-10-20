@@ -1,0 +1,2316 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '+' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '+' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 1051,
+                  "startColumn": 25,
+                  "endLine": 1051,
+                  "endColumn": 33
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__malloc_mad2@@YAPEAXHHH@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 1051,
+                  "startColumn": 25,
+                  "endLine": 1051,
+                  "endColumn": 29
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__malloc_mad2@@YAPEAXHHH@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '+' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '+' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 1058,
+                  "startColumn": 25,
+                  "endLine": 1058,
+                  "endColumn": 37
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__malloc_mad3@@YAPEAXHHHH@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 1058,
+                  "startColumn": 25,
+                  "endLine": 1058,
+                  "endColumn": 33
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__malloc_mad3@@YAPEAXHHHH@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 1058,
+                  "startColumn": 25,
+                  "endLine": 1058,
+                  "endColumn": 29
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__malloc_mad3@@YAPEAXHHHH@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '+' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '+' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 1065,
+                  "startColumn": 25,
+                  "endLine": 1065,
+                  "endColumn": 41
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__malloc_mad4@@YAPEAXHHHHH@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 1065,
+                  "startColumn": 25,
+                  "endLine": 1065,
+                  "endColumn": 37
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__malloc_mad4@@YAPEAXHHHHH@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 1065,
+                  "startColumn": 25,
+                  "endLine": 1065,
+                  "endColumn": 33
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__malloc_mad4@@YAPEAXHHHHH@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 1065,
+                  "startColumn": 25,
+                  "endLine": 1065,
+                  "endColumn": 29
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__malloc_mad4@@YAPEAXHHHHH@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 1212,
+                  "startColumn": 44,
+                  "endLine": 1212,
+                  "endColumn": 54
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__convert_8_to_16@@YAPEAGPEAEHHH@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '-' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '-' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 1231,
+                  "startColumn": 34,
+                  "endLine": 1231,
+                  "endColumn": 44
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__vertical_flip@@YAXPEAXHHH@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '-' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '-' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 1231,
+                  "startColumn": 34,
+                  "endLine": 1231,
+                  "endColumn": 38
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__vertical_flip@@YAXPEAXHHH@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 1772,
+                  "startColumn": 37,
+                  "endLine": 1772,
+                  "endColumn": 45
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__convert_format@@YAPEAEPEAEHHII@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 1772,
+                  "startColumn": 37,
+                  "endLine": 1772,
+                  "endColumn": 41
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__convert_format@@YAPEAEPEAEHHII@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 1773,
+                  "startColumn": 38,
+                  "endLine": 1773,
+                  "endColumn": 46
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__convert_format@@YAPEAEPEAEHHII@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 1773,
+                  "startColumn": 38,
+                  "endLine": 1773,
+                  "endColumn": 42
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__convert_format@@YAPEAEPEAEHHII@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 1822,
+                  "startColumn": 40,
+                  "endLine": 1822,
+                  "endColumn": 59
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__convert_format16@@YAPEAGPEAGHHII@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 1822,
+                  "startColumn": 40,
+                  "endLine": 1822,
+                  "endColumn": 55
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__convert_format16@@YAPEAGPEAGHHII@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 1822,
+                  "startColumn": 40,
+                  "endLine": 1822,
+                  "endColumn": 51
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__convert_format16@@YAPEAGPEAGHHII@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 1829,
+                  "startColumn": 36,
+                  "endLine": 1829,
+                  "endColumn": 44
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__convert_format16@@YAPEAGPEAGHHII@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 1829,
+                  "startColumn": 36,
+                  "endLine": 1829,
+                  "endColumn": 40
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__convert_format16@@YAPEAGPEAGHHII@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 1830,
+                  "startColumn": 37,
+                  "endLine": 1830,
+                  "endColumn": 45
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__convert_format16@@YAPEAGPEAGHHII@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 1830,
+                  "startColumn": 37,
+                  "endLine": 1830,
+                  "endColumn": 41
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__convert_format16@@YAPEAGPEAGHHII@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 1897,
+                  "startColumn": 34,
+                  "endLine": 1897,
+                  "endColumn": 55
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__hdr_to_ldr@@YAPEAEPEAMHHH@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 3037,
+                  "startColumn": 58,
+                  "endLine": 3037,
+                  "endColumn": 86
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__parse_entropy_coded_data@@YAHPEAUstbi__jpeg@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 3070,
+                  "startColumn": 70,
+                  "endLine": 3070,
+                  "endColumn": 100
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__parse_entropy_coded_data@@YAHPEAUstbi__jpeg@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 2980,
+                  "startColumn": 64,
+                  "endLine": 2980,
+                  "endColumn": 88
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__parse_entropy_coded_data@@YAHPEAUstbi__jpeg@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 2980,
+                  "startColumn": 64,
+                  "endLine": 2980,
+                  "endColumn": 84
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__parse_entropy_coded_data@@YAHPEAUstbi__jpeg@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 2980,
+                  "startColumn": 92,
+                  "endLine": 2980,
+                  "endColumn": 96
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__parse_entropy_coded_data@@YAHPEAUstbi__jpeg@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 3009,
+                  "startColumn": 76,
+                  "endLine": 3009,
+                  "endColumn": 96
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__parse_entropy_coded_data@@YAHPEAUstbi__jpeg@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 3107,
+                  "startColumn": 58,
+                  "endLine": 3107,
+                  "endColumn": 86
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__jpeg_finish@@YAXPEAUstbi__jpeg@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 3109,
+                  "startColumn": 64,
+                  "endLine": 3109,
+                  "endColumn": 88
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__jpeg_finish@@YAXPEAUstbi__jpeg@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 3109,
+                  "startColumn": 64,
+                  "endLine": 3109,
+                  "endColumn": 84
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__jpeg_finish@@YAXPEAUstbi__jpeg@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 3109,
+                  "startColumn": 92,
+                  "endLine": 3109,
+                  "endColumn": 96
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__jpeg_finish@@YAXPEAUstbi__jpeg@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 3609,
+                  "startColumn": 44,
+                  "endLine": 3609,
+                  "endColumn": 48
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__resample_row_hv_2_simd@@YAPEAEPEAE00HH@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '+' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '+' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 3926,
+                  "startColumn": 61,
+                  "endLine": 3926,
+                  "endColumn": 75
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?load_jpeg_image@@YAPEAEPEAUstbi__jpeg@@PEAH11H@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 3949,
+                  "startColumn": 37,
+                  "endLine": 3949,
+                  "endColumn": 55
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?load_jpeg_image@@YAPEAEPEAUstbi__jpeg@@PEAH11H@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 3949,
+                  "startColumn": 37,
+                  "endLine": 3949,
+                  "endColumn": 45
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?load_jpeg_image@@YAPEAEPEAUstbi__jpeg@@PEAH11H@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 4784,
+                  "startColumn": 38,
+                  "endLine": 4784,
+                  "endColumn": 47
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__create_png_image_raw@@YAHPEAUstbi__png@@PEAEIHIIHH@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 4785,
+                  "startColumn": 40,
+                  "endLine": 4785,
+                  "endColumn": 50
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__create_png_image_raw@@YAHPEAUstbi__png@@PEAEIHIIHH@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 4786,
+                  "startColumn": 34,
+                  "endLine": 4786,
+                  "endColumn": 43
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__create_png_image_raw@@YAHPEAUstbi__png@@PEAEIHIIHH@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 4872,
+                  "startColumn": 35,
+                  "endLine": 4872,
+                  "endColumn": 39
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__create_png_image_raw@@YAHPEAUstbi__png@@PEAEIHIIHH@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 4943,
+                  "startColumn": 36,
+                  "endLine": 4943,
+                  "endColumn": 58
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__create_png_image@@YAHPEAUstbi__png@@PEAEIHHHH@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 4943,
+                  "startColumn": 36,
+                  "endLine": 4943,
+                  "endColumn": 48
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__create_png_image@@YAHPEAUstbi__png@@PEAEIHHHH@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 4943,
+                  "startColumn": 70,
+                  "endLine": 4943,
+                  "endColumn": 78
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__create_png_image@@YAHPEAUstbi__png@@PEAEIHHHH@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 4944,
+                  "startColumn": 35,
+                  "endLine": 4944,
+                  "endColumn": 48
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__create_png_image@@YAHPEAUstbi__png@@PEAEIHHHH@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '+' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '+' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 4944,
+                  "startColumn": 35,
+                  "endLine": 4944,
+                  "endColumn": 43
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__create_png_image@@YAHPEAUstbi__png@@PEAEIHHHH@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 4944,
+                  "startColumn": 35,
+                  "endLine": 4944,
+                  "endColumn": 39
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__create_png_image@@YAHPEAUstbi__png@@PEAEIHHHH@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 5789,
+                  "startColumn": 33,
+                  "endLine": 5789,
+                  "endColumn": 48
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__bmp_load@@YAPEAXPEAUstbi__context@@PEAH11HPEAUstbi__result_info@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 5789,
+                  "startColumn": 33,
+                  "endLine": 5789,
+                  "endColumn": 38
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__bmp_load@@YAPEAXPEAUstbi__context@@PEAH11HPEAUstbi__result_info@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 5790,
+                  "startColumn": 34,
+                  "endLine": 5790,
+                  "endColumn": 65
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__bmp_load@@YAPEAXPEAUstbi__context@@PEAH11HPEAUstbi__result_info@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 5790,
+                  "startColumn": 34,
+                  "endLine": 5790,
+                  "endColumn": 55
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__bmp_load@@YAPEAXPEAUstbi__context@@PEAH11HPEAUstbi__result_info@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '-' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '-' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 5790,
+                  "startColumn": 34,
+                  "endLine": 5790,
+                  "endColumn": 49
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__bmp_load@@YAPEAXPEAUstbi__context@@PEAH11HPEAUstbi__result_info@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 6013,
+                  "startColumn": 43,
+                  "endLine": 6013,
+                  "endColumn": 61
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__tga_load@@YAPEAXPEAUstbi__context@@PEAH11HPEAUstbi__result_info@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 6013,
+                  "startColumn": 43,
+                  "endLine": 6013,
+                  "endColumn": 49
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__tga_load@@YAPEAXPEAUstbi__context@@PEAH11HPEAUstbi__result_info@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 6290,
+                  "startColumn": 38,
+                  "endLine": 6290,
+                  "endColumn": 46
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__psd_load@@YAPEAXPEAUstbi__context@@PEAH11HPEAUstbi__result_info@@H@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 6290,
+                  "startColumn": 38,
+                  "endLine": 6290,
+                  "endColumn": 42
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__psd_load@@YAPEAXPEAUstbi__context@@PEAH11HPEAUstbi__result_info@@H@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 6378,
+                  "startColumn": 60,
+                  "endLine": 6378,
+                  "endColumn": 64
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__psd_load@@YAPEAXPEAUstbi__context@@PEAH11HPEAUstbi__result_info@@H@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 6391,
+                  "startColumn": 46,
+                  "endLine": 6391,
+                  "endColumn": 50
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__psd_load@@YAPEAXPEAUstbi__context@@PEAH11HPEAUstbi__result_info@@H@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 6516,
+                  "startColumn": 38,
+                  "endLine": 6516,
+                  "endColumn": 50
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__pic_load_core@@YAPEAEPEAUstbi__context@@HHPEAHPEAE@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 6516,
+                  "startColumn": 38,
+                  "endLine": 6516,
+                  "endColumn": 42
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__pic_load_core@@YAPEAEPEAUstbi__context@@HHPEAHPEAE@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 6621,
+                  "startColumn": 26,
+                  "endLine": 6621,
+                  "endColumn": 34
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__pic_load@@YAPEAXPEAUstbi__context@@PEAH11HPEAUstbi__result_info@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 6621,
+                  "startColumn": 26,
+                  "endLine": 6621,
+                  "endColumn": 30
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__pic_load@@YAPEAXPEAUstbi__context@@PEAH11HPEAUstbi__result_info@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 6892,
+                  "startColumn": 41,
+                  "endLine": 6892,
+                  "endColumn": 45
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__gif_load_next@@YAPEAEPEAUstbi__context@@PEAUstbi__gif@@PEAHHPEAE@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 6893,
+                  "startColumn": 48,
+                  "endLine": 6893,
+                  "endColumn": 52
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__gif_load_next@@YAPEAEPEAUstbi__context@@PEAUstbi__gif@@PEAHHPEAE@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 6901,
+                  "startColumn": 30,
+                  "endLine": 6901,
+                  "endColumn": 34
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__gif_load_next@@YAPEAEPEAUstbi__context@@PEAUstbi__gif@@PEAHHPEAE@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 6902,
+                  "startColumn": 37,
+                  "endLine": 6902,
+                  "endColumn": 41
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__gif_load_next@@YAPEAEPEAUstbi__context@@PEAUstbi__gif@@PEAHHPEAE@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 6938,
+                  "startColumn": 39,
+                  "endLine": 6938,
+                  "endColumn": 51
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__gif_load_next@@YAPEAEPEAUstbi__context@@PEAUstbi__gif@@PEAHHPEAE@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 6938,
+                  "startColumn": 39,
+                  "endLine": 6938,
+                  "endColumn": 44
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__gif_load_next@@YAPEAEPEAUstbi__context@@PEAUstbi__gif@@PEAHHPEAE@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 6942,
+                  "startColumn": 30,
+                  "endLine": 6942,
+                  "endColumn": 38
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__gif_load_next@@YAPEAEPEAUstbi__context@@PEAUstbi__gif@@PEAHHPEAE@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C6262",
+          "message": {
+            "text": "Function uses '35036' bytes of stack:  exceeds /analyze:stacksize '16384'.  Consider moving some data to heap."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 7070,
+                  "startColumn": 14,
+                  "endLine": 7070,
+                  "endColumn": 14
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__load_gif_main@@YAPEAXPEAUstbi__context@@PEAPEAHPEAH222H@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 7101,
+                  "startColumn": 43,
+                  "endLine": 7101,
+                  "endColumn": 43
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__load_gif_main@@YAPEAXPEAUstbi__context@@PEAPEAHPEAH222H@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 7118,
+                  "startColumn": 50,
+                  "endLine": 7118,
+                  "endColumn": 59
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__load_gif_main@@YAPEAXPEAUstbi__context@@PEAPEAHPEAH222H@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 7129,
+                  "startColumn": 32,
+                  "endLine": 7129,
+                  "endColumn": 46
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__load_gif_main@@YAPEAXPEAUstbi__context@@PEAPEAHPEAH222H@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '-' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '-' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 7129,
+                  "startColumn": 32,
+                  "endLine": 7129,
+                  "endColumn": 41
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__load_gif_main@@YAPEAXPEAUstbi__context@@PEAPEAHPEAH222H@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 7131,
+                  "startColumn": 38,
+                  "endLine": 7131,
+                  "endColumn": 42
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__load_gif_main@@YAPEAXPEAUstbi__context@@PEAPEAHPEAH222H@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C6262",
+          "message": {
+            "text": "Function uses '34980' bytes of stack:  exceeds /analyze:stacksize '16384'.  Consider moving some data to heap."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 7157,
+                  "startColumn": 14,
+                  "endLine": 7157,
+                  "endColumn": 14
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__gif_load@@YAPEAXPEAUstbi__context@@PEAH11HPEAUstbi__result_info@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 7334,
+                  "startColumn": 46,
+                  "endLine": 7334,
+                  "endColumn": 58
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__hdr_load@@YAPEAMPEAUstbi__context@@PEAH11HPEAUstbi__result_info@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 7334,
+                  "startColumn": 46,
+                  "endLine": 7334,
+                  "endColumn": 50
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__hdr_load@@YAPEAMPEAUstbi__context@@PEAH11HPEAUstbi__result_info@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 7334,
+                  "startColumn": 69,
+                  "endLine": 7334,
+                  "endColumn": 73
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__hdr_load@@YAPEAMPEAUstbi__context@@PEAH11HPEAUstbi__result_info@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 7393,
+                  "startColumn": 47,
+                  "endLine": 7393,
+                  "endColumn": 64
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__hdr_load@@YAPEAMPEAUstbi__context@@PEAH11HPEAUstbi__result_info@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '+' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '+' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 7393,
+                  "startColumn": 47,
+                  "endLine": 7393,
+                  "endColumn": 59
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__hdr_load@@YAPEAMPEAUstbi__context@@PEAH11HPEAUstbi__result_info@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 7393,
+                  "startColumn": 47,
+                  "endLine": 7393,
+                  "endColumn": 51
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__hdr_load@@YAPEAMPEAUstbi__context@@PEAH11HPEAUstbi__result_info@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '*' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '*' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+                },
+                "region": {
+                  "startLine": 7393,
+                  "startColumn": 85,
+                  "endLine": 7393,
+                  "endColumn": 89
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?stbi__hdr_load@@YAPEAMPEAUstbi__context@@PEAH11HPEAUstbi__result_info@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.29.30154.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "commandLine": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX86\\x64\\c1xx.dll\" -ACf{1F7B090C-16DB-4822-966A-A93D26ED4681} -ACpmspft140.dll -Alint -D_PREFAST_ -D_AST_FE_ -Analyze -zm0x0008C1B0 -il C:\\Users\\alcor\\AppData\\Local\\Temp\\_CL_2833c38bast -typedil -f stb_image.cpp -Ze -D_MSC_EXTENSIONS -Zp16 -pc \\:/ -D_MSC_VER=1929 -D_MSC_FULL_VER=192930154 -D_MSC_BUILD=0 -D_M_AMD64=100 -ZILP448 -D_M_X64=100 -D_WIN64 -D_WIN32 -GR -D_CPPRTTI -I C:\\Dev\\third-party-dependencies\\imgui -nologo -W 3 -diagnostics:column -D_GUARDOVERFLOW_CRT_ALLOCATORS=1 -Ot -DCODE_ANALYSIS -D_DEBUG -D_CONSOLE -D_UNICODE -DUNICODE -EHs -D_CPPUNWIND -EHc -D__MSVC_RUNTIME_CHECKS -RTCs -RTCu -MDd -D_DEBUG -D_MT -D_DLL -GS -D_M_FP_PRECISE -permissive- -Zc:wchar_t -Zc:forScope -Fox64\\Debug\\stb_image.obj -Fdx64\\Debug\\vc142.pdb -external:W 3 -Gd -analyze:projectdirectory C:\\Dev\\opengl_code\\test_project -analyze:rulesetdirectory ;C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Team Tools\\Static Analysis Tools\\\\Rule Sets; -analyze:ruleset C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Team Tools\\Static Analysis Tools\\Rule Sets\\NativeRecommendedRules.ruleset -analyze:quiet -analyze:plugin C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX86\\x86\\EspXEngine.dll -FC -errorreport:prompt -I C:\\Dev\\third-party-dependencies\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\atlmfc\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\VS\\include -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\ucrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\um -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\shared -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\winrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\cppwinrt -I C:\\Program Files (x86)\\Windows Kits\\NETFXSDK\\4.8\\Include\\um -external:I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\include -external:I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\atlmfc\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\atlmfc\\include -external:I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\VS\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\VS\\include -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\ucrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\ucrt -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\um -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\um -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\shared -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\shared -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\winrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\winrt -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\cppwinrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\cppwinrt -external:I C:\\Program Files (x86)\\Windows Kits\\NETFXSDK\\4.8\\Include\\um -I C:\\Program Files (x86)\\Windows Kits\\NETFXSDK\\4.8\\Include\\um",
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
+          },
+          "roles": [
+            "resultFile"
+          ],
+          "hashes": {
+            "md5": "1ba27dbee7b548572085f1c0dccaab0d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/opengl_code/test_project/stb_image.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "md5": "f44e873668f96beeffa127951363efdc"
+          }
+        }
+      ]
+    }
+  ]
+}
