@@ -142,13 +142,15 @@ void Game::process_input(float deltaTime, float yaw, float pitch, float xpos, fl
 			{
 				this->Maps[0].platForms[selectedIndex].Position.z -= .01f;
 			}
-			if (this->Keys[GLFW_KEY_N])
+			if (this->Keys[GLFW_KEY_N] && !this->KeysProcessed[GLFW_KEY_N])
 			{
 				this->Maps[0].duplicate_model(selectedIndex);
+				this->KeysProcessed[GLFW_KEY_N] = true;
 			}
-			if (this->Keys[GLFW_KEY_R])
+			if (this->Keys[GLFW_KEY_R] && !this->KeysProcessed[GLFW_KEY_R])
 			{
 				this->Maps[0].remove_model(selectedIndex);
+				this->KeysProcessed[GLFW_KEY_R] = true;
 			}
 		}
 	}

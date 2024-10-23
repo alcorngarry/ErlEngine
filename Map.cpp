@@ -79,7 +79,7 @@ void Map::draw_picking(Renderer& renderer)
 void Map::duplicate_model(int selectedIndex)
 {
 	this->platForms.push_back(platForms[selectedIndex]);
-	this->boardPositions.push_back(platForms[selectedIndex].Position);
+	this->boardPositions.push_back(platForms[platForms.size() - 1].Position);
 }
 
 void Map::remove_model(int selectedIndex)
