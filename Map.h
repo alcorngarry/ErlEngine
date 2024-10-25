@@ -27,7 +27,6 @@ class Map
 
 		std::vector<glm::vec3> get_board_positions();
 	private:
-		std::vector<glm::vec3> boardPositions;
 		std::vector<glm::vec3> mapAssets;
 		std::ofstream writeMap;
 		std::ifstream readMap;
