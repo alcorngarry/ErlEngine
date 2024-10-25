@@ -90,7 +90,8 @@ int main(int argc, char* argv[])
 
 		glfwSwapBuffers(window);
 	}
-	//testMap.save(objectsInScene);
+
+	partyGame.Maps[0].save();
 
 	glfwDestroyWindow(window);
 	glfwTerminate();

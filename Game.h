@@ -10,6 +10,7 @@
 #include"Player.h"
 #include"Renderer.h"
 #include"Camera.h"
+#include"AssetManager.h"
 
 enum GameState {
 	GAME_ACTIVE

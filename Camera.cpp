@@ -2,9 +2,9 @@
 
 Camera::Camera()
 {
-	cameraPos = glm::vec3(0.0f, 10.0f, 30.0f);
+	cameraPos = glm::vec3(0.0f, 50.0f, 150.0f);
 	cameraFront = glm::vec3(0.0f, 0.0f, 0.0f);
-	cameraUp = glm::vec3(0.0f, 5.0f, 0.0f);
+	cameraUp = glm::vec3(0.0f, 25.0f, 0.0f);
 }
 
 glm::vec3 Camera::getCameraPos()

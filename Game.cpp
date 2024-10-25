@@ -5,16 +5,16 @@ Renderer *modelRenderer;
 Renderer *pickingRenderer;
 GLFWwindow* gameWindow;
 
-Model *backpack;
-Model *cube;
-Model *mapFloor;
-Model *die;
+AssetManager assetManager;
 
 Camera camera;
 GameObject* testFloor;
 GameObject* lightCube;
 
 Player* player1;
+Player* player2;
+Player* player3;
+Player* player4;
 
 int selectedIndex = -1;
 
@@ -39,20 +39,21 @@ void Game::init(GLFWwindow* window)
 	modelRenderer = new Renderer(shaderProgram);
 	pickingRenderer = new Renderer(pickingShaderProgram);
 
-	backpack = new Model((char*)"C:/Users/alcor/Downloads/LearnOpenGL-master/LearnOpenGL-master/resources/objects/backpack/backpack.obj");
-	cube = new Model((char*)"C:/Dev/assets/cube.glb");
-	mapFloor = new Model((char*)"C:/Dev/assets/plane/plane.obj");
-	die = new Model((char*)"C:/Dev/assets/die.obj");
-	
+	assetManager = AssetManager();
+	assetManager.load();
+
 	camera = Camera();
 
-	testFloor = new GameObject(Model((char*)"C:/Dev/assets/plane/plane.obj"), glm::vec3(0.0f, -0.005f, 0.0f), glm::vec3(1000.0f));
-	lightCube = new GameObject(Model((char*)"C:/Dev/assets/cube.glb"), glm::vec3(5.0f, 10.0f, 0.0f), glm::vec3(1.0f));
+	testFloor = new GameObject(*assetManager.get_model(2), glm::vec3(0.0f, -0.005f, 0.0f), glm::vec3(1000.0f));
+	lightCube = new GameObject(*assetManager.get_model(1), glm::vec3(5.0f, 10.0f, 0.0f), glm::vec3(1.0f));
 
 	this->Maps.push_back(Map("test_map_1"));
-	Maps[0].load();
+	Maps[0].load(assetManager);
 
-	player1 = new Player(*backpack, Maps[0].get_board_positions()[0] * 5.0f + glm::vec3(0, 3, 0), glm::vec3(2.0f));
+	player1 = new Player(*assetManager.get_model(0), Maps[0].get_board_positions()[0] * 5.0f + glm::vec3(0, 3, 0), glm::vec3(2.0f));
+	player2 = new Player(*assetManager.get_model(0), Maps[0].get_board_positions()[0] * 5.0f + glm::vec3(0, 3, 0), glm::vec3(2.0f));
+	player3 = new Player(*assetManager.get_model(0), Maps[0].get_board_positions()[0] * 5.0f + glm::vec3(0, 3, 0), glm::vec3(2.0f));
+	player4 = new Player(*assetManager.get_model(0), Maps[0].get_board_positions()[0] * 5.0f + glm::vec3(0, 3, 0), glm::vec3(2.0f));
 }
 
 void Game::update(float deltaTime)
@@ -60,6 +61,26 @@ void Game::update(float deltaTime)
 	if (player1->inMotion)
 	{	
 		player1->move_player(Maps[0].get_board_positions());
+	/*	camera.setCameraPos(player1->Position + glm::vec3(0.0f, 50.0f, 150.0f));
+		camera.setCameraFront(player1->Position);*/
+	}
+	if (player2->inMotion)
+	{
+		player2->move_player(Maps[0].get_board_positions());
+		//camera.setCameraPos(player2->Position + glm::vec3(0.0f, 30.0f, 50.0f));
+		//camera.setCameraFront(player2->Position);
+	}
+	if (player3->inMotion)
+	{
+		player3->move_player(Maps[0].get_board_positions());
+		//camera.setCameraPos(player3->Position + glm::vec3(0.0f, 30.0f, 50.0f));
+		//camera.setCameraFront(player3->Position);
+	}
+	if (player4->inMotion)
+	{
+		player4->move_player(Maps[0].get_board_positions());
+		//camera.setCameraPos(player4->Position + glm::vec3(0.0f, 30.0f, 50.0f));
+		//camera.setCameraFront(player4->Position * 5.0f);
 	}
 }
 
@@ -115,32 +136,59 @@ void Game::process_input(float deltaTime, float yaw, float pitch, float xpos, fl
 			}
 		}
 
+		if (this->Keys[GLFW_KEY_I])
+		{
+			if (player2->inMotion == false)
+			{
+				player2->inMotion = true;
+				player2->start_move((float)glfwGetTime(), roll_dice() + 1);
+			}
+		}
+
+		if (this->Keys[GLFW_KEY_O])
+		{
+			if (player3->inMotion == false)
+			{
+				player3->inMotion = true;
+				player3->start_move((float)glfwGetTime(), roll_dice() + 1);
+			}
+		}
+
+		if (this->Keys[GLFW_KEY_P])
+		{
+			if (player4->inMotion == false)
+			{
+				player4->inMotion = true;
+				player4->start_move((float)glfwGetTime(), roll_dice() + 1);
+			}
+		}
+
 		// move to menu mode eventually
 		if (selectedIndex != -1)
 		{
 			if (this->Keys[GLFW_KEY_UP])
 			{
-				this->Maps[0].platForms[selectedIndex].Position.y += .01f;
+				this->Maps[0].entities[selectedIndex].Position.y += .01f;
 			}
 			if (this->Keys[GLFW_KEY_DOWN])
 			{
-				this->Maps[0].platForms[selectedIndex].Position.y -= .01f;
+				this->Maps[0].entities[selectedIndex].Position.y -= .01f;
 			}
 			if (this->Keys[GLFW_KEY_LEFT])
 			{
-				this->Maps[0].platForms[selectedIndex].Position.x += .01f;
+				this->Maps[0].entities[selectedIndex].Position.x += .01f;
 			}
 			if (this->Keys[GLFW_KEY_RIGHT])
 			{
-				this->Maps[0].platForms[selectedIndex].Position.x -= .01f;
+				this->Maps[0].entities[selectedIndex].Position.x -= .01f;
 			}
 			if (this->Keys[GLFW_KEY_J])
 			{
-				this->Maps[0].platForms[selectedIndex].Position.z += .01f;
+				this->Maps[0].entities[selectedIndex].Position.z += .01f;
 			}
 			if (this->Keys[GLFW_KEY_K])
 			{
-				this->Maps[0].platForms[selectedIndex].Position.z -= .01f;
+				this->Maps[0].entities[selectedIndex].Position.z -= .01f;
 			}
 			if (this->Keys[GLFW_KEY_N] && !this->KeysProcessed[GLFW_KEY_N])
 			{
@@ -158,11 +206,10 @@ void Game::process_input(float deltaTime, float yaw, float pitch, float xpos, fl
 
 void Game::render()
 {
-	
 	if (this->State == GAME_ACTIVE)
 	{	
 		glm::mat4 view = glm::lookAt(camera.getCameraPos(), camera.getCameraPos() + camera.getCameraFront(), camera.getCameraUp());
-		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+		//view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
 		glm::mat4 projection = glm::mat4(1.0f);
 		projection = glm::perspective(glm::radians(45.0f), 1024.0f / 768.0f, 0.1f, 10000.0f);
 		
@@ -176,6 +223,10 @@ void Game::render()
 		modelRenderer->shader.setVec3("lightColor", glm::vec3(1.0f));
 		
 		player1->draw(*modelRenderer);
+		player2->draw(*modelRenderer);
+		player3->draw(*modelRenderer);
+		player4->draw(*modelRenderer);
+
 		testFloor->draw(*modelRenderer);
 		this->Maps[0].draw(*modelRenderer, selectedIndex);
 

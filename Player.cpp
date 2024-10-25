@@ -23,11 +23,10 @@ void Player::move_player(std::vector<glm::vec3> spaces)
 			glm::vec3 direction = (spaces[nextPos] - spaces[boardPosition]) * 5.0f;
 			glm::mat4 test = glm::mat4(1.0f);
 			glm::vec3 currPos = objectPos + direction * ((float)glfwGetTime() - startTime) / delta + glm::vec3(0, 3, 0);
-			//if (!isMenuOpen)
-			//{
+
 			//	camera.setCameraPos(currPos + glm::vec3(0.0f, 30.0f, 50.0f));
 			//	camera.setCameraFront(currPos);
-			//}
+
 			this->Position = currPos;
 		}
 		else {
@@ -39,15 +38,11 @@ void Player::move_player(std::vector<glm::vec3> spaces)
 	}
 	else {
 		this->Position =  spaces[boardPosition] * 5.0f + glm::vec3(0, 3, 0);
-
-		std::cout << spaces[spaces.size() - 1].x << ", " << spaces[spaces.size() - 1].y << ", " << spaces[spaces.size() - 1].z << std::endl;
-
 		this->inMotion = false;
-		/*if (!isMenuOpen)
-		{
-			camera.setCameraPos(objectsInScene[startPos] * 10.0f + glm::vec3(0, 3, 0) + glm::vec3(0.0f, 30.0f, 50.0f));
-			camera.setCameraFront(objectsInScene[startPos] * 10.0f + glm::vec3(0, 3, 0));
-		}*/
+
+		/*	camera.setCameraPos(objectsInScene[startPos] * 10.0f + glm::vec3(0, 3, 0) + glm::vec3(0.0f, 30.0f, 50.0f));
+			camera.setCameraFront(objectsInScene[startPos] * 10.0f + glm::vec3(0, 3, 0));*/
+
 	}
 }
 
