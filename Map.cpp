@@ -11,7 +11,7 @@ void Map::save()
 	writeMap = std::ofstream{ fileName + ".txt" };
 	for (int i = 0; i < this->entities.size(); i++)
 	{
-		writeMap << "4, " << this->entities.at(i).Position.x << "," << this->entities.at(i).Position.y << "," << this->entities.at(i).Position.z << std::endl;
+		writeMap << this->entities.at(i).id << ", " << this->entities.at(i).Position.x << "," << this->entities.at(i).Position.y << "," << this->entities.at(i).Position.z << std::endl;
 	}
 	writeMap.close();
 }
@@ -43,24 +43,36 @@ void Map::load(AssetManager assetManager)
 		// Return the constructed glm::vec3
 		if (id == 4)
 		{
-			//this->boardPositions.push_back(glm::vec3(x, y, z));
-			GameObject platForm(*assetManager.get_model(id), glm::vec3(x, y, z), glm::vec3(10.0f));
-			this->entities.push_back(platForm);
+			this->entities.push_back(GameObject(id, *assetManager.get_model(id), glm::vec3(x, y, z), glm::vec3(10.0f)));
 		}
-	}
-	//if (this->boardPositions.empty())
-	//{
-	//	this->boardPositions.push_back(glm::vec3(0.0f, 0.0f, 0.0f));
-	//} 
+		if (id == 1)
+		{
+			this->entities.push_back(GameObject(id, *assetManager.get_model(id), glm::vec3(x, y, z), glm::vec3(1.0f)));
+		}
+		if (id == 2)
+		{
+			this->entities.push_back(GameObject(id, *assetManager.get_model(id), glm::vec3(x, y, z), glm::vec3(1000.0f)));
+		}
+	} 
 	readMap.close();
 }
 
-void Map::draw(Renderer &renderer, int selectedIndex)
+void Map::draw(Renderer &renderer, int selectedIndex, bool isLight)
 {
 	for (int i = 0; i < this->entities.size(); i++)
 	{
-		renderer.shader.setBool("selected", i == selectedIndex);
-		this->entities.at(i).draw(renderer);
+		
+		if (this->entities.at(i).id == 1)
+		{
+			if (isLight)
+			{
+				this->entities.at(i).draw(renderer);
+			}
+		}
+		else {
+			renderer.shader.setBool("selected", i == selectedIndex);
+			this->entities.at(i).draw(renderer);
+		}
 	}
 }
 
@@ -80,14 +92,11 @@ void Map::draw_picking(Renderer& renderer)
 void Map::duplicate_model(int selectedIndex)
 {
 	this->entities.push_back(entities[selectedIndex]);
-	//this->boardPositions.push_back(entities[entities.size() - 1].Position);
 }
 
 void Map::remove_model(int selectedIndex)
 {
-	
 	this->entities.erase(this->entities.begin() + selectedIndex);
-	//this->boardPositions.erase(this->boardPositions.begin() + selectedIndex);
 }
 
 std::vector<glm::vec3> Map::get_board_positions()
@@ -96,7 +105,10 @@ std::vector<glm::vec3> Map::get_board_positions()
 
 	for (GameObject entity: this->entities)
 	{
-		output.push_back(entity.Position);
+		if (entity.id == 4)
+		{
+			output.push_back(entity.Position);
+		}
 	}
 	return output;
 }

@@ -8,8 +8,9 @@
 class GameObject {
 	public:
 		glm::vec3 Position, Size;
+		unsigned int id;
 		Model GameModel;
-		GameObject(Model model, glm::vec3 pos, glm::vec3 size);
+		GameObject(unsigned int id, Model model, glm::vec3 pos, glm::vec3 size);
 
 		virtual void draw(Renderer& renderer);
 };

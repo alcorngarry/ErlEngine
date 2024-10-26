@@ -1,6 +1,6 @@
 #include"Player.h"
 
-Player::Player(Model characterModel, glm::vec3 pos, glm::vec3 size) : GameObject(characterModel, pos, size)
+Player::Player(Model characterModel, glm::vec3 pos, glm::vec3 size) : GameObject(0, characterModel, pos, size)
 { 
 	this->boardPosition = 0;
 	this->inMotion = false;

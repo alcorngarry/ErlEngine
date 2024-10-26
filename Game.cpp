@@ -8,8 +8,8 @@ GLFWwindow* gameWindow;
 AssetManager assetManager;
 
 Camera camera;
-GameObject* testFloor;
-GameObject* lightCube;
+//GameObject* testFloor;
+//GameObject* lightCube;
 
 Player* player1;
 Player* player2;
@@ -44,8 +44,8 @@ void Game::init(GLFWwindow* window)
 
 	camera = Camera();
 
-	testFloor = new GameObject(*assetManager.get_model(2), glm::vec3(0.0f, -0.005f, 0.0f), glm::vec3(1000.0f));
-	lightCube = new GameObject(*assetManager.get_model(1), glm::vec3(5.0f, 10.0f, 0.0f), glm::vec3(1.0f));
+	/*testFloor = new GameObject(*assetManager.get_model(2), glm::vec3(0.0f, -0.005f, 0.0f), glm::vec3(1000.0f));
+	lightCube = new GameObject(*assetManager.get_model(1), glm::vec3(5.0f, 10.0f, 0.0f), glm::vec3(1.0f));*/
 
 	this->Maps.push_back(Map("test_map_1"));
 	Maps[0].load(assetManager);
@@ -227,14 +227,15 @@ void Game::render()
 		player3->draw(*modelRenderer);
 		player4->draw(*modelRenderer);
 
-		testFloor->draw(*modelRenderer);
-		this->Maps[0].draw(*modelRenderer, selectedIndex);
+		//testFloor->draw(*modelRenderer);
+		this->Maps[0].draw(*modelRenderer, selectedIndex, false);
 
 		lightRenderer->shader.use();
 		glUniformMatrix4fv(glGetUniformLocation(lightRenderer->shader.ID, "view"), 1, GL_FALSE, &view[0][0]);
 		glUniformMatrix4fv(glGetUniformLocation(lightRenderer->shader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 		lightRenderer->shader.setVec3("lightColor", glm::vec3(1.0f));
-		lightCube->draw(*lightRenderer);
+		//lightCube->draw(*lightRenderer);
+		this->Maps[0].draw(*lightRenderer, selectedIndex, true);
 	}
 }
 
@@ -243,38 +244,8 @@ float Game::roll_dice()
 	srand(time(0));
 	int roll = rand() % 6;
 
-	if (roll == 0)
-	{
-		std::cout << "rolled " << 1 << std::endl;
-		return roll;
-	}
-	else if (roll == 1)
-	{
-		std::cout << "rolled " << 2 << std::endl;
-		return roll;
-
-	}
-	else if (roll == 2)
-	{
-		std::cout << "rolled " << 3 << std::endl;
-		return roll;
-	}
-	else if (roll == 3)
-	{
-		std::cout << "rolled " << 4 << std::endl;
-		return roll;
-
-	}
-	else if (roll == 4)
-	{
-		std::cout << "rolled " << 5 << std::endl;
-		return roll;
-	}
-	else if (roll == 5)
-	{
-		std::cout << "rolled " << 6 << std::endl;
-		return roll;
-	}
+	std::cout << "rolled " << roll + 1 << std::endl;
+	return roll;
 }
 
 void Game::colorPicking(float xpos, float ypos)

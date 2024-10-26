@@ -20,7 +20,7 @@ class Map
 
 		void save();
 		void load(AssetManager assetManager);
-		void draw(Renderer& renderer, int selectedIndex);
+		void draw(Renderer& renderer, int selectedIndex, bool isLight);
 		void draw_picking(Renderer& renderer);
 		void duplicate_model(int selectedIndex);
 		void remove_model(int selectedIndex);
