@@ -11,6 +11,8 @@ void AssetManager::load()
 	this->assetMap[2] = new Model((char*)"C:/Dev/assets/plane/plane.obj");
 	this->assetMap[3] = new Model((char*)"C:/Dev/assets/die.obj");
 	this->assetMap[4] = new Model((char*)"C:/Dev/assets/step_platform.obj");
+	this->assetMap[5] = new Model((char*)"C:/Dev/assets/ball.obj");
+	this->assetMap[6] = new Model((char*)"C:/Dev/assets/goal.obj");
 }
 
 Model* AssetManager::get_model(unsigned int id)
