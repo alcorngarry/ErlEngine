@@ -27,7 +27,7 @@ InputManager::InputManager(GLFWwindow* window) {
     this->firstMouse = true; // Initialize firstMouse
 }
 
-void InputManager::Update() {
+void InputManager::update() {
    // double xpos, ypos;
     glfwGetCursorPos(window, &xpos, &ypos);
    // xpos = static_cast<float>(xpos);
@@ -63,14 +63,17 @@ void InputManager::Update() {
     for (int key = 0; key < 1024; ++key) {
         int state = glfwGetKey(window, key);
         if (state == GLFW_PRESS) {
-            this->Keys[key] = true;
-            this->KeysProcessed[key] = false; // Reset processed state
+            if (!this->Keys[key]) { // Key was not previously pressed
+                this->Keys[key] = true;
+                this->KeysProcessed[key] = false; // Mark as not processed
+            }
         }
         else if (state == GLFW_RELEASE) {
             if (this->Keys[key]) {
                 this->KeysProcessed[key] = true; // Mark as processed
+                this->Keys[key] = false;
             }
-            this->Keys[key] = false;
+            
         }
     }
 

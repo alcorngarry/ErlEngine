@@ -74,11 +74,12 @@ void Map::load(AssetManager assetManager)
 
 void Map::draw(Renderer &renderer, bool isLight, float deltaTime)
 {
-	debugMenu.create_menu(this->entities, this->camera, deltaTime);
-
+	if (debugMenu.is_menu_open())
+	{
+		debugMenu.create_menu(this->entities, this->camera, deltaTime);
+	}
 	for (int i = 0; i < this->entities.size(); i++)
 	{
-		
 		if (this->entities.at(i).id == 1)
 		{
 			if (isLight)
@@ -111,22 +112,6 @@ void Map::process_input(InputManager& inputManager, float deltaTime)
 
 	float cameraSpeed = static_cast<float>(150 * deltaTime);
 
-	if (inputManager.MouseButtons[GLFW_MOUSE_BUTTON_LEFT])
-	{
-		//essentially the distance function squares the difference of each vertice(xyz) adds them up and returns the sqrroot.
-		//sqrt((objectcoord.x - objectpos.x) * *2 + (objectcoord.y - objectpos.y) * *2 + (objectcoord.z - objectpos.z)**2);
-		//std::cout << "object cooords:" << min.x << ", " << min.y << ", " << min.z << ", " << std::endl;
-
-		//color picking lol. Slow but not noticeable especially since it's used for map building.
-
-		debugMenu.select_object(this->entities, this->camera, inputManager.xpos, inputManager.ypos);
-	}
-
-	if (inputManager.MouseButtons[GLFW_MOUSE_BUTTON_RIGHT])
-	{
-		debugMenu.deselect_index();
-	}
-
 	if (inputManager.Keys[GLFW_KEY_W])
 	{
 		camera.setCameraPos(camera.getCameraPos() + cameraSpeed * camera.getCameraFront());
@@ -146,42 +131,67 @@ void Map::process_input(InputManager& inputManager, float deltaTime)
 		camera.setCameraPos(camera.getCameraPos() + glm::normalize(glm::cross(camera.getCameraFront(), camera.getCameraUp())) * cameraSpeed);
 	}
 
-	// move to menu mode eventually
-	if (debugMenu.get_selected_index() != -1)
+	if (inputManager.Keys[GLFW_KEY_M] && !inputManager.KeysProcessed[GLFW_KEY_M])
 	{
-		if (inputManager.Keys[GLFW_KEY_UP])
+		debugMenu.toggle_menu();
+		inputManager.KeysProcessed[GLFW_KEY_M] = true;
+	}
+
+	// move to menu mode eventually
+	if (debugMenu.is_menu_open())
+	{
+		if (inputManager.MouseButtons[GLFW_MOUSE_BUTTON_LEFT])
 		{
-			this->entities[debugMenu.get_selected_index()].Position.y += .03f;
+			//essentially the distance function squares the difference of each vertice(xyz) adds them up and returns the sqrroot.
+			//sqrt((objectcoord.x - objectpos.x) * *2 + (objectcoord.y - objectpos.y) * *2 + (objectcoord.z - objectpos.z)**2);
+			//std::cout << "object cooords:" << min.x << ", " << min.y << ", " << min.z << ", " << std::endl;
+
+			//color picking lol. Slow but not noticeable especially since it's used for map building.
+
+			debugMenu.select_object(this->entities, this->camera, inputManager.xpos, inputManager.ypos);
 		}
-		if (inputManager.Keys[GLFW_KEY_DOWN])
+
+		if (inputManager.MouseButtons[GLFW_MOUSE_BUTTON_RIGHT])
 		{
-			this->entities[debugMenu.get_selected_index()].Position.y -= .03f;
+			debugMenu.deselect_index();
 		}
-		if (inputManager.Keys[GLFW_KEY_LEFT])
+
+		if (debugMenu.get_selected_index() != -1)
 		{
-			this->entities[debugMenu.get_selected_index()].Position.x += .03f;
-		}
-		if (inputManager.Keys[GLFW_KEY_RIGHT])
-		{
-			this->entities[debugMenu.get_selected_index()].Position.x -= .03f;
-		}
-		if (inputManager.Keys[GLFW_KEY_J])
-		{
-			this->entities[debugMenu.get_selected_index()].Position.z += .03f;
-		}
-		if (inputManager.Keys[GLFW_KEY_K])
-		{
-			this->entities[debugMenu.get_selected_index()].Position.z -= .03f;
-		}
-		if (inputManager.Keys[GLFW_KEY_N] && !inputManager.KeysProcessed[GLFW_KEY_N])
-		{
-			this->duplicate_model(debugMenu.get_selected_index());
-			inputManager.KeysProcessed[GLFW_KEY_N] = true;
-		}
-		if (inputManager.Keys[GLFW_KEY_R] && !inputManager.KeysProcessed[GLFW_KEY_R])
-		{
-			this->remove_model(debugMenu.get_selected_index());
-			inputManager.KeysProcessed[GLFW_KEY_R] = true;
+			if (inputManager.Keys[GLFW_KEY_UP])
+			{
+				this->entities[debugMenu.get_selected_index()].Position.y += .03f;
+			}
+			if (inputManager.Keys[GLFW_KEY_DOWN])
+			{
+				this->entities[debugMenu.get_selected_index()].Position.y -= .03f;
+			}
+			if (inputManager.Keys[GLFW_KEY_LEFT])
+			{
+				this->entities[debugMenu.get_selected_index()].Position.x += .03f;
+			}
+			if (inputManager.Keys[GLFW_KEY_RIGHT])
+			{
+				this->entities[debugMenu.get_selected_index()].Position.x -= .03f;
+			}
+			if (inputManager.Keys[GLFW_KEY_J])
+			{
+				this->entities[debugMenu.get_selected_index()].Position.z += .03f;
+			}
+			if (inputManager.Keys[GLFW_KEY_K])
+			{
+				this->entities[debugMenu.get_selected_index()].Position.z -= .03f;
+			}
+			if (inputManager.Keys[GLFW_KEY_N] && !inputManager.KeysProcessed[GLFW_KEY_N])
+			{
+				this->duplicate_model(debugMenu.get_selected_index());
+				inputManager.KeysProcessed[GLFW_KEY_N] = true;
+			}
+			if (inputManager.Keys[GLFW_KEY_R] && !inputManager.KeysProcessed[GLFW_KEY_R])
+			{
+				this->remove_model(debugMenu.get_selected_index());
+				inputManager.KeysProcessed[GLFW_KEY_R] = true;
+			}
 		}
 	}
 }

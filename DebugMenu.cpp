@@ -150,3 +150,13 @@ void DebugMenu::deselect_index()
 {
 	selectedIndex = -1;
 }
+
+void DebugMenu::toggle_menu()
+{
+	isMenuOpen = !isMenuOpen;
+}
+
+bool DebugMenu::is_menu_open()
+{
+	return isMenuOpen;
+}

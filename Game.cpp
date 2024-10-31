@@ -61,7 +61,7 @@ void Game::init(GLFWwindow* window)
 
 void Game::update(float deltaTime)
 {
-	inputManager.Update();
+	inputManager.update();
 	//if (player1->inMotion)
 	//{	
 	//	player1->move_player(Maps[level].get_board_positions());

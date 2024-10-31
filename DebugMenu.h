@@ -24,10 +24,13 @@ class DebugMenu
 		void shut_down();
 		void deselect_index();
 		int get_selected_index();
+		void toggle_menu();
+		bool is_menu_open();
 	private:
 		GLFWwindow* window;
 		//Renderer* pickingRenderer;
 		int selectedIndex;
+		bool isMenuOpen = false;
 };
 
 

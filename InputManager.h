@@ -17,7 +17,7 @@ public:
     float yaw = -90.0f, pitch = 0.0f;
 
     // New method for updating input state
-    void Update();
+    void update();
 
 private:
     GLFWwindow* window;
