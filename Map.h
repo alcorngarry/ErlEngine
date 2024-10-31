@@ -10,27 +10,31 @@
 #include"GameObject.h"
 #include"Renderer.h"
 #include"AssetManager.h"
+#include"Camera.h"
+#include"InputManager.h"
+#include"DebugMenu.h"
 
 class Map 
 {
 	public:
-		std::vector<GameObject> entities;
+		Map(std::string mapName, DebugMenu debugMenu);
+		Map();
 
-		Map(std::string mapName);
+		std::vector<GameObject> entities;
+		Camera camera;
 
 		void save();
 		void load(AssetManager assetManager);
-		void draw(Renderer& renderer, int selectedIndex, bool isLight);
-		void draw_picking(Renderer& renderer);
+		void draw(Renderer& renderer, bool isLight, float deltaTime);
 		void duplicate_model(int selectedIndex);
 		void remove_model(int selectedIndex);
-
-		std::vector<glm::vec3> get_board_positions();
+		virtual void process_input(InputManager& inputManager, float deltaTime);
 	private:
-		std::vector<glm::vec3> mapAssets;
 		std::ofstream writeMap;
 		std::ifstream readMap;
 		std::string fileName;
+		GameObject ball;
+		DebugMenu debugMenu;
 };
 
 #endif // !MAP_H

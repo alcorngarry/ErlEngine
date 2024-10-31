@@ -164,16 +164,19 @@
     <ClCompile Include="..\..\third-party-dependencies\imgui\imgui_tables.cpp" />
     <ClCompile Include="..\..\third-party-dependencies\imgui\imgui_widgets.cpp" />
     <ClCompile Include="AssetManager.cpp" />
+    <ClCompile Include="BoardMap.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CharacterController.cpp" />
     <ClCompile Include="DebugMenu.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PongMap.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="stb_image.cpp" />
     <ClCompile Include="test_project.cpp">
@@ -190,7 +193,6 @@
     <None Include="picking.vert.glsl" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\dependency-source-downloads\json-3.11.3\json-3.11.3\single_include\nlohmann\json.hpp" />
     <ClInclude Include="..\..\third-party-dependencies\imgui\imconfig.h" />
     <ClInclude Include="..\..\third-party-dependencies\imgui\imgui.h" />
     <ClInclude Include="..\..\third-party-dependencies\imgui\imgui_impl_glfw.h" />
@@ -201,15 +203,18 @@
     <ClInclude Include="..\..\third-party-dependencies\imgui\imstb_textedit.h" />
     <ClInclude Include="..\..\third-party-dependencies\imgui\imstb_truetype.h" />
     <ClInclude Include="AssetManager.h" />
+    <ClInclude Include="BoardMap.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CharacterController.h" />
     <ClInclude Include="DebugMenu.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="InputManager.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PongMap.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stb_image.h" />

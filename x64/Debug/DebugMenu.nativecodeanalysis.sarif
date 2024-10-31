@@ -3,7 +3,422 @@
   "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
   "runs": [
     {
-      "results": [],
+      "results": [
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '+' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '+' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/third-party-dependencies/include/assimp/types.h"
+                },
+                "region": {
+                  "startLine": 361,
+                  "startColumn": 13,
+                  "endLine": 361,
+                  "endColumn": 22
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?Append@aiString@@QEAAXPEBD@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26451",
+          "message": {
+            "text": "Arithmetic overflow: Using operator '+' on a 4 byte value and then casting the result to a 8 byte value. Cast the value to the wider type before calling operator '+' to avoid overflow (io.2)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/third-party-dependencies/include/assimp/types.h"
+                },
+                "region": {
+                  "startLine": 365,
+                  "startColumn": 36,
+                  "endLine": 365,
+                  "endColumn": 42
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?Append@aiString@@QEAAXPEBD@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26812",
+          "message": {
+            "text": "The enum type 'aiMorphingMethod' is unscoped. Prefer 'enum class' over 'enum' (Enum.3)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/third-party-dependencies/include/assimp/mesh.h"
+                },
+                "region": {
+                  "startLine": 848,
+                  "startColumn": 22,
+                  "endLine": 848,
+                  "endColumn": 23
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "??0aiMesh@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26812",
+          "message": {
+            "text": "The enum type 'aiLightSourceType' is unscoped. Prefer 'enum class' over 'enum' (Enum.3)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/third-party-dependencies/include/assimp/light.h"
+                },
+                "region": {
+                  "startLine": 241,
+                  "startColumn": 35,
+                  "endLine": 241,
+                  "endColumn": 36
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "??0aiLight@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26812",
+          "message": {
+            "text": "The enum type 'aiPropertyTypeInfo' is unscoped. Prefer 'enum class' over 'enum' (Enum.3)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/third-party-dependencies/include/assimp/material.h"
+                },
+                "region": {
+                  "startLine": 664,
+                  "startColumn": 20,
+                  "endLine": 664,
+                  "endColumn": 21
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "??0aiMaterialProperty@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26812",
+          "message": {
+            "text": "The enum type 'aiReturn' is unscoped. Prefer 'enum class' over 'enum' (Enum.3)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/third-party-dependencies/include/assimp/material.h"
+                },
+                "region": {
+                  "startLine": 1542,
+                  "startColumn": 12,
+                  "endLine": 1542,
+                  "endColumn": 83
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "aiGetMaterialFloat",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26812",
+          "message": {
+            "text": "The enum type 'aiTextureType' is unscoped. Prefer 'enum class' over 'enum' (Enum.3)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/third-party-dependencies/include/assimp/material.inl"
+                },
+                "region": {
+                  "startLine": 65,
+                  "startColumn": 38,
+                  "endLine": 65,
+                  "endColumn": 38
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?GetTexture@aiMaterial@@QEBA?AW4aiReturn@@W4aiTextureType@@IPEAUaiString@@PEAW4aiTextureMapping@@PEAIPEAMPEAW4aiTextureOp@@PEAW4aiTextureMapMode@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26812",
+          "message": {
+            "text": "The enum type 'aiTextureMapping' is unscoped. Prefer 'enum class' over 'enum' (Enum.3)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/third-party-dependencies/include/assimp/material.inl"
+                },
+                "region": {
+                  "startLine": 65,
+                  "startColumn": 38,
+                  "endLine": 65,
+                  "endColumn": 38
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?GetTexture@aiMaterial@@QEBA?AW4aiReturn@@W4aiTextureType@@IPEAUaiString@@PEAW4aiTextureMapping@@PEAIPEAMPEAW4aiTextureOp@@PEAW4aiTextureMapMode@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26812",
+          "message": {
+            "text": "The enum type 'aiTextureOp' is unscoped. Prefer 'enum class' over 'enum' (Enum.3)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/third-party-dependencies/include/assimp/material.inl"
+                },
+                "region": {
+                  "startLine": 65,
+                  "startColumn": 38,
+                  "endLine": 65,
+                  "endColumn": 38
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?GetTexture@aiMaterial@@QEBA?AW4aiReturn@@W4aiTextureType@@IPEAUaiString@@PEAW4aiTextureMapping@@PEAIPEAMPEAW4aiTextureOp@@PEAW4aiTextureMapMode@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26812",
+          "message": {
+            "text": "The enum type 'aiTextureMapMode' is unscoped. Prefer 'enum class' over 'enum' (Enum.3)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/third-party-dependencies/include/assimp/material.inl"
+                },
+                "region": {
+                  "startLine": 65,
+                  "startColumn": 38,
+                  "endLine": 65,
+                  "endColumn": 38
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "?GetTexture@aiMaterial@@QEBA?AW4aiReturn@@W4aiTextureType@@IPEAUaiString@@PEAW4aiTextureMapping@@PEAIPEAMPEAW4aiTextureOp@@PEAW4aiTextureMapMode@@@Z",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26812",
+          "message": {
+            "text": "The enum type 'aiAnimBehaviour' is unscoped. Prefer 'enum class' over 'enum' (Enum.3)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/third-party-dependencies/include/assimp/anim.h"
+                },
+                "region": {
+                  "startLine": 329,
+                  "startColumn": 24,
+                  "endLine": 329,
+                  "endColumn": 25
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "??0aiNodeAnim@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26812",
+          "message": {
+            "text": "The enum type 'aiMetadataType' is unscoped. Prefer 'enum class' over 'enum' (Enum.3)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/third-party-dependencies/include/assimp/metadata.h"
+                },
+                "region": {
+                  "startLine": 97,
+                  "startColumn": 18,
+                  "endLine": 97,
+                  "endColumn": 19
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "??0aiMetadataEntry@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "Variable 'DebugMenu::pickingRenderer' is uninitialized. Always initialize a member variable (type.6)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/DebugMenu.cpp"
+                },
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 12,
+                  "endLine": 3,
+                  "endColumn": 12
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "??0DebugMenu@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "DebugMenu::pickingRenderer"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "Variable 'DebugMenu::selectedIndex' is uninitialized. Always initialize a member variable (type.6)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/DebugMenu.cpp"
+                },
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 12,
+                  "endLine": 3,
+                  "endColumn": 12
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "??0DebugMenu@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "DebugMenu::selectedIndex"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "Variable 'DebugMenu::window' is uninitialized. Always initialize a member variable (type.6)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/DebugMenu.cpp"
+                },
+                "region": {
+                  "startLine": 3,
+                  "startColumn": 12,
+                  "endLine": 3,
+                  "endColumn": 12
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "??0DebugMenu@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "DebugMenu::window"
+          }
+        }
+      ],
       "tool": {
         "driver": {
           "name": "PREfast",
@@ -14,33 +429,11 @@
       },
       "invocations": [
         {
-          "commandLine": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX86\\x64\\c1xx.dll\" -ACf{1F7B090C-16DB-4822-966A-A93D26ED4681} -ACpmspft140.dll -Alint -D_PREFAST_ -D_AST_FE_ -Analyze -zm0x0008C1B0 -il C:\\Users\\alcor\\AppData\\Local\\Temp\\_CL_95bfd3c5ast -typedil -f DebugMenu.cpp -Ze -D_MSC_EXTENSIONS -Zp16 -pc \\:/ -D_MSC_VER=1929 -D_MSC_FULL_VER=192930154 -D_MSC_BUILD=0 -D_M_AMD64=100 -ZILP448 -D_M_X64=100 -D_WIN64 -D_WIN32 -GR -D_CPPRTTI -I C:\\Dev\\third-party-dependencies\\imgui -nologo -W 3 -diagnostics:column -D_GUARDOVERFLOW_CRT_ALLOCATORS=1 -Ot -DCODE_ANALYSIS -D_DEBUG -D_CONSOLE -D_UNICODE -DUNICODE -EHs -D_CPPUNWIND -EHc -D__MSVC_RUNTIME_CHECKS -RTCs -RTCu -MDd -D_DEBUG -D_MT -D_DLL -GS -D_M_FP_PRECISE -permissive- -Zc:wchar_t -Zc:forScope -Fox64\\Debug\\DebugMenu.obj -Fdx64\\Debug\\vc142.pdb -external:W 3 -Gd -analyze:projectdirectory C:\\Dev\\opengl_code\\test_project -analyze:rulesetdirectory ;C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Team Tools\\Static Analysis Tools\\\\Rule Sets; -analyze:ruleset C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Team Tools\\Static Analysis Tools\\Rule Sets\\NativeRecommendedRules.ruleset -analyze:quiet -analyze:plugin C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX86\\x86\\EspXEngine.dll -FC -errorreport:prompt -I C:\\Dev\\third-party-dependencies\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\atlmfc\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\VS\\include -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\ucrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\um -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\shared -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\winrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\cppwinrt -I C:\\Program Files (x86)\\Windows Kits\\NETFXSDK\\4.8\\Include\\um -external:I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\include -external:I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\atlmfc\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\atlmfc\\include -external:I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\VS\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\VS\\include -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\ucrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\ucrt -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\um -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\um -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\shared -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\shared -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\winrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\winrt -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\cppwinrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\cppwinrt -external:I C:\\Program Files (x86)\\Windows Kits\\NETFXSDK\\4.8\\Include\\um -I C:\\Program Files (x86)\\Windows Kits\\NETFXSDK\\4.8\\Include\\um",
+          "commandLine": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX86\\x64\\c1xx.dll\" -ACf{1F7B090C-16DB-4822-966A-A93D26ED4681} -ACpmspft140.dll -Alint -D_PREFAST_ -D_AST_FE_ -Analyze -zm0x0049C1B0 -il C:\\Users\\alcor\\AppData\\Local\\Temp\\_CL_b2b6a1c9ast -typedil -f DebugMenu.cpp -Ze -D_MSC_EXTENSIONS -Zp16 -pc \\:/ -D_MSC_VER=1929 -D_MSC_FULL_VER=192930154 -D_MSC_BUILD=0 -D_M_AMD64=100 -ZILP448 -D_M_X64=100 -D_WIN64 -D_WIN32 -GR -D_CPPRTTI -I C:\\Dev\\third-party-dependencies\\imgui -nologo -W 3 -diagnostics:column -D_GUARDOVERFLOW_CRT_ALLOCATORS=1 -Ot -DCODE_ANALYSIS -D_DEBUG -D_CONSOLE -D_UNICODE -DUNICODE -EHs -D_CPPUNWIND -EHc -D__MSVC_RUNTIME_CHECKS -RTCs -RTCu -MDd -D_DEBUG -D_MT -D_DLL -GS -D_M_FP_PRECISE -permissive- -Zc:wchar_t -Zc:forScope -Fox64\\Debug\\DebugMenu.obj -Fdx64\\Debug\\vc142.pdb -external:W 3 -Gd -analyze:projectdirectory C:\\Dev\\opengl_code\\test_project -analyze:rulesetdirectory ;C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Team Tools\\Static Analysis Tools\\\\Rule Sets; -analyze:ruleset C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Team Tools\\Static Analysis Tools\\Rule Sets\\NativeRecommendedRules.ruleset -analyze:quiet -analyze:plugin C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX86\\x86\\EspXEngine.dll -FC -errorreport:prompt -I C:\\Dev\\third-party-dependencies\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\atlmfc\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\VS\\include -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\ucrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\um -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\shared -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\winrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\cppwinrt -I C:\\Program Files (x86)\\Windows Kits\\NETFXSDK\\4.8\\Include\\um -external:I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\include -external:I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\atlmfc\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\atlmfc\\include -external:I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\VS\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\VS\\include -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\ucrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\ucrt -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\um -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\um -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\shared -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\shared -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\winrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\winrt -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\cppwinrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\cppwinrt -external:I C:\\Program Files (x86)\\Windows Kits\\NETFXSDK\\4.8\\Include\\um -I C:\\Program Files (x86)\\Windows Kits\\NETFXSDK\\4.8\\Include\\um",
           "executionSuccessful": true
         }
       ],
       "artifacts": [
-        {
-          "location": {
-            "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
-          },
-          "roles": [
-            "resultFile"
-          ],
-          "hashes": {
-            "md5": "1ba27dbee7b548572085f1c0dccaab0d"
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///c:/dev/opengl_code/test_project/stb_image.cpp"
-          },
-          "roles": [
-            "analysisTarget"
-          ],
-          "hashes": {
-            "md5": "f44e873668f96beeffa127951363efdc"
-          }
-        },
         {
           "location": {
             "uri": "file:///C:/Dev/third-party-dependencies/include/assimp/types.h"
@@ -131,13 +524,14 @@
         },
         {
           "location": {
-            "uri": "file:///c:/dev/opengl_code/test_project/player.cpp"
+            "uri": "file:///C:/Dev/opengl_code/test_project/Player.cpp"
           },
           "roles": [
-            "analysisTarget"
+            "analysisTarget",
+            "resultFile"
           ],
           "hashes": {
-            "md5": "f1d088d984de88757934d49d50cc4c8b"
+            "md5": "27bb4864a41ca6778b0781edd14fd4a9"
           }
         },
         {
@@ -145,7 +539,7 @@
             "uri": "file:///c:/dev/opengl_code/test_project/player.h"
           },
           "hashes": {
-            "md5": "1cb16265b78d712f2e67cd9920d94d1f"
+            "md5": "cb774664526edf952a09b382693555f8"
           }
         },
         {
@@ -1318,6 +1712,30 @@
         },
         {
           "location": {
+            "uri": "file:///c:/dev/opengl_code/test_project/gameobject.h"
+          },
+          "hashes": {
+            "md5": "32685686c56f8babed86b2a0785bf5be"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/third-party-dependencies/include/glad/glad.h"
+          },
+          "hashes": {
+            "md5": "b9e16902d67e621091c6a375d0f5c997"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/third-party-dependencies/include/khr/khrplatform.h"
+          },
+          "hashes": {
+            "md5": "5825532bbe1f36a4bb04da1e823a847b"
+          }
+        },
+        {
+          "location": {
             "uri": "file:///c:/dev/third-party-dependencies/include/assimp/importer.hpp"
           },
           "hashes": {
@@ -1502,6 +1920,14 @@
         },
         {
           "location": {
+            "uri": "file:///c:/dev/opengl_code/test_project/stb_image.h"
+          },
+          "hashes": {
+            "md5": "1ba27dbee7b548572085f1c0dccaab0d"
+          }
+        },
+        {
+          "location": {
             "uri": "file:///c:/dev/opengl_code/test_project/mesh.h"
           },
           "roles": [
@@ -1521,18 +1947,10 @@
         },
         {
           "location": {
-            "uri": "file:///c:/dev/third-party-dependencies/include/glad/glad.h"
+            "uri": "file:///c:/dev/opengl_code/test_project/renderer.h"
           },
           "hashes": {
-            "md5": "b9e16902d67e621091c6a375d0f5c997"
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///c:/dev/third-party-dependencies/include/khr/khrplatform.h"
-          },
-          "hashes": {
-            "md5": "5825532bbe1f36a4bb04da1e823a847b"
+            "md5": "f701614fd7830286a85fcc0dfa1a38ba"
           }
         },
         {
@@ -1847,40 +2265,45 @@
         },
         {
           "location": {
-            "uri": "file:///c:/dev/opengl_code/test_project/gameobject.cpp"
+            "uri": "file:///c:/dev/opengl_code/test_project/map.cpp"
           },
           "roles": [
             "analysisTarget"
           ],
           "hashes": {
-            "md5": "2b3f81a86bdb063adc22da75d925d112"
+            "md5": "b54e49b7d945a25db62a3ae8a1cfcc92"
           }
         },
         {
           "location": {
-            "uri": "file:///c:/dev/opengl_code/test_project/gameobject.h"
+            "uri": "file:///c:/dev/opengl_code/test_project/map.h"
           },
           "hashes": {
-            "md5": "c7d5516236942df80834d683c182c822"
+            "md5": "a67447e82ccef5f179b3fdd7c353454d"
           }
         },
         {
           "location": {
-            "uri": "file:///c:/dev/opengl_code/test_project/renderer.h"
+            "uri": "file:///c:/dev/opengl_code/test_project/assetmanager.h"
           },
           "hashes": {
-            "md5": "15dec223248099f11e622efc481a15ec"
+            "md5": "ec4f8dd48141a9ceb331e72de95732c7"
           }
         },
         {
           "location": {
-            "uri": "file:///c:/dev/opengl_code/test_project/debugmenu.cpp"
+            "uri": "file:///c:/dev/opengl_code/test_project/camera.h"
           },
-          "roles": [
-            "analysisTarget"
-          ],
           "hashes": {
-            "md5": "5445f16e6489a6added3a8e0006cbafb"
+            "md5": "4e8b8b9bd264379a1433637b64b349be"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/opengl_code/test_project/inputmanager.h"
+          },
+          "hashes": {
+            "md5": "742abc7bcbe5b418be069eb512cf3a6b"
           }
         },
         {
@@ -1888,7 +2311,7 @@
             "uri": "file:///c:/dev/opengl_code/test_project/debugmenu.h"
           },
           "hashes": {
-            "md5": "ef4889ba4e74331bfb819bfbae5b2c61"
+            "md5": "27eb0587385e54697681d2f2c41be9c5"
           }
         },
         {
@@ -1925,18 +2348,85 @@
         },
         {
           "location": {
-            "uri": "file:///c:/dev/opengl_code/test_project/charactercontroller.h"
+            "uri": "file:///c:/dev/opengl_code/test_project/main.cpp"
           },
+          "roles": [
+            "analysisTarget"
+          ],
           "hashes": {
-            "md5": "94db5bd90c51d0ff1c0de9286a571caf"
+            "md5": "153263750ec26285da579f25c6897429"
           }
         },
         {
           "location": {
-            "uri": "file:///c:/dev/opengl_code/test_project/camera.h"
+            "uri": "file:///c:/dev/opengl_code/test_project/game.h"
           },
           "hashes": {
-            "md5": "4e8b8b9bd264379a1433637b64b349be"
+            "md5": "d55c2a45e82a5d86fd18b25f6c2b8a78"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/opengl_code/test_project/boardmap.h"
+          },
+          "hashes": {
+            "md5": "e71db0b05053c6dc152ff1f85e1a5622"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/opengl_code/test_project/pongmap.h"
+          },
+          "hashes": {
+            "md5": "504fcfe8493aef3905ba1beb5c24ae03"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/Dev/opengl_code/test_project/InputManager.cpp"
+          },
+          "roles": [
+            "analysisTarget",
+            "resultFile"
+          ],
+          "hashes": {
+            "md5": "5a47f3bf3912dc3335042b6d080da366"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/Dev/opengl_code/test_project/GameObject.cpp"
+          },
+          "roles": [
+            "analysisTarget",
+            "resultFile"
+          ],
+          "hashes": {
+            "md5": "baad92a0eab9ae71765d7caf3690d90c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/Dev/opengl_code/test_project/Game.cpp"
+          },
+          "roles": [
+            "analysisTarget",
+            "resultFile"
+          ],
+          "hashes": {
+            "md5": "e36330815906fc2504f12c25423de8cf"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/Dev/opengl_code/test_project/DebugMenu.cpp"
+          },
+          "roles": [
+            "analysisTarget",
+            "resultFile"
+          ],
+          "hashes": {
+            "md5": "0875dac5a8838e08af13bfbe6da3798f"
           }
         }
       ]

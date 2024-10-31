@@ -46,6 +46,11 @@ void Player::move_player(std::vector<glm::vec3> spaces)
 	}
 }
 
+unsigned int Player::get_board_position()
+{
+	return boardPosition;
+}
+
 void Player::start_move(float startTime, int moves)
 {
 	this->startTime = startTime;

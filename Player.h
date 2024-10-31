@@ -17,6 +17,7 @@ class Player : public GameObject {
 		Player(Model characterModel, glm::vec3 pos, glm::vec3 size);
 		void move_player(std::vector<glm::vec3> spaces);
 		void start_move(float startTime, int moves);
+		unsigned int get_board_position();
 	private:
 		Model model;
 		Shader shader;

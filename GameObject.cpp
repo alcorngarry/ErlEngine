@@ -5,6 +5,10 @@ GameObject::GameObject(unsigned int id, Model model, glm::vec3 pos, glm::vec3 si
 	this->id = id;
 }
 
+GameObject::GameObject()
+{
+}
+
 void GameObject::draw(Renderer& renderer)
 {
 	renderer.draw(this->GameModel, this->Position, this->Size);

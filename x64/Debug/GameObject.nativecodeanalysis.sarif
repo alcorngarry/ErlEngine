@@ -327,6 +327,186 @@
               ]
             }
           ]
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "Variable 'GameObject::Position' is uninitialized. Always initialize a member variable (type.6)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/GameObject.cpp"
+                },
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 13,
+                  "endLine": 8,
+                  "endColumn": 13
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "??0GameObject@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "GameObject::Position"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "Variable 'GameObject::Size' is uninitialized. Always initialize a member variable (type.6)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/GameObject.cpp"
+                },
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 13,
+                  "endLine": 8,
+                  "endColumn": 13
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "??0GameObject@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "GameObject::Size"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "Variable 'GameObject::id' is uninitialized. Always initialize a member variable (type.6)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/GameObject.cpp"
+                },
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 13,
+                  "endLine": 8,
+                  "endColumn": 13
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "??0GameObject@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "GameObject::id"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "Variable 'Model::gammaCorrection' is uninitialized. Always initialize a member variable (type.6)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/Model.h"
+                },
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 3,
+                  "endLine": 20,
+                  "endColumn": 3
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "??0Model@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "Model::gammaCorrection"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "Variable 'Model::minAABB' is uninitialized. Always initialize a member variable (type.6)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/Model.h"
+                },
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 3,
+                  "endLine": 20,
+                  "endColumn": 3
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "??0Model@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "Model::minAABB"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "Variable 'Model::maxAABB' is uninitialized. Always initialize a member variable (type.6)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Dev/opengl_code/test_project/Model.h"
+                },
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 3,
+                  "endLine": 20,
+                  "endColumn": 3
+                }
+              },
+              "logicalLocations": [
+                {
+                  "decoratedName": "??0Model@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "Model::maxAABB"
+          }
         }
       ],
       "tool": {
@@ -339,33 +519,11 @@
       },
       "invocations": [
         {
-          "commandLine": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX86\\x64\\c1xx.dll\" -ACf{1F7B090C-16DB-4822-966A-A93D26ED4681} -ACpmspft140.dll -Alint -D_PREFAST_ -D_AST_FE_ -Analyze -zm0x0008C1B0 -il C:\\Users\\alcor\\AppData\\Local\\Temp\\_CL_10f46ee9ast -typedil -f GameObject.cpp -Ze -D_MSC_EXTENSIONS -Zp16 -pc \\:/ -D_MSC_VER=1929 -D_MSC_FULL_VER=192930154 -D_MSC_BUILD=0 -D_M_AMD64=100 -ZILP448 -D_M_X64=100 -D_WIN64 -D_WIN32 -GR -D_CPPRTTI -I C:\\Dev\\third-party-dependencies\\imgui -nologo -W 3 -diagnostics:column -D_GUARDOVERFLOW_CRT_ALLOCATORS=1 -Ot -DCODE_ANALYSIS -D_DEBUG -D_CONSOLE -D_UNICODE -DUNICODE -EHs -D_CPPUNWIND -EHc -D__MSVC_RUNTIME_CHECKS -RTCs -RTCu -MDd -D_DEBUG -D_MT -D_DLL -GS -D_M_FP_PRECISE -permissive- -Zc:wchar_t -Zc:forScope -Fox64\\Debug\\GameObject.obj -Fdx64\\Debug\\vc142.pdb -external:W 3 -Gd -analyze:projectdirectory C:\\Dev\\opengl_code\\test_project -analyze:rulesetdirectory ;C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Team Tools\\Static Analysis Tools\\\\Rule Sets; -analyze:ruleset C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Team Tools\\Static Analysis Tools\\Rule Sets\\NativeRecommendedRules.ruleset -analyze:quiet -analyze:plugin C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX86\\x86\\EspXEngine.dll -FC -errorreport:prompt -I C:\\Dev\\third-party-dependencies\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\atlmfc\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\VS\\include -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\ucrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\um -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\shared -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\winrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\cppwinrt -I C:\\Program Files (x86)\\Windows Kits\\NETFXSDK\\4.8\\Include\\um -external:I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\include -external:I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\atlmfc\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\atlmfc\\include -external:I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\VS\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\VS\\include -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\ucrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\ucrt -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\um -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\um -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\shared -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\shared -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\winrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\winrt -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\cppwinrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\cppwinrt -external:I C:\\Program Files (x86)\\Windows Kits\\NETFXSDK\\4.8\\Include\\um -I C:\\Program Files (x86)\\Windows Kits\\NETFXSDK\\4.8\\Include\\um",
+          "commandLine": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX86\\x64\\c1xx.dll\" -ACf{1F7B090C-16DB-4822-966A-A93D26ED4681} -ACpmspft140.dll -Alint -D_PREFAST_ -D_AST_FE_ -Analyze -zm0x0049C1B0 -il C:\\Users\\alcor\\AppData\\Local\\Temp\\_CL_906e3fd2ast -typedil -f GameObject.cpp -Ze -D_MSC_EXTENSIONS -Zp16 -pc \\:/ -D_MSC_VER=1929 -D_MSC_FULL_VER=192930154 -D_MSC_BUILD=0 -D_M_AMD64=100 -ZILP448 -D_M_X64=100 -D_WIN64 -D_WIN32 -GR -D_CPPRTTI -I C:\\Dev\\third-party-dependencies\\imgui -nologo -W 3 -diagnostics:column -D_GUARDOVERFLOW_CRT_ALLOCATORS=1 -Ot -DCODE_ANALYSIS -D_DEBUG -D_CONSOLE -D_UNICODE -DUNICODE -EHs -D_CPPUNWIND -EHc -D__MSVC_RUNTIME_CHECKS -RTCs -RTCu -MDd -D_DEBUG -D_MT -D_DLL -GS -D_M_FP_PRECISE -permissive- -Zc:wchar_t -Zc:forScope -Fox64\\Debug\\GameObject.obj -Fdx64\\Debug\\vc142.pdb -external:W 3 -Gd -analyze:projectdirectory C:\\Dev\\opengl_code\\test_project -analyze:rulesetdirectory ;C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Team Tools\\Static Analysis Tools\\\\Rule Sets; -analyze:ruleset C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\Team Tools\\Static Analysis Tools\\Rule Sets\\NativeRecommendedRules.ruleset -analyze:quiet -analyze:plugin C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX86\\x86\\EspXEngine.dll -FC -errorreport:prompt -I C:\\Dev\\third-party-dependencies\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\atlmfc\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\VS\\include -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\ucrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\um -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\shared -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\winrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\cppwinrt -I C:\\Program Files (x86)\\Windows Kits\\NETFXSDK\\4.8\\Include\\um -external:I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\include -external:I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\atlmfc\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\atlmfc\\include -external:I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\VS\\include -I C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\VS\\include -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\ucrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\ucrt -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\um -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\um -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\shared -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\shared -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\winrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\winrt -external:I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\cppwinrt -I C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\cppwinrt -external:I C:\\Program Files (x86)\\Windows Kits\\NETFXSDK\\4.8\\Include\\um -I C:\\Program Files (x86)\\Windows Kits\\NETFXSDK\\4.8\\Include\\um",
           "executionSuccessful": true
         }
       ],
       "artifacts": [
-        {
-          "location": {
-            "uri": "file:///C:/Dev/opengl_code/test_project/stb_image.h"
-          },
-          "roles": [
-            "resultFile"
-          ],
-          "hashes": {
-            "md5": "1ba27dbee7b548572085f1c0dccaab0d"
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///c:/dev/opengl_code/test_project/stb_image.cpp"
-          },
-          "roles": [
-            "analysisTarget"
-          ],
-          "hashes": {
-            "md5": "f44e873668f96beeffa127951363efdc"
-          }
-        },
         {
           "location": {
             "uri": "file:///C:/Dev/third-party-dependencies/include/assimp/types.h"
@@ -456,13 +614,14 @@
         },
         {
           "location": {
-            "uri": "file:///c:/dev/opengl_code/test_project/player.cpp"
+            "uri": "file:///C:/Dev/opengl_code/test_project/Player.cpp"
           },
           "roles": [
-            "analysisTarget"
+            "analysisTarget",
+            "resultFile"
           ],
           "hashes": {
-            "md5": "f1d088d984de88757934d49d50cc4c8b"
+            "md5": "27bb4864a41ca6778b0781edd14fd4a9"
           }
         },
         {
@@ -470,7 +629,7 @@
             "uri": "file:///c:/dev/opengl_code/test_project/player.h"
           },
           "hashes": {
-            "md5": "1cb16265b78d712f2e67cd9920d94d1f"
+            "md5": "cb774664526edf952a09b382693555f8"
           }
         },
         {
@@ -1643,6 +1802,30 @@
         },
         {
           "location": {
+            "uri": "file:///c:/dev/opengl_code/test_project/gameobject.h"
+          },
+          "hashes": {
+            "md5": "32685686c56f8babed86b2a0785bf5be"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/third-party-dependencies/include/glad/glad.h"
+          },
+          "hashes": {
+            "md5": "b9e16902d67e621091c6a375d0f5c997"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/third-party-dependencies/include/khr/khrplatform.h"
+          },
+          "hashes": {
+            "md5": "5825532bbe1f36a4bb04da1e823a847b"
+          }
+        },
+        {
+          "location": {
             "uri": "file:///c:/dev/third-party-dependencies/include/assimp/importer.hpp"
           },
           "hashes": {
@@ -1827,6 +2010,14 @@
         },
         {
           "location": {
+            "uri": "file:///c:/dev/opengl_code/test_project/stb_image.h"
+          },
+          "hashes": {
+            "md5": "1ba27dbee7b548572085f1c0dccaab0d"
+          }
+        },
+        {
+          "location": {
             "uri": "file:///c:/dev/opengl_code/test_project/mesh.h"
           },
           "roles": [
@@ -1846,18 +2037,10 @@
         },
         {
           "location": {
-            "uri": "file:///c:/dev/third-party-dependencies/include/glad/glad.h"
+            "uri": "file:///c:/dev/opengl_code/test_project/renderer.h"
           },
           "hashes": {
-            "md5": "b9e16902d67e621091c6a375d0f5c997"
-          }
-        },
-        {
-          "location": {
-            "uri": "file:///c:/dev/third-party-dependencies/include/khr/khrplatform.h"
-          },
-          "hashes": {
-            "md5": "5825532bbe1f36a4bb04da1e823a847b"
+            "md5": "f701614fd7830286a85fcc0dfa1a38ba"
           }
         },
         {
@@ -2172,29 +2355,144 @@
         },
         {
           "location": {
-            "uri": "file:///c:/dev/opengl_code/test_project/gameobject.cpp"
+            "uri": "file:///c:/dev/opengl_code/test_project/map.cpp"
           },
           "roles": [
             "analysisTarget"
           ],
           "hashes": {
-            "md5": "2b3f81a86bdb063adc22da75d925d112"
+            "md5": "b54e49b7d945a25db62a3ae8a1cfcc92"
           }
         },
         {
           "location": {
-            "uri": "file:///c:/dev/opengl_code/test_project/gameobject.h"
+            "uri": "file:///c:/dev/opengl_code/test_project/map.h"
           },
           "hashes": {
-            "md5": "c7d5516236942df80834d683c182c822"
+            "md5": "a67447e82ccef5f179b3fdd7c353454d"
           }
         },
         {
           "location": {
-            "uri": "file:///c:/dev/opengl_code/test_project/renderer.h"
+            "uri": "file:///c:/dev/opengl_code/test_project/assetmanager.h"
           },
           "hashes": {
-            "md5": "15dec223248099f11e622efc481a15ec"
+            "md5": "ec4f8dd48141a9ceb331e72de95732c7"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/opengl_code/test_project/camera.h"
+          },
+          "hashes": {
+            "md5": "4e8b8b9bd264379a1433637b64b349be"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/opengl_code/test_project/inputmanager.h"
+          },
+          "hashes": {
+            "md5": "742abc7bcbe5b418be069eb512cf3a6b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/opengl_code/test_project/debugmenu.h"
+          },
+          "hashes": {
+            "md5": "27eb0587385e54697681d2f2c41be9c5"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/third-party-dependencies/imgui/imgui.h"
+          },
+          "hashes": {
+            "md5": "3f5e3245b9f7d58355aaa51a13dfb692"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/third-party-dependencies/imgui/imconfig.h"
+          },
+          "hashes": {
+            "md5": "60d1f6fcb3f0d655f28d3ed9e8cf8267"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/third-party-dependencies/imgui/imgui_impl_glfw.h"
+          },
+          "hashes": {
+            "md5": "ffe5be2aca4b99e57cd0fc0fa2259e69"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/third-party-dependencies/imgui/imgui_impl_opengl3.h"
+          },
+          "hashes": {
+            "md5": "40afe05fab7464f1e09516e7b1024a3c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/opengl_code/test_project/main.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "md5": "153263750ec26285da579f25c6897429"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/opengl_code/test_project/game.h"
+          },
+          "hashes": {
+            "md5": "d55c2a45e82a5d86fd18b25f6c2b8a78"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/opengl_code/test_project/boardmap.h"
+          },
+          "hashes": {
+            "md5": "e71db0b05053c6dc152ff1f85e1a5622"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/dev/opengl_code/test_project/pongmap.h"
+          },
+          "hashes": {
+            "md5": "504fcfe8493aef3905ba1beb5c24ae03"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/Dev/opengl_code/test_project/InputManager.cpp"
+          },
+          "roles": [
+            "analysisTarget",
+            "resultFile"
+          ],
+          "hashes": {
+            "md5": "5a47f3bf3912dc3335042b6d080da366"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///C:/Dev/opengl_code/test_project/GameObject.cpp"
+          },
+          "roles": [
+            "analysisTarget",
+            "resultFile"
+          ],
+          "hashes": {
+            "md5": "baad92a0eab9ae71765d7caf3690d90c"
           }
         }
       ]
