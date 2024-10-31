@@ -22,6 +22,7 @@ void Map::save()
 	writeMap.close();
 }
 
+
 void Map::load(AssetManager assetManager)
 {
 	readMap.open(fileName + ".txt");
@@ -70,9 +71,20 @@ void Map::load(AssetManager assetManager)
 		}
 	} 
 	readMap.close();
+
+	load_players(assetManager);
 }
 
-void Map::draw(Renderer &renderer, bool isLight, float deltaTime)
+void Map::load_players(AssetManager assetManager)
+{
+	player1 = new Player(*assetManager.get_model(0), glm::vec3(0.0f) * 5.0f + glm::vec3(0, 3, 0), glm::vec3(2.0f));
+	player2 = new Player(*assetManager.get_model(0), glm::vec3(0.0f) * 5.0f + glm::vec3(0, 3, 0), glm::vec3(2.0f));
+	player3 = new Player(*assetManager.get_model(0), glm::vec3(0.0f) * 5.0f + glm::vec3(0, 3, 0), glm::vec3(2.0f));
+	player4 = new Player(*assetManager.get_model(0), glm::vec3(0.0f) * 5.0f + glm::vec3(0, 3, 0), glm::vec3(2.0f));
+}
+
+
+void Map::draw(Renderer& renderer, bool isLight, float deltaTime)
 {
 	if (debugMenu.is_menu_open())
 	{
@@ -92,6 +104,11 @@ void Map::draw(Renderer &renderer, bool isLight, float deltaTime)
 			this->entities.at(i).draw(renderer);
 		}
 	}
+
+	if (!isLight)
+	{
+		player1->draw(renderer);
+	}
 }
 
 void Map::duplicate_model(int selectedIndex)
@@ -104,35 +121,20 @@ void Map::remove_model(int selectedIndex)
 	this->entities.erase(this->entities.begin() + selectedIndex);
 }
 
+void Map::update()
+{
+}
+
 void Map::process_input(InputManager& inputManager, float deltaTime)
 {
-	//create debug menu
+	menu_input(inputManager, deltaTime);
+}
 
-	camera.setCameraFront(glm::normalize(glm::vec3(cos(glm::radians(inputManager.yaw)) * cos(glm::radians(inputManager.pitch)), sin(glm::radians(inputManager.pitch)), sin(glm::radians(inputManager.yaw)) * cos(glm::radians(inputManager.pitch)))));
-
-	float cameraSpeed = static_cast<float>(150 * deltaTime);
-
-	if (inputManager.Keys[GLFW_KEY_W])
-	{
-		camera.setCameraPos(camera.getCameraPos() + cameraSpeed * camera.getCameraFront());
-	}
-	if (inputManager.Keys[GLFW_KEY_A])
-	{
-		camera.setCameraPos(camera.getCameraPos() - glm::normalize(glm::cross(camera.getCameraFront(), camera.getCameraUp())) * cameraSpeed);
-
-	}
-	if (inputManager.Keys[GLFW_KEY_S])
-	{
-		camera.setCameraPos(camera.getCameraPos() - cameraSpeed * camera.getCameraFront());
-
-	}
-	if (inputManager.Keys[GLFW_KEY_D])
-	{
-		camera.setCameraPos(camera.getCameraPos() + glm::normalize(glm::cross(camera.getCameraFront(), camera.getCameraUp())) * cameraSpeed);
-	}
-
+void Map::menu_input(InputManager& inputManager, float deltaTime)
+{
 	if (inputManager.Keys[GLFW_KEY_M] && !inputManager.KeysProcessed[GLFW_KEY_M])
 	{
+		//create debug menu
 		debugMenu.toggle_menu();
 		inputManager.KeysProcessed[GLFW_KEY_M] = true;
 	}
@@ -140,6 +142,29 @@ void Map::process_input(InputManager& inputManager, float deltaTime)
 	// move to menu mode eventually
 	if (debugMenu.is_menu_open())
 	{
+		camera.setCameraFront(glm::normalize(glm::vec3(cos(glm::radians(inputManager.yaw)) * cos(glm::radians(inputManager.pitch)), sin(glm::radians(inputManager.pitch)), sin(glm::radians(inputManager.yaw)) * cos(glm::radians(inputManager.pitch)))));
+
+		float cameraSpeed = static_cast<float>(150 * deltaTime);
+
+		if (inputManager.Keys[GLFW_KEY_W])
+		{
+			camera.setCameraPos(camera.getCameraPos() + cameraSpeed * camera.getCameraFront());
+		}
+		if (inputManager.Keys[GLFW_KEY_A])
+		{
+			camera.setCameraPos(camera.getCameraPos() - glm::normalize(glm::cross(camera.getCameraFront(), camera.getCameraUp())) * cameraSpeed);
+
+		}
+		if (inputManager.Keys[GLFW_KEY_S])
+		{
+			camera.setCameraPos(camera.getCameraPos() - cameraSpeed * camera.getCameraFront());
+
+		}
+		if (inputManager.Keys[GLFW_KEY_D])
+		{
+			camera.setCameraPos(camera.getCameraPos() + glm::normalize(glm::cross(camera.getCameraFront(), camera.getCameraUp())) * cameraSpeed);
+		}
+
 		if (inputManager.MouseButtons[GLFW_MOUSE_BUTTON_LEFT])
 		{
 			//essentially the distance function squares the difference of each vertice(xyz) adds them up and returns the sqrroot.

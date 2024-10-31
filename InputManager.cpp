@@ -1,7 +1,6 @@
 #pragma once
 #include"InputManager.h"
 
-
 bool InputManager::Keys[1024] = { false };
 bool InputManager::KeysProcessed[1024] = { false };
 bool InputManager::MouseButtons[7] = { false };
@@ -15,7 +14,6 @@ InputManager::InputManager()
     lastY(0.0f),
     yaw(-90.0f),
     pitch(0.0f) {
-    // Optionally initialize other members as needed
 }
 
 InputManager::InputManager(GLFWwindow* window) {
@@ -24,14 +22,11 @@ InputManager::InputManager(GLFWwindow* window) {
     this->window = window;
     this->lastX = 1024 / 2.0f;
     this->lastY = 768 / 2.0f;
-    this->firstMouse = true; // Initialize firstMouse
+    this->firstMouse = true; 
 }
 
 void InputManager::update() {
-   // double xpos, ypos;
     glfwGetCursorPos(window, &xpos, &ypos);
-   // xpos = static_cast<float>(xpos);
-   // ypos = static_cast<float>(ypos);
 
     if (firstMouse) {
         this->lastX = xpos;

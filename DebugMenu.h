@@ -10,6 +10,7 @@
 #include"GameObject.h"
 #include"Camera.h"
 #include"Renderer.h"
+#include"InputManager.h"
 
 class DebugMenu
 {

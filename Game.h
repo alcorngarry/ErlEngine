@@ -25,7 +25,7 @@ class Game {
 	public:
 		unsigned int level;
 		
-		std::vector<Map> Maps;
+		std::vector<Map*> Maps;
 		GameState State;
 
 		Game(GLFWwindow* window);

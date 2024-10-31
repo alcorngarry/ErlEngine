@@ -76,7 +76,7 @@ int main(int argc, char* argv[])
 
 	for (int i = 0; i < partyGame.Maps.size(); i++)
 	{
-		partyGame.Maps[i].save();
+		partyGame.Maps[i]->save();
 	}
 	
 	glfwDestroyWindow(window);
