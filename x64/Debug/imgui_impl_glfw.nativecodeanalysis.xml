@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Dev\third-party-dependencies\imgui\</FILEPATH>
+      <FILENAME>imgui_impl_glfw.cpp</FILENAME>
+      <LINE>305</LINE>
+      <COLUMN>27</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>The enum type 'ImGuiKey' is unscoped. Prefer 'enum class' over 'enum' (Enum.3).</DESCRIPTION>
+    <FUNCTION>ImGui_ImplGlfw_KeyToImGuiKey</FUNCTION>
+    <DECORATED>?ImGui_ImplGlfw_KeyToImGuiKey@@YA?AW4ImGuiKey@@H@Z</DECORATED>
+    <FUNCLINE>185</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Dev\third-party-dependencies\imgui\</FILEPATH>
+      <FILENAME>imgui_impl_glfw.cpp</FILENAME>
+      <LINE>490</LINE>
+      <COLUMN>8</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>The enum type 'ImGuiMouseSource' is unscoped. Prefer 'enum class' over 'enum' (Enum.3).</DESCRIPTION>
+    <FUNCTION>GetMouseSourceFromMessageExtraInfo</FUNCTION>
+    <DECORATED>?GetMouseSourceFromMessageExtraInfo@@YA?AW4ImGuiMouseSource@@XZ</DECORATED>
+    <FUNCLINE>486</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Dev\third-party-dependencies\imgui\</FILEPATH>
+      <FILENAME>imgui_impl_glfw.cpp</FILENAME>
+      <LINE>568</LINE>
+      <COLUMN>12</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>The enum type 'GlfwClientApi' is unscoped. Prefer 'enum class' over 'enum' (Enum.3).</DESCRIPTION>
+    <FUNCTION>ImGui_ImplGlfw_Init</FUNCTION>
+    <DECORATED>?ImGui_ImplGlfw_Init@@YA_NPEAUGLFWwindow@@_NW4GlfwClientApi@@@Z</DECORATED>
+    <FUNCLINE>568</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>

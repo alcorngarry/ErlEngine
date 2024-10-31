@@ -22,9 +22,8 @@ void Map::save()
 	writeMap.close();
 }
 
-void Map::load(AssetManager assetManager, InputManager inputManager)
+void Map::load(AssetManager assetManager)
 {
-	this->inputManager = inputManager;
 	readMap.open(fileName + ".txt");
 	std::string line;
 	float x, y, z;
@@ -73,7 +72,7 @@ void Map::load(AssetManager assetManager, InputManager inputManager)
 	readMap.close();
 }
 
-void Map::draw(Renderer &renderer, int selectedIndex, bool isLight, float deltaTime)
+void Map::draw(Renderer &renderer, bool isLight, float deltaTime)
 {
 	debugMenu.create_menu(this->entities, this->camera, deltaTime);
 
@@ -88,7 +87,7 @@ void Map::draw(Renderer &renderer, int selectedIndex, bool isLight, float deltaT
 			}
 		}
 		else {
-			renderer.shader.setBool("selected", i == selectedIndex);
+			renderer.shader.setBool("selected", i == debugMenu.get_selected_index());
 			this->entities.at(i).draw(renderer);
 		}
 	}
@@ -104,7 +103,7 @@ void Map::remove_model(int selectedIndex)
 	this->entities.erase(this->entities.begin() + selectedIndex);
 }
 
-void Map::process_input(float deltaTime)
+void Map::process_input(InputManager& inputManager, float deltaTime)
 {
 	//create debug menu
 

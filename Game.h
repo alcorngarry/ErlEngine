@@ -27,7 +27,6 @@ class Game {
 		
 		std::vector<Map> Maps;
 		GameState State;
-		InputManager inputManager;
 
 		Game(GLFWwindow* window);
 		~Game();
@@ -36,6 +35,8 @@ class Game {
 		void process_input(float deltaTime);
 		void update(float deltaTime);
 		void render(float deltaTime);
+	private:
+		InputManager inputManager;
 };
 
 #endif // !GAME_H

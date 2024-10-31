@@ -19,16 +19,15 @@ class DebugMenu
 
 		~DebugMenu();
 	
-		void select_object(std::vector<GameObject> entities, Camera camera, float xpos, float ypos);
+		void select_object(std::vector<GameObject>& entities, Camera camera, float xpos, float ypos);
 		void create_menu(std::vector<GameObject> entities, Camera camera, float deltaTime);
 		void shut_down();
 		void deselect_index();
 		int get_selected_index();
 	private:
 		GLFWwindow* window;
-		Renderer* pickingRenderer;
+		//Renderer* pickingRenderer;
 		int selectedIndex;
-		void draw_picking(Renderer& renderer, std::vector<GameObject> entities);
 };
 
 

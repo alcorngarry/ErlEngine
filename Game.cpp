@@ -18,7 +18,7 @@ int selectedIndex = -1;
 
 Game::Game(GLFWwindow* window) : State(GAME_ACTIVE)
 {
-	this->inputManager = InputManager(window);
+	inputManager = InputManager(window);
 }
 
 Game::~Game()
@@ -49,7 +49,7 @@ void Game::init(GLFWwindow* window)
 	this->Maps.push_back(PongMap("test_map_2", debugMenu));
 	this->level = 1;
 
-	Maps[level].load(assetManager, this->inputManager);
+	Maps[level].load(assetManager);
 
 	debugMenu = DebugMenu(gameWindow);
 
@@ -61,7 +61,7 @@ void Game::init(GLFWwindow* window)
 
 void Game::update(float deltaTime)
 {
-	
+	inputManager.Update();
 	//if (player1->inMotion)
 	//{	
 	//	player1->move_player(Maps[level].get_board_positions());
@@ -99,12 +99,10 @@ void Game::update(float deltaTime)
 
 void Game::process_input(float deltaTime)
 {
-	this->Maps[level].process_input(deltaTime);
+	Maps[level].process_input(inputManager, deltaTime);
 
 	if (this->State == GAME_ACTIVE || this->State == DEBUG_MENU)
 	{
-		this->Maps[level].process_input(deltaTime);
-
 		if (inputManager.Keys[GLFW_KEY_M] && !inputManager.KeysProcessed[GLFW_KEY_M])
 		{
 			if (this->State == DEBUG_MENU)
@@ -139,7 +137,7 @@ void Game::render(float deltaTime)
 {
 	/*if (this->State == GAME_ACTIVE)
 	{	*/
-		glm::mat4 view = glm::lookAt(this->Maps[level].camera.getCameraPos(), this->Maps[level].camera.getCameraPos() + this->Maps[level].camera.getCameraFront(), this->Maps[level].camera.getCameraUp());
+		glm::mat4 view = glm::lookAt(Maps[level].camera.getCameraPos(), Maps[level].camera.getCameraPos() + Maps[level].camera.getCameraFront(), Maps[level].camera.getCameraUp());
 		glm::mat4 projection = glm::mat4(1.0f);
 		projection = glm::perspective(glm::radians(45.0f), 1024.0f / 768.0f, 0.1f, 10000.0f);
 		
@@ -147,23 +145,23 @@ void Game::render(float deltaTime)
 		glUniformMatrix4fv(glGetUniformLocation(modelRenderer->shader.ID, "view"), 1, GL_FALSE, &view[0][0]);
 		glUniformMatrix4fv(glGetUniformLocation(modelRenderer->shader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
-		modelRenderer->shader.setVec3("viewPos", this->Maps[level].camera.getCameraPos());
+		modelRenderer->shader.setVec3("viewPos", Maps[level].camera.getCameraPos());
 		modelRenderer->shader.setBool("selected", false);
 		modelRenderer->shader.setVec3("lightPos", glm::vec3(5.0f, 0.0f, 0.0f));
 		modelRenderer->shader.setVec3("lightColor", glm::vec3(1.0f));
 		
-		player1->draw(*modelRenderer);
+		/*player1->draw(*modelRenderer);
 		player2->draw(*modelRenderer);
 		player3->draw(*modelRenderer);
-		player4->draw(*modelRenderer);
+		player4->draw(*modelRenderer);*/
 
-		this->Maps[level].draw(*modelRenderer, selectedIndex, false, deltaTime);
+		Maps[level].draw(*modelRenderer, false, deltaTime);
 
 		lightRenderer->shader.use();
 		glUniformMatrix4fv(glGetUniformLocation(lightRenderer->shader.ID, "view"), 1, GL_FALSE, &view[0][0]);
 		glUniformMatrix4fv(glGetUniformLocation(lightRenderer->shader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 		lightRenderer->shader.setVec3("lightColor", glm::vec3(1.0f));
-		this->Maps[level].draw(*lightRenderer, selectedIndex, true, deltaTime);
+		Maps[level].draw(*lightRenderer, true, deltaTime);
 
 		/*if (this->State == DEBUG_MENU)
 		{

@@ -11,7 +11,7 @@ public:
     static bool KeysProcessed[1024];
     static bool MouseButtons[7];
 
-    float xpos, ypos;
+    double xpos, ypos;
     bool firstMouse = true;
     float lastX, lastY;
     float yaw = -90.0f, pitch = 0.0f;

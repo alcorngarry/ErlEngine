@@ -8,8 +8,6 @@ DebugMenu::DebugMenu()
 DebugMenu::DebugMenu(GLFWwindow* glfwWindow)
 {
 	window = glfwWindow;
-	Shader pickingShaderProgram("picking.vert.glsl", "picking.frag.glsl");
-	pickingRenderer = new Renderer(pickingShaderProgram);
 	selectedIndex = -1;
 
 	IMGUI_CHECKVERSION();
@@ -23,7 +21,7 @@ DebugMenu::DebugMenu(GLFWwindow* glfwWindow)
 
 DebugMenu::~DebugMenu()
 {
-	delete pickingRenderer;
+	//delete pickingRenderer;
 }
 
 void DebugMenu::create_menu(std::vector<GameObject> entities, Camera camera, float deltaTime)
@@ -85,8 +83,12 @@ void DebugMenu::shut_down()
 	ImGui::DestroyContext();
 }
 
-void DebugMenu::select_object(std::vector<GameObject> entities, Camera camera, float xpos, float ypos)
+void DebugMenu::select_object(std::vector<GameObject>& entities, Camera camera, float xpos, float ypos)
 {
+
+	Shader pickingShaderProgram("picking.vert.glsl", "picking.frag.glsl");
+	Renderer pickingRenderer = Renderer(pickingShaderProgram);
+
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -96,11 +98,21 @@ void DebugMenu::select_object(std::vector<GameObject> entities, Camera camera, f
 	glm::mat4 projection = glm::mat4(1.0f);
 	projection = glm::perspective(glm::radians(45.0f), 1024.0f / 768.0f, 0.1f, 10000.0f);
 	//
-	pickingRenderer->shader.use();
+	pickingRenderer.shader.use();
 	glEnableVertexAttribArray(0);
-	glUniformMatrix4fv(glGetUniformLocation(pickingRenderer->shader.ID, "view"), 1, GL_FALSE, &view[0][0]);
-	glUniformMatrix4fv(glGetUniformLocation(pickingRenderer->shader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
-	draw_picking(*pickingRenderer, entities);
+	glUniformMatrix4fv(glGetUniformLocation(pickingRenderer.shader.ID, "view"), 1, GL_FALSE, &view[0][0]);
+	glUniformMatrix4fv(glGetUniformLocation(pickingRenderer.shader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+	
+	for (int i = 0; i < entities.size(); i++)
+	{
+		int r = (i & 0x000000FF) >> 0;
+		int g = (i & 0x0000FF00) >> 8;
+		int b = (i & 0x00FF0000) >> 16;
+
+		pickingRenderer.shader.setVec4("PickingColor", glm::vec4((float)r / 255.0, (float)g / 255.0, (float)b / 255.0, 1.0f));
+		entities.at(i).draw(pickingRenderer);
+		glGetError();
+	}
 
 	glDisableVertexAttribArray(0);
 	glFlush();
@@ -137,17 +149,4 @@ int DebugMenu::get_selected_index()
 void DebugMenu::deselect_index()
 {
 	selectedIndex = -1;
-}
-
-void DebugMenu::draw_picking(Renderer& renderer, std::vector<GameObject> entities)
-{
-	for (int i = 0; i < entities.size(); i++)
-	{
-		int r = (i & 0x000000FF) >> 0;
-		int g = (i & 0x0000FF00) >> 8;
-		int b = (i & 0x00FF0000) >> 16;
-
-		renderer.shader.setVec4("PickingColor", glm::vec4((float)r / 255.0, (float)g / 255.0, (float)b / 255.0, 1.0f));
-		entities.at(i).draw(renderer);
-	}
 }

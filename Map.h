@@ -24,17 +24,16 @@ class Map
 		Camera camera;
 
 		void save();
-		void load(AssetManager assetManager, InputManager inputManager);
-		void draw(Renderer& renderer, int selectedIndex, bool isLight, float deltaTime);
+		void load(AssetManager assetManager);
+		void draw(Renderer& renderer, bool isLight, float deltaTime);
 		void duplicate_model(int selectedIndex);
 		void remove_model(int selectedIndex);
-		virtual void process_input(float deltaTime);
+		virtual void process_input(InputManager& inputManager, float deltaTime);
 	private:
 		std::ofstream writeMap;
 		std::ifstream readMap;
 		std::string fileName;
 		GameObject ball;
-		InputManager inputManager;
 		DebugMenu debugMenu;
 };
 
