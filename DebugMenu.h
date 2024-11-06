@@ -21,7 +21,7 @@ class DebugMenu
 		~DebugMenu();
 	
 		void select_object(std::vector<GameObject>& entities, Camera camera, float xpos, float ypos);
-		void create_menu(std::vector<GameObject> entities, Camera camera, float deltaTime);
+		void create_menu(std::vector<GameObject>& entities, Camera camera, float deltaTime);
 		void shut_down();
 		void deselect_index();
 		int get_selected_index();
@@ -29,9 +29,10 @@ class DebugMenu
 		bool is_menu_open();
 	private:
 		GLFWwindow* window;
-		//Renderer* pickingRenderer;
-		int selectedIndex;
+		int selectedIndex = -1;
 		bool isMenuOpen = false;
+		int windowWidth = 1920;
+		int windowHeight = 1080;
 };
 
 

@@ -37,6 +37,8 @@ class Game {
 		void render(float deltaTime);
 	private:
 		InputManager inputManager;
+		int windowWidth = 1024;
+		int windowHeight = 768;
 };
 
 #endif // !GAME_H

@@ -11,8 +11,6 @@ class BoardMap : public Map {
 	private:
 		void load_players(AssetManager assetManager) override;
 		void process_input(InputManager& inputManager, float deltaTime) override;
-		
-
 };
 
 #endif // !BOARD_MAP_H

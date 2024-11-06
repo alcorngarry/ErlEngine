@@ -17,11 +17,12 @@ InputManager::InputManager()
 }
 
 InputManager::InputManager(GLFWwindow* window) {
+    glfwGetWindowSize(window, &windowWidth, &windowHeight);
     this->xpos = 0.0f;
     this->ypos = 0.0f;
     this->window = window;
-    this->lastX = 1024 / 2.0f;
-    this->lastY = 768 / 2.0f;
+    this->lastX = windowWidth / 2.0f;
+    this->lastY = windowHeight / 2.0f;
     this->firstMouse = true; 
 }
 

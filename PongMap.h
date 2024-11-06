@@ -5,7 +5,11 @@
 class PongMap : public Map {
 	public:
 		PongMap(std::string mapName, DebugMenu debugMenu);
-		//GameObject get_ball();
-		
+		void process_input(InputManager& inputManager, float deltaTime) override;
+		void update() override;
+	protected:
+		void load_players(AssetManager assetManager) override;
+	private:
+		void player_collision(Player* player);
 };
 #endif // !PONG_MAP_H

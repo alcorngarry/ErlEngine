@@ -8,7 +8,7 @@ DebugMenu::DebugMenu()
 DebugMenu::DebugMenu(GLFWwindow* glfwWindow)
 {
 	window = glfwWindow;
-	selectedIndex = -1;
+	glfwGetWindowSize(glfwWindow, &windowWidth, &windowHeight);
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -24,7 +24,7 @@ DebugMenu::~DebugMenu()
 	//delete pickingRenderer;
 }
 
-void DebugMenu::create_menu(std::vector<GameObject> entities, Camera camera, float deltaTime)
+void DebugMenu::create_menu(std::vector<GameObject>& entities, Camera camera, float deltaTime)
 {
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
@@ -34,42 +34,71 @@ void DebugMenu::create_menu(std::vector<GameObject> entities, Camera camera, flo
 	fps = "fps = " + fps;
 	char const* fpsChar = fps.c_str();
 
-	ImGui::Begin("Open this window, Thanks McDonalds for giving me this opportunity");
+	ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Always);
+	ImGui::SetNextWindowSize(ImVec2(300, 0), ImGuiCond_Always);
+
+	ImGui::Begin("Debug Menu");
 	ImGui::Text(fpsChar);
 
-	for (GameObject entity : entities)
+	//for (int i = 0; i < entities.size(); i++)
+	//{
+	//	GameObject& entity = entities[i];
+
+	//	ImGui::Text("Entity %zu", i);
+
+	//	ImGui::Text("Position:");
+	//	//ImGui::Text("X: %.2f", entity.Position.x);
+	//	//ImGui::Text("Y: %.2f", entity.Position.y);
+	//	//ImGui::Text("Z: %.2f", entity.Position.z);
+	//	ImGui::InputFloat(("X: %.2f" + std::to_string(i)).c_str(), &entity.Position.x, 1.0f, 1000.0f, "%.1f");
+	//	ImGui::InputFloat(("Y: %.2f" + std::to_string(i)).c_str(), &entity.Position.y, 1.0f, 1000.0f, "%.1f");
+	//	ImGui::InputFloat(("Z: %.2f" + std::to_string(i)).c_str(), &entity.Position.z, 1.0f, 1000.0f, "%.1f");
+
+	//	ImGui::Text("Size:");
+	//	ImGui::InputFloat(("Size X##" + std::to_string(i)).c_str(), &entity.Size.x, 1.0f, 100.0f, "%.1f");
+	//	ImGui::InputFloat(("Size Y##" + std::to_string(i)).c_str(), &entity.Size.y, 1.0f, 100.0f, "%.1f");
+	//	ImGui::InputFloat(("Size Z##" + std::to_string(i)).c_str(), &entity.Size.z, 1.0f, 100.0f, "%.1f");
+
+	//	ImGui::Text("Rotation:");
+	//	ImGui::InputFloat(("Rotation X##" + std::to_string(i)).c_str(), &entity.Rotation.x, 1.0f, 180.0f, "%.1f");
+	//	ImGui::InputFloat(("Rotation Y##" + std::to_string(i)).c_str(), &entity.Rotation.y, 1.0f, 180.0f, "%.1f");
+	//	ImGui::InputFloat(("Rotation Z##" + std::to_string(i)).c_str(), &entity.Rotation.z, 1.0f, 180.0f, "%.1f");
+
+	//	ImGui::Separator();
+	//}
+	
+	if (selectedIndex != -1)
 	{
-		std::string objectX = std::to_string((int)entity.Position.x);
-		objectX = "object X = " + objectX + "\n";
-		char const* objectXChar = objectX.c_str();
-		ImGui::Text(objectXChar);
+		GameObject& entity = entities[selectedIndex];
 
-		std::string objectY = std::to_string((int)entity.Position.y);
-		objectY = "object Y = " + objectY;
-		char const* objectYChar = objectY.c_str();
-		ImGui::Text(objectYChar);
+		ImGui::Text("Entity %zu", selectedIndex);
 
-		std::string objectZ = std::to_string((int)entity.Position.z);
-		objectZ = "object Z = " + objectZ;
-		char const* objectZChar = objectZ.c_str();
-		ImGui::Text(objectZChar);
+		ImGui::Text("Position:");
+		//ImGui::Text("X: %.2f", entity.Position.x);
+		//ImGui::Text("Y: %.2f", entity.Position.y);
+		//ImGui::Text("Z: %.2f", entity.Position.z);
+		ImGui::InputFloat(("X: %.2f" + std::to_string(selectedIndex)).c_str(), &entity.Position.x, 1.0f, 1000.0f, "%.1f");
+		ImGui::InputFloat(("Y: %.2f" + std::to_string(selectedIndex)).c_str(), &entity.Position.y, 1.0f, 1000.0f, "%.1f");
+		ImGui::InputFloat(("Z: %.2f" + std::to_string(selectedIndex)).c_str(), &entity.Position.z, 1.0f, 1000.0f, "%.1f");
+
+		ImGui::Text("Size:");
+		ImGui::InputFloat(("Size X##" + std::to_string(selectedIndex)).c_str(), &entity.Size.x, 1.0f, 100.0f, "%.1f");
+		ImGui::InputFloat(("Size Y##" + std::to_string(selectedIndex)).c_str(), &entity.Size.y, 1.0f, 100.0f, "%.1f");
+		ImGui::InputFloat(("Size Z##" + std::to_string(selectedIndex)).c_str(), &entity.Size.z, 1.0f, 100.0f, "%.1f");
+
+		ImGui::Text("Rotation:");
+		ImGui::InputFloat(("Rotation X##" + std::to_string(selectedIndex)).c_str(), &entity.Rotation.x, 1.0f, 180.0f, "%.1f");
+		ImGui::InputFloat(("Rotation Y##" + std::to_string(selectedIndex)).c_str(), &entity.Rotation.y, 1.0f, 180.0f, "%.1f");
+		ImGui::InputFloat(("Rotation Z##" + std::to_string(selectedIndex)).c_str(), &entity.Rotation.z, 1.0f, 180.0f, "%.1f");
+
+		ImGui::Separator();
 	}
 
 
-	std::string cameraX = std::to_string((int)camera.getCameraPos().x);
-	cameraX = "camera X = " + cameraX;
-	char const* cameraXChar = cameraX.c_str();
-	ImGui::Text(cameraXChar);
-
-	std::string cameraY = std::to_string((int)camera.getCameraPos().y);
-	cameraY = "camera Y = " + cameraY;
-	char const* cameraYChar = cameraY.c_str();
-	ImGui::Text(cameraYChar);
-
-	std::string cameraZ = std::to_string((int)camera.getCameraPos().z);
-	cameraZ = "camera Z = " + cameraZ;
-	char const* cameraZChar = cameraZ.c_str();
-	ImGui::Text(cameraZChar);
+	ImGui::Text("Camera Position:");
+	ImGui::Text("X: %.2f", camera.getCameraPos().x);
+	ImGui::Text("Y: %.2f", camera.getCameraPos().y);
+	ImGui::Text("Z: %.2f", camera.getCameraPos().z);
 
 	ImGui::End();
 	ImGui::Render();
@@ -96,7 +125,7 @@ void DebugMenu::select_object(std::vector<GameObject>& entities, Camera camera, 
 	glm::mat4 view = glm::lookAt(camera.getCameraPos(), camera.getCameraPos() + camera.getCameraFront(), camera.getCameraUp());
 	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
 	glm::mat4 projection = glm::mat4(1.0f);
-	projection = glm::perspective(glm::radians(45.0f), 1024.0f / 768.0f, 0.1f, 10000.0f);
+	projection = glm::perspective(glm::radians(45.0f), (float)windowWidth / (float)windowHeight, 0.1f, 10000.0f);
 	//
 	pickingRenderer.shader.use();
 	glEnableVertexAttribArray(0);
@@ -121,7 +150,8 @@ void DebugMenu::select_object(std::vector<GameObject>& entities, Camera camera, 
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
 	unsigned char data[4];
-	glReadPixels(xpos, 768 - ypos - 1, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
+	std::cout << windowHeight << "\n";
+	glReadPixels(xpos, windowHeight - ypos - 1, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
 
 	int pickedID = data[0] + (data[1] * 256) + (data[2] * 256 * 256);
 

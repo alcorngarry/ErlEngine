@@ -9,7 +9,7 @@ class Renderer {
 		Shader shader;
 		Renderer(Shader &shader);
 		~Renderer();
-		void draw(Model &model, glm::vec3 pos, glm::vec3 size);
+		void draw(Model &model, glm::vec3 pos, glm::vec3 size, glm::vec3 rotation);
 
 	private:
 		void initRenderer();

@@ -1,5 +1,6 @@
 #include"Map.h"
 
+bool screenLock = false;
 
 Map::Map(std::string mapName, DebugMenu debugMenu)
 {
@@ -17,17 +18,28 @@ void Map::save()
 	writeMap = std::ofstream{ fileName + ".txt" };
 	for (int i = 0; i < this->entities.size(); i++)
 	{
-		writeMap << this->entities.at(i).id << ", " << this->entities.at(i).Position.x << "," << this->entities.at(i).Position.y << "," << this->entities.at(i).Position.z << std::endl;
+		writeMap << this->entities.at(i).id << ", "
+			<< this->entities.at(i).Position.x << "," << this->entities.at(i).Position.y << "," << this->entities.at(i).Position.z  << ", "
+			<< this->entities.at(i).Size.x << "," << this->entities.at(i).Size.y << "," << this->entities.at(i).Size.z << ", "
+			<< this->entities.at(i).Rotation.x << "," << this->entities.at(i).Rotation.y << "," << this->entities.at(i).Rotation.z << std::endl;
 	}
+
+	for (GameObject light : lights)
+	{
+		writeMap << light.id << ", "
+			<< light.Position.x << "," << light.Position.y << "," << light.Position.z << ", "
+			<< light.Size.x << "," << light.Size.y << "," << light.Size.z << ", "
+			<< light.Rotation.x << "," << light.Rotation.y << "," << light.Rotation.z << std::endl;
+	}
+
 	writeMap.close();
 }
-
 
 void Map::load(AssetManager assetManager)
 {
 	readMap.open(fileName + ".txt");
 	std::string line;
-	float x, y, z;
+	float x, y, z, sizeX, sizeY, sizeZ, rotationX, rotationY, rotationZ;
 	int id;
 
 	while (getline(readMap, line, ','))
@@ -44,30 +56,54 @@ void Map::load(AssetManager assetManager)
 		y = std::stof(line);
 
 		// Parse z
-		getline(readMap, line);
+		getline(readMap, line, ',');
 		z = std::stof(line);
+
+		//parse size x
+		getline(readMap, line, ',');
+		sizeX = std::stof(line);
+
+		// Parse size y
+		getline(readMap, line, ',');
+		sizeY = std::stof(line);
+
+		// Parse size z
+		getline(readMap, line, ',');
+		sizeZ = std::stof(line);
+
+		//parse rotation x
+		getline(readMap, line, ',');
+		rotationX = std::stof(line);
+
+		// Parse rotation y
+		getline(readMap, line, ',');
+		rotationY = std::stof(line);
+
+		// Parse rotation z
+		getline(readMap, line);
+		rotationZ = std::stof(line);
 
 		// Return the constructed glm::vec3
 		if (id == 4)
 		{
-			this->entities.push_back(GameObject(id, *assetManager.get_model(id), glm::vec3(x, y, z), glm::vec3(10.0f)));
+			this->entities.push_back(GameObject(id, *assetManager.get_model(id), glm::vec3(x, y, z), glm::vec3(sizeX, sizeY, sizeZ), glm::vec3(rotationX, rotationY, rotationZ)));
 		}
 		if (id == 1)
 		{
-			this->entities.push_back(GameObject(id, *assetManager.get_model(id), glm::vec3(x, y, z), glm::vec3(1.0f)));
+			this->lights.push_back(GameObject(id, *assetManager.get_model(id), glm::vec3(x, y, z), glm::vec3(sizeX, sizeY, sizeZ), glm::vec3(rotationX, rotationY, rotationZ)));
 		}
 		if (id == 2)
 		{
-			this->entities.push_back(GameObject(id, *assetManager.get_model(id), glm::vec3(x, y, z), glm::vec3(1000.0f)));
+			this->entities.push_back(GameObject(id, *assetManager.get_model(id), glm::vec3(x, y, z), glm::vec3(sizeX, sizeY, sizeZ), glm::vec3(rotationX, rotationY, rotationZ)));
 		}
 		if (id == 5)
 		{
-			ball = GameObject(id, *assetManager.get_model(id), glm::vec3(x, y, z), glm::vec3(5.0f));
-			this->entities.push_back(ball);
+			this->entities.push_back(GameObject(id, *assetManager.get_model(id), glm::vec3(x, y, z), glm::vec3(sizeX, sizeY, sizeZ), glm::vec3(rotationX, rotationY, rotationZ)));
+			ballVal = entities.size() - 1;
 		}
 		if (id == 6)
 		{
-			this->entities.push_back(GameObject(id, *assetManager.get_model(id), glm::vec3(x, y, z), glm::vec3(1.0f)));
+			this->entities.push_back(GameObject(id, *assetManager.get_model(id), glm::vec3(x, y, z), glm::vec3(sizeX, sizeY, sizeZ), glm::vec3(rotationX, rotationY, rotationZ)));
 		}
 	} 
 	readMap.close();
@@ -92,22 +128,22 @@ void Map::draw(Renderer& renderer, bool isLight, float deltaTime)
 	}
 	for (int i = 0; i < this->entities.size(); i++)
 	{
-		if (this->entities.at(i).id == 1)
-		{
-			if (isLight)
-			{
-				this->entities.at(i).draw(renderer);
-			}
-		}
-		else {
-			renderer.shader.setBool("selected", i == debugMenu.get_selected_index());
-			this->entities.at(i).draw(renderer);
-		}
+		renderer.shader.setBool("selected", i == debugMenu.get_selected_index());
+		this->entities.at(i).draw(renderer);
 	}
 
-	if (!isLight)
+	if (isLight)
 	{
+		for (int i = 0; i < this->lights.size(); i++)
+		{
+			this->lights.at(i).draw(renderer);
+		}
+	}
+	else {
 		player1->draw(renderer);
+		player2->draw(renderer);
+		player3->draw(renderer);
+		player4->draw(renderer);
 	}
 }
 
@@ -142,27 +178,36 @@ void Map::menu_input(InputManager& inputManager, float deltaTime)
 	// move to menu mode eventually
 	if (debugMenu.is_menu_open())
 	{
-		camera.setCameraFront(glm::normalize(glm::vec3(cos(glm::radians(inputManager.yaw)) * cos(glm::radians(inputManager.pitch)), sin(glm::radians(inputManager.pitch)), sin(glm::radians(inputManager.yaw)) * cos(glm::radians(inputManager.pitch)))));
-
-		float cameraSpeed = static_cast<float>(150 * deltaTime);
-
-		if (inputManager.Keys[GLFW_KEY_W])
+		if (inputManager.Keys[GLFW_KEY_F1] && !inputManager.KeysProcessed[GLFW_KEY_F1])
 		{
-			camera.setCameraPos(camera.getCameraPos() + cameraSpeed * camera.getCameraFront());
+			screenLock = !screenLock;
+			inputManager.KeysProcessed[GLFW_KEY_F1] = true;
 		}
-		if (inputManager.Keys[GLFW_KEY_A])
-		{
-			camera.setCameraPos(camera.getCameraPos() - glm::normalize(glm::cross(camera.getCameraFront(), camera.getCameraUp())) * cameraSpeed);
 
-		}
-		if (inputManager.Keys[GLFW_KEY_S])
+		if(!screenLock)
 		{
-			camera.setCameraPos(camera.getCameraPos() - cameraSpeed * camera.getCameraFront());
+			camera.setCameraFront(glm::normalize(glm::vec3(cos(glm::radians(inputManager.yaw)) * cos(glm::radians(inputManager.pitch)), sin(glm::radians(inputManager.pitch)), sin(glm::radians(inputManager.yaw)) * cos(glm::radians(inputManager.pitch)))));
 
-		}
-		if (inputManager.Keys[GLFW_KEY_D])
-		{
-			camera.setCameraPos(camera.getCameraPos() + glm::normalize(glm::cross(camera.getCameraFront(), camera.getCameraUp())) * cameraSpeed);
+			float cameraSpeed = static_cast<float>(150 * deltaTime);
+
+			if (inputManager.Keys[GLFW_KEY_W])
+			{
+				camera.setCameraPos(camera.getCameraPos() + cameraSpeed * camera.getCameraFront());
+			}
+			if (inputManager.Keys[GLFW_KEY_A])
+			{
+				camera.setCameraPos(camera.getCameraPos() - glm::normalize(glm::cross(camera.getCameraFront(), camera.getCameraUp())) * cameraSpeed);
+
+			}
+			if (inputManager.Keys[GLFW_KEY_S])
+			{
+				camera.setCameraPos(camera.getCameraPos() - cameraSpeed * camera.getCameraFront());
+
+			}
+			if (inputManager.Keys[GLFW_KEY_D])
+			{
+				camera.setCameraPos(camera.getCameraPos() + glm::normalize(glm::cross(camera.getCameraFront(), camera.getCameraUp())) * cameraSpeed);
+			}
 		}
 
 		if (inputManager.MouseButtons[GLFW_MOUSE_BUTTON_LEFT])
@@ -216,6 +261,37 @@ void Map::menu_input(InputManager& inputManager, float deltaTime)
 			{
 				this->remove_model(debugMenu.get_selected_index());
 				inputManager.KeysProcessed[GLFW_KEY_R] = true;
+			}
+
+			if (inputManager.Keys[GLFW_KEY_R] && !inputManager.KeysProcessed[GLFW_KEY_R])
+			{
+				this->remove_model(debugMenu.get_selected_index());
+				inputManager.KeysProcessed[GLFW_KEY_R] = true;
+			}
+
+			if (inputManager.Keys[GLFW_KEY_1])
+			{
+				this->entities[debugMenu.get_selected_index()].Size.y *= .03f;
+			}
+			if (inputManager.Keys[GLFW_KEY_2])
+			{
+				this->entities[debugMenu.get_selected_index()].Size.y *= .03f;
+			}
+			if (inputManager.Keys[GLFW_KEY_3])
+			{
+				this->entities[debugMenu.get_selected_index()].Size.x *= .03f;
+			}
+			if (inputManager.Keys[GLFW_KEY_4])
+			{
+				this->entities[debugMenu.get_selected_index()].Size.x *= .03f;
+			}
+			if (inputManager.Keys[GLFW_KEY_5])
+			{
+				this->entities[debugMenu.get_selected_index()].Size.z *= .03f;
+			}
+			if (inputManager.Keys[GLFW_KEY_6])
+			{
+				this->entities[debugMenu.get_selected_index()].Size.z *= .03f;
 			}
 		}
 	}

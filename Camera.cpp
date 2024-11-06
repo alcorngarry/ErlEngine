@@ -3,8 +3,7 @@
 Camera::Camera()
 {
 	cameraPos = glm::vec3(0.0f, 50.0f, 150.0f);
-	cameraFront = glm::vec3(0.0f, 0.0f, 0.0f);
-	cameraUp = glm::vec3(0.0f, 25.0f, 0.0f);
+	setCameraToLookAtOrigin();
 }
 
 glm::vec3 Camera::getCameraPos()
@@ -35,4 +34,9 @@ glm::vec3 Camera::getCameraUp()
 void Camera::setCameraUp(glm::vec3 up)
 {
 	cameraUp = up;
+}
+
+void Camera::setCameraToLookAtOrigin() {
+	cameraFront = glm::normalize(glm::vec3(0.0f) - cameraPos); // Pointing to the origin
+	cameraUp = glm::vec3(0.0f, 1.0f, 0.0f); // Set a standard up vector
 }

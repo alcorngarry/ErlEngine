@@ -19,6 +19,8 @@ public:
     void update();
 private:
     GLFWwindow* window;
+    int windowWidth = 1024;
+    int windowHeight = 768;
 };
 
 #endif // !INPUT_MANAGER_H

@@ -19,5 +19,6 @@ class Camera {
 		glm::vec3 cameraPos;
 		glm::vec3 cameraFront;
 		glm::vec3 cameraUp;
+		void setCameraToLookAtOrigin();
 };
 #endif // !CAMERA_H

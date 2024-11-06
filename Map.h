@@ -21,6 +21,7 @@ class Map
 		Map(std::string mapName, DebugMenu debugMenu);
 		Map();
 		std::vector<GameObject> entities;
+		std::vector<GameObject> lights;
 		Camera camera;
 
 		void save();
@@ -32,7 +33,7 @@ class Map
 		std::ofstream writeMap;
 		std::ifstream readMap;
 		std::string fileName;
-		GameObject ball;
+		int ballVal;
 		DebugMenu debugMenu;
 		Player* player1 = nullptr;
 		Player* player2 = nullptr;

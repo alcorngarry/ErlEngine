@@ -7,10 +7,7 @@
 #include"Game.h"
 #include<GLFW/glfw3.h>
 
-void get_resolution();
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-
-unsigned int window_width, window_height;
 
 int main(int argc, char* argv[])
 {
@@ -19,12 +16,11 @@ int main(int argc, char* argv[])
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	//void get_resolution();
-	window_width = 1024;
-	window_height = 768;
+	void get_resolution();
 
+	const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
-	GLFWwindow* window = glfwCreateWindow(window_width, window_height, "test_game", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(mode->width, mode->height, "test_game", NULL, NULL);
 
 	if (window == NULL)
 	{
@@ -83,17 +79,6 @@ int main(int argc, char* argv[])
 	glfwTerminate();
 
 	return 0;
-}
-
-void get_resolution()
-{
-	//const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-
-	/*window_width = mode->width;
-	window_height = mode->height;*/
-
-	window_width = 1024;
-	window_height = 768;
 }
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
