@@ -1,1 +1,1 @@
-"Erl" Engine is a passion project with the ultimate goal of making an engine in OpenGL for a party game. Right now the game and engine are indestinguishable lol. One day this will amount to an end result. 
+"Erl" Engine is a passion project with the ultimate goal of making an engine in OpenGL for a party game.
