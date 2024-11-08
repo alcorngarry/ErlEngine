@@ -2,7 +2,7 @@
 
 bool screenLock = false;
 
-Map::Map(std::string mapName, DebugMenu debugMenu)
+Map::Map(std::string mapName, DebugMenu debugMenu) : State(MENU_CLOSED)
 {
 	fileName = mapName;
 	camera = Camera();
@@ -47,64 +47,43 @@ void Map::load(AssetManager assetManager)
 		// Parse id
 		id = std::stof(line);
 
-		//parse x
+		//parse position
 		getline(readMap, line, ',');
 		x = std::stof(line);
-
-		// Parse y
 		getline(readMap, line, ',');
 		y = std::stof(line);
-
-		// Parse z
 		getline(readMap, line, ',');
 		z = std::stof(line);
 
-		//parse size x
+		//parse size
 		getline(readMap, line, ',');
 		sizeX = std::stof(line);
-
-		// Parse size y
 		getline(readMap, line, ',');
 		sizeY = std::stof(line);
-
-		// Parse size z
 		getline(readMap, line, ',');
 		sizeZ = std::stof(line);
 
-		//parse rotation x
+		//parse rotation
 		getline(readMap, line, ',');
 		rotationX = std::stof(line);
-
-		// Parse rotation y
 		getline(readMap, line, ',');
 		rotationY = std::stof(line);
-
-		// Parse rotation z
 		getline(readMap, line);
 		rotationZ = std::stof(line);
 
-		// Return the constructed glm::vec3
-		if (id == 4)
-		{
-			this->entities.push_back(GameObject(id, *assetManager.get_model(id), glm::vec3(x, y, z), glm::vec3(sizeX, sizeY, sizeZ), glm::vec3(rotationX, rotationY, rotationZ)));
-		}
 		if (id == 1)
 		{
 			this->lights.push_back(GameObject(id, *assetManager.get_model(id), glm::vec3(x, y, z), glm::vec3(sizeX, sizeY, sizeZ), glm::vec3(rotationX, rotationY, rotationZ)));
 		}
-		if (id == 2)
-		{
-			this->entities.push_back(GameObject(id, *assetManager.get_model(id), glm::vec3(x, y, z), glm::vec3(sizeX, sizeY, sizeZ), glm::vec3(rotationX, rotationY, rotationZ)));
-		}
-		if (id == 5)
+		else if (id == 5)
 		{
 			this->entities.push_back(GameObject(id, *assetManager.get_model(id), glm::vec3(x, y, z), glm::vec3(sizeX, sizeY, sizeZ), glm::vec3(rotationX, rotationY, rotationZ)));
 			ballVal = entities.size() - 1;
 		}
-		if (id == 6)
+		else
 		{
 			this->entities.push_back(GameObject(id, *assetManager.get_model(id), glm::vec3(x, y, z), glm::vec3(sizeX, sizeY, sizeZ), glm::vec3(rotationX, rotationY, rotationZ)));
-		}
+		} 
 	} 
 	readMap.close();
 
@@ -122,7 +101,7 @@ void Map::load_players(AssetManager assetManager)
 
 void Map::draw(Renderer& renderer, bool isLight, float deltaTime)
 {
-	if (debugMenu.is_menu_open())
+	if (State == MENU_OPEN)
 	{
 		debugMenu.create_menu(this->entities, this->camera, deltaTime);
 	}
@@ -144,6 +123,11 @@ void Map::draw(Renderer& renderer, bool isLight, float deltaTime)
 		player2->draw(renderer);
 		player3->draw(renderer);
 		player4->draw(renderer);
+
+		player1->draw_bounding_box(renderer);
+		player2->draw_bounding_box(renderer);
+		player3->draw_bounding_box(renderer);
+		player4->draw_bounding_box(renderer);
 	}
 }
 
@@ -157,10 +141,6 @@ void Map::remove_model(int selectedIndex)
 	this->entities.erase(this->entities.begin() + selectedIndex);
 }
 
-void Map::update()
-{
-}
-
 void Map::process_input(InputManager& inputManager, float deltaTime)
 {
 	menu_input(inputManager, deltaTime);
@@ -171,12 +151,12 @@ void Map::menu_input(InputManager& inputManager, float deltaTime)
 	if (inputManager.Keys[GLFW_KEY_M] && !inputManager.KeysProcessed[GLFW_KEY_M])
 	{
 		//create debug menu
-		debugMenu.toggle_menu();
+		State = State == MENU_OPEN ? MENU_CLOSED : MENU_OPEN;
 		inputManager.KeysProcessed[GLFW_KEY_M] = true;
 	}
 
 	// move to menu mode eventually
-	if (debugMenu.is_menu_open())
+	if (State == MENU_OPEN)
 	{
 		if (inputManager.Keys[GLFW_KEY_F1] && !inputManager.KeysProcessed[GLFW_KEY_F1])
 		{

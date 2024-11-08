@@ -4,7 +4,7 @@ BoardMap::BoardMap(std::string mapName, DebugMenu debugMenu) : Map(mapName, debu
 {
 }
 
-void BoardMap::update()
+void BoardMap::update(float deltaTime)
 {
 	if (player1->inMotion)
 	{	

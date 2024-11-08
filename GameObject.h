@@ -14,6 +14,7 @@ class GameObject {
 		GameObject(unsigned int id, Model model, glm::vec3 pos, glm::vec3 size, glm::vec3 rotation);
 		GameObject();
 		virtual void draw(Renderer& renderer);
+		void draw_bounding_box(Renderer& renderer);
 };
 
 #endif // !GAME_OBJECT_H

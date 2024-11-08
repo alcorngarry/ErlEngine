@@ -75,7 +75,7 @@ int main(int argc, char* argv[])
 	//	partyGame.Maps[i]->save();
 	//}
 
-	partyGame.Maps[0]->save();
+	partyGame.Maps[1]->save();
 	
 	glfwDestroyWindow(window);
 	glfwTerminate();

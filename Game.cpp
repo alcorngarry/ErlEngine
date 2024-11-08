@@ -40,7 +40,7 @@ void Game::init(GLFWwindow* window)
 
 	Maps.push_back(new BoardMap("test_map_1", debugMenu));
 	Maps.push_back(new PongMap("test_map_2", debugMenu));
-	this->level = 0;
+	this->level = 1;
 
 	Maps[level]->load(assetManager);
 }
@@ -48,7 +48,7 @@ void Game::init(GLFWwindow* window)
 void Game::update(float deltaTime)
 {
 	inputManager.update();
-	Maps[level]->update();
+	Maps[level]->update(deltaTime);
 }
 
 void Game::process_input(float deltaTime)

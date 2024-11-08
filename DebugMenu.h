@@ -25,12 +25,9 @@ class DebugMenu
 		void shut_down();
 		void deselect_index();
 		int get_selected_index();
-		void toggle_menu();
-		bool is_menu_open();
 	private:
 		GLFWwindow* window;
 		int selectedIndex = -1;
-		bool isMenuOpen = false;
 		int windowWidth = 1920;
 		int windowHeight = 1080;
 };

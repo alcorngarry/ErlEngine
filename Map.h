@@ -18,6 +18,12 @@
 class Map 
 {
 	public:
+		enum State {
+			MENU_OPEN,
+			MENU_CLOSED
+		};
+
+		State State;
 		Map(std::string mapName, DebugMenu debugMenu);
 		Map();
 		std::vector<GameObject> entities;
@@ -28,7 +34,7 @@ class Map
 		void load(AssetManager assetManager);
 		void draw(Renderer& renderer, bool isLight, float deltaTime);
 		virtual void process_input(InputManager& inputManager, float deltaTime);
-		virtual void update();
+		virtual void update(float deltaTime) = 0; //interface method signature
 	protected:
 		std::ofstream writeMap;
 		std::ifstream readMap;
