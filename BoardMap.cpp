@@ -92,10 +92,10 @@ float BoardMap::roll_dice()
 void BoardMap::load_players(AssetManager assetManager)
 {
 	glm::vec3 startingPosition = get_board_positions()[0];
-	player1 = new Player(*assetManager.get_model(0), startingPosition * 5.0f + glm::vec3(0, 3, 0), glm::vec3(2.0f));
-	player2 = new Player(*assetManager.get_model(0), startingPosition * 5.0f + glm::vec3(0, 3, 0), glm::vec3(2.0f));
-	player3 = new Player(*assetManager.get_model(0), startingPosition * 5.0f + glm::vec3(0, 3, 0), glm::vec3(2.0f));
-	player4 = new Player(*assetManager.get_model(0), startingPosition * 5.0f + glm::vec3(0, 3, 0), glm::vec3(2.0f));
+	player1 = new Player(*assetManager.get_model(0), startingPosition + glm::vec3(0, 6, 0), glm::vec3(2.0f));
+	player2 = new Player(*assetManager.get_model(0), startingPosition + glm::vec3(0, 6, 0), glm::vec3(2.0f));
+	player3 = new Player(*assetManager.get_model(0), startingPosition + glm::vec3(0, 6, 0), glm::vec3(2.0f));
+	player4 = new Player(*assetManager.get_model(0), startingPosition + glm::vec3(0, 6, 0), glm::vec3(2.0f));
 }
 
 std::vector<glm::vec3> BoardMap::get_board_positions()

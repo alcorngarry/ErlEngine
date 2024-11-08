@@ -19,10 +19,10 @@ void Player::move_player(std::vector<glm::vec3> spaces)
 		{
 			//algorithm to travel distance given start and delta time.
 			//A + (B -A)(t - t0)/deltaT
-			glm::vec3 objectPos = spaces[boardPosition] * 5.0f;
-			glm::vec3 direction = (spaces[nextPos] - spaces[boardPosition]) * 5.0f;
+			glm::vec3 objectPos = spaces[boardPosition];
+			glm::vec3 direction = (spaces[nextPos] - spaces[boardPosition]);
 			glm::mat4 test = glm::mat4(1.0f);
-			glm::vec3 currPos = objectPos + direction * ((float)glfwGetTime() - startTime) / delta + glm::vec3(0, 3, 0);
+			glm::vec3 currPos = objectPos + direction * ((float)glfwGetTime() - startTime) / delta + glm::vec3(0, 6, 0);
 
 			//	camera.setCameraPos(currPos + glm::vec3(0.0f, 30.0f, 50.0f));
 			//	camera.setCameraFront(currPos);
@@ -33,11 +33,11 @@ void Player::move_player(std::vector<glm::vec3> spaces)
 			boardPosition = nextPos;
 			startTime = (float)glfwGetTime();
 
-			this->Position = spaces[boardPosition] * 5.0f + glm::vec3(0, 3, 0);
+			this->Position = spaces[boardPosition] + glm::vec3(0, 6, 0);
 		}
 	}
 	else {
-		this->Position =  spaces[boardPosition] * 5.0f + glm::vec3(0, 3, 0);
+		this->Position = spaces[boardPosition] + glm::vec3(0, 6, 0);
 		this->inMotion = false;
 
 		/*	camera.setCameraPos(objectsInScene[startPos] * 10.0f + glm::vec3(0, 3, 0) + glm::vec3(0.0f, 30.0f, 50.0f));

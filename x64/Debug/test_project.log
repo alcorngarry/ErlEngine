@@ -1,2 +1,11 @@
-﻿  PongMap.cpp
+﻿  BoardMap.cpp
+C:\Dev\opengl_code\test_project\BoardMap.cpp(50,58): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Dev\opengl_code\test_project\BoardMap.cpp(59,58): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Dev\opengl_code\test_project\BoardMap.cpp(68,58): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Dev\opengl_code\test_project\BoardMap.cpp(77,58): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Dev\opengl_code\test_project\BoardMap.cpp(85,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Dev\opengl_code\test_project\BoardMap.cpp(89,9): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+  Player.cpp
+C:\Dev\opengl_code\test_project\Player.cpp(11,52): warning C4267: '-=': conversion from 'size_t' to 'int', possible loss of data
+  Generating Code...
   test_project.vcxproj -> C:\Dev\opengl_code\test_project\x64\Debug\test_project.exe

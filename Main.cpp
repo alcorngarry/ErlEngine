@@ -70,10 +70,12 @@ int main(int argc, char* argv[])
 		glfwSwapBuffers(window);
 	}
 
-	for (int i = 0; i < partyGame.Maps.size(); i++)
-	{
-		partyGame.Maps[i]->save();
-	}
+	//for (int i = 0; i < partyGame.Maps.size(); i++)
+	//{
+	//	partyGame.Maps[i]->save();
+	//}
+
+	partyGame.Maps[0]->save();
 	
 	glfwDestroyWindow(window);
 	glfwTerminate();

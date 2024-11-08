@@ -40,7 +40,7 @@ void Game::init(GLFWwindow* window)
 
 	Maps.push_back(new BoardMap("test_map_1", debugMenu));
 	Maps.push_back(new PongMap("test_map_2", debugMenu));
-	this->level = 1;
+	this->level = 0;
 
 	Maps[level]->load(assetManager);
 }
