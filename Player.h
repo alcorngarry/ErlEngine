@@ -13,6 +13,7 @@ class Player : public GameObject {
 
 	public:
 		bool inMotion;
+		glm::vec3 velocity = glm::vec3(0.0f);
 
 		Player(Model characterModel, glm::vec3 pos, glm::vec3 size);
 		void move_player(std::vector<glm::vec3> spaces);
