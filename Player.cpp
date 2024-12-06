@@ -1,13 +1,18 @@
 #include"Player.h"
 
+
 Player::Player(Model characterModel, glm::vec3 pos, glm::vec3 size) : GameObject(0, characterModel, pos, size, glm::vec3(0.0f))
 { 
+	this->model = characterModel;
 	this->boardPosition = 0;
 	this->inMotion = false;
+	this->mation = Animation((char*)"C:/Users/alcor/Downloads/LearnOpenGL-master/LearnOpenGL-master/resources/objects/vampire/dancing_vampire.dae", &model);
+	this->mator = Animator(&mation);
+	this->transform = mator.get_final_bone_matrices();
 }
 
 void Player::move_player(std::vector<glm::vec3> spaces)
-{
+{		
 	if (moves >= spaces.size()) moves -= spaces.size();
 
 	int nextPos = boardPosition == spaces.size() - 1 ? 0 : boardPosition + 1;
@@ -45,6 +50,26 @@ void Player::move_player(std::vector<glm::vec3> spaces)
 
 	}
 }
+
+void Player::update(float deltaTime)
+{
+	this->mation = Animation((char*)"C:/Users/alcor/Downloads/LearnOpenGL-master/LearnOpenGL-master/resources/objects/vampire/dancing_vampire.dae", &model);
+	this->mator = Animator(&mation);
+
+	this->transform = mator.get_final_bone_matrices();
+	mator.update_animation(deltaTime);
+}
+
+//void Player::play_animation()
+//{
+//	mator.play_animation(&mation);
+//}
+
+//void Player::draw(Renderer& renderer)
+//{
+//	this->transform = mator.get_final_bone_matrices();
+//	renderer.draw(this->GameModel, this->Position, this->Size, this->Rotation, this->transform);
+//}
 
 unsigned int Player::get_board_position()
 {

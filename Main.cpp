@@ -7,43 +7,13 @@
 #include"Game.h"
 #include<GLFW/glfw3.h>
 
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-
 int main(int argc, char* argv[])
 {
-	glfwInit();
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-	void get_resolution();
-
-	const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-
-	GLFWwindow* window = glfwCreateWindow(mode->width, mode->height, "test_game", NULL, NULL);
-
-	if (window == NULL)
-	{
-		std::cout << "Failed to create GLFW window" << std::endl;
-		glfwTerminate();
-		return -1;
-	}
+	GLFWwindow* window = Renderer::init_render();
 
 	Game partyGame = Game(window);
 
-	glfwMakeContextCurrent(window);
-	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-	{
-		std::cout << "Failed to initialize GLAD" << std::endl;
-		return -1;
-	}
-
-	glEnable(GL_DEPTH_TEST);
-
-	partyGame.init(window);
+	partyGame.init();
 
 	float lastFrame = 0.0f;
 	float deltaTime = 0.0f;
@@ -75,15 +45,10 @@ int main(int argc, char* argv[])
 	//	partyGame.Maps[i]->save();
 	//}
 
-	partyGame.Maps[1]->save();
+	//partyGame.Maps[1]->save();
 	
 	glfwDestroyWindow(window);
 	glfwTerminate();
 
 	return 0;
-}
-
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-{
-	glViewport(0, 0, width, height);
 }

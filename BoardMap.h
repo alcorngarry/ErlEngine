@@ -4,7 +4,7 @@
 
 class BoardMap : public Map {
 	public:
-		BoardMap(std::string mapName, DebugMenu debugMenu);
+		BoardMap(std::string mapName);
 		float roll_dice();
 		std::vector<glm::vec3> get_board_positions();
 		void update(float deltaTime) override;

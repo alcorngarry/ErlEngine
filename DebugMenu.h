@@ -7,8 +7,6 @@
 #include<string>
 #include<vector>
 
-#include"GameObject.h"
-#include"Camera.h"
 #include"Renderer.h"
 #include"InputManager.h"
 
@@ -20,16 +18,13 @@ class DebugMenu
 
 		~DebugMenu();
 	
-		void select_object(std::vector<GameObject>& entities, Camera camera, float xpos, float ypos);
+		//void select_object(std::vector<GameObject>& entities, Camera camera, float xpos, float ypos);
 		void create_menu(std::vector<GameObject>& entities, Camera camera, float deltaTime);
 		void shut_down();
-		void deselect_index();
-		int get_selected_index();
+		//void deselect_index();
+		//int get_selected_index();
 	private:
-		GLFWwindow* window;
-		int selectedIndex = -1;
-		int windowWidth = 1920;
-		int windowHeight = 1080;
+		//GLFWwindow* window;
 };
 
 

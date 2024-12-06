@@ -1,45 +1,34 @@
 #include "Game.h"
 
-Renderer *lightRenderer;
-Renderer *modelRenderer;
 GLFWwindow* gameWindow;
 
 AssetManager assetManager;
-DebugMenu debugMenu;
 
 bool isWireFrame = false;
-int selectedIndex = -1;
 
 Game::Game(GLFWwindow* window) : State(GAME_ACTIVE)
 {
 	inputManager = InputManager(window);
-	glfwGetWindowSize(window, &windowWidth, &windowHeight);
+	//glfwGetWindowSize(window, &windowWidth, &windowHeight);
 }
 
 Game::~Game()
 {
-	delete lightRenderer;
-	delete modelRenderer;
 }
 
-void Game::init(GLFWwindow* window)
+void Game::init()
 {
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-	gameWindow = window;
-
-	Shader shaderProgram("default.vert.glsl", "default.frag.glsl");
-	Shader lightShaderProgram("light.vert.glsl", "light.frag.glsl");
-	
-	lightRenderer = new Renderer(lightShaderProgram);
+	/*lightRenderer = new Renderer(lightShaderProgram);
 	modelRenderer = new Renderer(shaderProgram);
+	skinnedRenderer = new Renderer(skinnedShaderProgram);*/
 
 	assetManager = AssetManager();
 	assetManager.load();
 
-	debugMenu = DebugMenu(gameWindow);
+	//debugMenu = DebugMenu(gameWindow);
 
-	Maps.push_back(new BoardMap("test_map_1", debugMenu));
-	Maps.push_back(new PongMap("test_map_2", debugMenu));
+	Maps.push_back(new BoardMap("test_map_1"));
+	Maps.push_back(new PongMap("test_map_2"));
 	this->level = 1;
 
 	Maps[level]->load(assetManager);
@@ -91,7 +80,7 @@ void Game::render(float deltaTime)
 {
 	/*if (this->State == GAME_ACTIVE)
 	{	*/
-		glm::mat4 view = glm::lookAt(Maps[level]->camera.getCameraPos(), Maps[level]->camera.getCameraPos() + Maps[level]->camera.getCameraFront(), Maps[level]->camera.getCameraUp());
+		/*glm::mat4 view = glm::lookAt(Maps[level]->camera.getCameraPos(), Maps[level]->camera.getCameraPos() + Maps[level]->camera.getCameraFront(), Maps[level]->camera.getCameraUp());
 		glm::mat4 projection = glm::mat4(1.0f);
 		projection = glm::perspective(glm::radians(45.0f), (float)windowWidth / (float)windowHeight, 0.1f, 10000.0f);
 
@@ -109,8 +98,8 @@ void Game::render(float deltaTime)
 		lightRenderer->shader.use();
 		glUniformMatrix4fv(glGetUniformLocation(lightRenderer->shader.ID, "view"), 1, GL_FALSE, &view[0][0]);
 		glUniformMatrix4fv(glGetUniformLocation(lightRenderer->shader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
-		lightRenderer->shader.setVec3("lightColor", glm::vec3(1.0f));
-		Maps[level]->draw(*lightRenderer, true, deltaTime);
+		lightRenderer->shader.setVec3("lightColor", glm::vec3(1.0f));*/
+		Maps[level]->draw(deltaTime);
 
 		/*if (this->State == DEBUG_MENU)
 		{

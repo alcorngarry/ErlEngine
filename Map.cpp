@@ -2,11 +2,11 @@
 
 bool screenLock = false;
 
-Map::Map(std::string mapName, DebugMenu debugMenu) : State(MENU_CLOSED)
+Map::Map(std::string mapName) : State(MENU_CLOSED)
 {
 	fileName = mapName;
 	camera = Camera();
-	debugMenu = debugMenu;
+	//debugMenu = debugMenu;
 }
 
 Map::Map()
@@ -18,12 +18,15 @@ void Map::save()
 	writeMap = std::ofstream{ fileName + ".txt" };
 	for (int i = 0; i < this->entities.size(); i++)
 	{
-		writeMap << this->entities.at(i).id << ", "
-			<< this->entities.at(i).Position.x << "," << this->entities.at(i).Position.y << "," << this->entities.at(i).Position.z  << ", "
-			<< this->entities.at(i).Size.x << "," << this->entities.at(i).Size.y << "," << this->entities.at(i).Size.z << ", "
-			<< this->entities.at(i).Rotation.x << "," << this->entities.at(i).Rotation.y << "," << this->entities.at(i).Rotation.z << std::endl;
+		//don't save ball location
+		if (this->entities.at(i).id != 5)
+		{
+			writeMap << this->entities.at(i).id << ", "
+				<< this->entities.at(i).Position.x << "," << this->entities.at(i).Position.y << "," << this->entities.at(i).Position.z << ", "
+				<< this->entities.at(i).Size.x << "," << this->entities.at(i).Size.y << "," << this->entities.at(i).Size.z << ", "
+				<< this->entities.at(i).Rotation.x << "," << this->entities.at(i).Rotation.y << "," << this->entities.at(i).Rotation.z << std::endl;
+		}
 	}
-
 	for (GameObject light : lights)
 	{
 		writeMap << light.id << ", "
@@ -75,11 +78,6 @@ void Map::load(AssetManager assetManager)
 		{
 			this->lights.push_back(GameObject(id, *assetManager.get_model(id), glm::vec3(x, y, z), glm::vec3(sizeX, sizeY, sizeZ), glm::vec3(rotationX, rotationY, rotationZ)));
 		}
-		else if (id == 5)
-		{
-			this->entities.push_back(GameObject(id, *assetManager.get_model(id), glm::vec3(x, y, z), glm::vec3(sizeX, sizeY, sizeZ), glm::vec3(rotationX, rotationY, rotationZ)));
-			ballVal = entities.size() - 1;
-		}
 		else
 		{
 			this->entities.push_back(GameObject(id, *assetManager.get_model(id), glm::vec3(x, y, z), glm::vec3(sizeX, sizeY, sizeZ), glm::vec3(rotationX, rotationY, rotationZ)));
@@ -92,43 +90,50 @@ void Map::load(AssetManager assetManager)
 
 void Map::load_players(AssetManager assetManager)
 {
-	player1 = new Player(*assetManager.get_model(0), glm::vec3(0.0f) * 5.0f + glm::vec3(0, 3, 0), glm::vec3(2.0f));
-	player2 = new Player(*assetManager.get_model(0), glm::vec3(0.0f) * 5.0f + glm::vec3(0, 3, 0), glm::vec3(2.0f));
+	for (int i = 0; i < 4; i++)
+	{
+		players.push_back(Player(*assetManager.get_model(0), glm::vec3(0.0f) * 5.0f + glm::vec3(0, 3, 0), glm::vec3(2.0f)));
+	}
+	/*player2 = new Player(*assetManager.get_model(0), glm::vec3(0.0f) * 5.0f + glm::vec3(0, 3, 0), glm::vec3(2.0f));
 	player3 = new Player(*assetManager.get_model(0), glm::vec3(0.0f) * 5.0f + glm::vec3(0, 3, 0), glm::vec3(2.0f));
-	player4 = new Player(*assetManager.get_model(0), glm::vec3(0.0f) * 5.0f + glm::vec3(0, 3, 0), glm::vec3(2.0f));
+	player4 = new Player(*assetManager.get_model(0), glm::vec3(0.0f) * 5.0f + glm::vec3(0, 3, 0), glm::vec3(2.0f));*/
 }
 
 
-void Map::draw(Renderer& renderer, bool isLight, float deltaTime)
+void Map::draw(float deltaTime)
 {
 	if (State == MENU_OPEN)
 	{
-		debugMenu.create_menu(this->entities, this->camera, deltaTime);
-	}
-	for (int i = 0; i < this->entities.size(); i++)
-	{
-		renderer.shader.setBool("selected", i == debugMenu.get_selected_index());
-		this->entities.at(i).draw(renderer);
+		Renderer::create_menu(deltaTime);
 	}
 
-	if (isLight)
-	{
-		for (int i = 0; i < this->lights.size(); i++)
-		{
-			this->lights.at(i).draw(renderer);
-		}
-	}
-	else {
-		player1->draw(renderer);
-		player2->draw(renderer);
-		player3->draw(renderer);
-		player4->draw(renderer);
+	//if (isLight)
+	//{
+	//	for (int i = 0; i < this->lights.size(); i++)
+	//	{
+	//		this->lights.at(i).draw(renderer);
+	//	}
+	//}
+	//else {
+	//	for (int i = 0; i < this->entities.size(); i++)
+	//	{
+	//		renderer.shader.setBool("selected", i == debugMenu.get_selected_index());
+	//		this->entities.at(i).draw(renderer);
+	//	}
 
-		player1->draw_bounding_box(renderer);
-		player2->draw_bounding_box(renderer);
-		player3->draw_bounding_box(renderer);
-		player4->draw_bounding_box(renderer);
-	}
+		/*players.at(0).draw(renderer);
+		players.at(1).draw(renderer);
+		players.at(2).draw(renderer);
+		players.at(3).draw(renderer);*/
+
+		//doesn't work at the moment
+		//players.at(0).draw_bounding_box(renderer);
+		//players.at(1).draw_bounding_box(renderer);
+		//players.at(2).draw_bounding_box(renderer);
+		//players.at(3).draw_bounding_box(renderer);
+	//}
+
+	Renderer::create_renderer(this->players, this->entities, this->lights, this->camera);
 }
 
 void Map::duplicate_model(int selectedIndex)
@@ -198,80 +203,84 @@ void Map::menu_input(InputManager& inputManager, float deltaTime)
 
 			//color picking lol. Slow but not noticeable especially since it's used for map building.
 
-			debugMenu.select_object(this->entities, this->camera, inputManager.xpos, inputManager.ypos);
+			Renderer::select_entity(inputManager.xpos, inputManager.ypos);
+			//debugMenu.select_object(this->entities, this->camera, inputManager.xpos, inputManager.ypos);
 		}
 
 		if (inputManager.MouseButtons[GLFW_MOUSE_BUTTON_RIGHT])
 		{
-			debugMenu.deselect_index();
+			Renderer::deselect_index();
+			//debugMenu.deselect_index();
 		}
 
-		if (debugMenu.get_selected_index() != -1)
+		int selectedIndex = Renderer::get_selected_index();
+		//if (debugMenu.get_selected_index() != -1)
+		if (selectedIndex != -1)
 		{
 			if (inputManager.Keys[GLFW_KEY_UP])
 			{
-				this->entities[debugMenu.get_selected_index()].Position.y += .03f;
+				this->entities[selectedIndex].Position.y += .03f;
 			}
 			if (inputManager.Keys[GLFW_KEY_DOWN])
 			{
-				this->entities[debugMenu.get_selected_index()].Position.y -= .03f;
+				this->entities[selectedIndex].Position.y -= .03f;
 			}
 			if (inputManager.Keys[GLFW_KEY_LEFT])
 			{
-				this->entities[debugMenu.get_selected_index()].Position.x += .03f;
+				this->entities[selectedIndex].Position.x += .03f;
 			}
 			if (inputManager.Keys[GLFW_KEY_RIGHT])
 			{
-				this->entities[debugMenu.get_selected_index()].Position.x -= .03f;
+				this->entities[selectedIndex].Position.x -= .03f;
 			}
 			if (inputManager.Keys[GLFW_KEY_J])
 			{
-				this->entities[debugMenu.get_selected_index()].Position.z += .03f;
+				this->entities[selectedIndex].Position.z += .03f;
 			}
 			if (inputManager.Keys[GLFW_KEY_K])
 			{
-				this->entities[debugMenu.get_selected_index()].Position.z -= .03f;
+				this->entities[selectedIndex].Position.z -= .03f;
 			}
 			if (inputManager.Keys[GLFW_KEY_N] && !inputManager.KeysProcessed[GLFW_KEY_N])
 			{
-				this->duplicate_model(debugMenu.get_selected_index());
+				this->duplicate_model(selectedIndex);
 				inputManager.KeysProcessed[GLFW_KEY_N] = true;
 			}
 			if (inputManager.Keys[GLFW_KEY_R] && !inputManager.KeysProcessed[GLFW_KEY_R])
 			{
-				this->remove_model(debugMenu.get_selected_index());
+				this->remove_model(selectedIndex);
 				inputManager.KeysProcessed[GLFW_KEY_R] = true;
 			}
 
 			if (inputManager.Keys[GLFW_KEY_R] && !inputManager.KeysProcessed[GLFW_KEY_R])
 			{
-				this->remove_model(debugMenu.get_selected_index());
+				this->remove_model(selectedIndex);
 				inputManager.KeysProcessed[GLFW_KEY_R] = true;
 			}
 
 			if (inputManager.Keys[GLFW_KEY_1])
 			{
-				this->entities[debugMenu.get_selected_index()].Size.y *= .03f;
+				this->entities[selectedIndex].Size.y *= .03f;
 			}
 			if (inputManager.Keys[GLFW_KEY_2])
 			{
-				this->entities[debugMenu.get_selected_index()].Size.y *= .03f;
+				this->entities[selectedIndex].Size.y *= .03f;
 			}
 			if (inputManager.Keys[GLFW_KEY_3])
 			{
-				this->entities[debugMenu.get_selected_index()].Size.x *= .03f;
+				this->entities[selectedIndex].Size.x *= .03f;
 			}
 			if (inputManager.Keys[GLFW_KEY_4])
 			{
-				this->entities[debugMenu.get_selected_index()].Size.x *= .03f;
+				this->entities[selectedIndex].Size.x *= .03f;
 			}
 			if (inputManager.Keys[GLFW_KEY_5])
 			{
-				this->entities[debugMenu.get_selected_index()].Size.z *= .03f;
+				this->entities[selectedIndex].Size.z *= .03f;
 			}
 			if (inputManager.Keys[GLFW_KEY_6])
 			{
-				this->entities[debugMenu.get_selected_index()].Size.z *= .03f;
+				this->entities[selectedIndex].Size.z *= .03f;
 			}
 		}
 	}
