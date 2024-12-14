@@ -1,13 +1,17 @@
 #include"Player.h"
 
-Player::Player(Model characterModel, glm::vec3 pos, glm::vec3 size) : GameObject(0, characterModel, pos, size, glm::vec3(0.0f))
+
+Player::Player(Model* characterModel, glm::vec3 pos, glm::vec3 size, glm::vec3 rotation) : GameObject(0, characterModel, pos, size, rotation)
 { 
-	this->boardPosition = 0;
-	this->inMotion = false;
+	mation = new Animation((char*)"C:/Users/alcor/Downloads/LearnOpenGL-master/LearnOpenGL-master/resources/objects/vampire/dancing_vampire.dae", characterModel);
+	mator = new Animator(mation);
+	boardPosition = 0;
+	inMotion = false;
+	transforms = mator->get_final_bone_matrices();
 }
 
 void Player::move_player(std::vector<glm::vec3> spaces)
-{
+{		
 	if (moves >= spaces.size()) moves -= spaces.size();
 
 	int nextPos = boardPosition == spaces.size() - 1 ? 0 : boardPosition + 1;
@@ -27,24 +31,40 @@ void Player::move_player(std::vector<glm::vec3> spaces)
 			//	camera.setCameraPos(currPos + glm::vec3(0.0f, 30.0f, 50.0f));
 			//	camera.setCameraFront(currPos);
 
-			this->Position = currPos;
+			Position = currPos;
 		}
 		else {
 			boardPosition = nextPos;
 			startTime = (float)glfwGetTime();
 
-			this->Position = spaces[boardPosition] + glm::vec3(0, 6, 0);
+			Position = spaces[boardPosition] + glm::vec3(0, 6, 0);
 		}
 	}
 	else {
-		this->Position = spaces[boardPosition] + glm::vec3(0, 6, 0);
-		this->inMotion = false;
+		Position = spaces[boardPosition] + glm::vec3(0, 6, 0);
+		inMotion = false;
 
 		/*	camera.setCameraPos(objectsInScene[startPos] * 10.0f + glm::vec3(0, 3, 0) + glm::vec3(0.0f, 30.0f, 50.0f));
 			camera.setCameraFront(objectsInScene[startPos] * 10.0f + glm::vec3(0, 3, 0));*/
-
 	}
 }
+
+void Player::update(float deltaTime)
+{
+	transforms = mator->get_final_bone_matrices();
+	mator->update_animation(deltaTime);
+}
+
+//void Player::play_animation()
+//{
+//	mator->play_animation(mation);
+//}
+
+//void Player::draw(Renderer& renderer)
+//{
+//	this->transform = mator.get_final_bone_matrices();
+//	renderer.draw(this->GameModel, this->Position, this->Size, this->Rotation, this->transform);
+//}
 
 unsigned int Player::get_board_position()
 {

@@ -96,6 +96,15 @@
     <ClCompile Include="BoardMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Bone.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Animator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="default.vert.glsl">
@@ -114,6 +123,12 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="picking.frag.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="skinned.vert.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="skinned.frag.glsl">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
@@ -191,6 +206,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BoardMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Animator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Bone.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BoneInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

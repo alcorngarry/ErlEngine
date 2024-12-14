@@ -2,6 +2,7 @@
 #ifndef ASSET_MANAGER_H
 #define ASSET_MANAGER_H
 #include"Model.h"
+#include"Animator.h"
 #include<map>
 
 class AssetManager {

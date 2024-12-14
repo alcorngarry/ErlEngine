@@ -1,11 +1,20 @@
 ﻿  BoardMap.cpp
-C:\Dev\opengl_code\test_project\BoardMap.cpp(50,58): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Dev\opengl_code\test_project\BoardMap.cpp(59,58): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Dev\opengl_code\test_project\BoardMap.cpp(68,58): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Dev\opengl_code\test_project\BoardMap.cpp(77,58): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Dev\opengl_code\test_project\BoardMap.cpp(50,64): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Dev\opengl_code\test_project\BoardMap.cpp(59,64): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Dev\opengl_code\test_project\BoardMap.cpp(68,64): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Dev\opengl_code\test_project\BoardMap.cpp(77,64): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 C:\Dev\opengl_code\test_project\BoardMap.cpp(85,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
 C:\Dev\opengl_code\test_project\BoardMap.cpp(89,9): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
-  Player.cpp
-C:\Dev\opengl_code\test_project\Player.cpp(11,52): warning C4267: '-=': conversion from 'size_t' to 'int', possible loss of data
+  DebugMenu.cpp
+  Game.cpp
+  Main.cpp
+  Map.cpp
+C:\Dev\opengl_code\test_project\Map.cpp(51,17): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Dev\opengl_code\test_project\Map.cpp(206,59): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Dev\opengl_code\test_project\Map.cpp(206,40): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  PongMap.cpp
+  Renderer.cpp
+C:\Dev\opengl_code\test_project\Renderer.cpp(175,41): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
+C:\Dev\opengl_code\test_project\Renderer.cpp(175,15): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
   Generating Code...
   test_project.vcxproj -> C:\Dev\opengl_code\test_project\x64\Debug\test_project.exe

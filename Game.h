@@ -8,6 +8,7 @@
 #include"Model.h"
 #include"Map.h"
 #include"BoardMap.h"
+#include"GameObject.h"
 #include"Player.h"
 #include"Renderer.h"
 #include"Camera.h"
@@ -27,18 +28,15 @@ class Game {
 		
 		std::vector<Map*> Maps;
 		GameState State;
+		InputManager inputManager;
 
 		Game(GLFWwindow* window);
 		~Game();
 
-		void init(GLFWwindow* window);
+		void init();
 		void process_input(float deltaTime);
 		void update(float deltaTime);
 		void render(float deltaTime);
-	private:
-		InputManager inputManager;
-		int windowWidth = 1024;
-		int windowHeight = 768;
 };
 
 #endif // !GAME_H
