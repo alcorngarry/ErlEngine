@@ -23,9 +23,9 @@ class Map
 		Map(std::string mapName);
 		Map();
 		
-		std::vector<GameObject> entities;
-		std::vector<GameObject> lights;
-		std::vector<Player> players;
+		std::vector<GameObject*> entities;
+		std::vector<GameObject*> lights;
+		std::vector<Player*> players;
 		
 		Camera camera;
 

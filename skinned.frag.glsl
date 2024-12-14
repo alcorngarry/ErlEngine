@@ -11,8 +11,6 @@ uniform vec3 lightPos;
 uniform vec3 lightColor;
 uniform vec3 viewPos;
 
-uniform bool selected;
-
 void main()
 {
     float ambientStrength = 0.2;
@@ -30,13 +28,5 @@ void main()
 
     vec4 result = vec4(ambient + diffuse + spec, 1.0) * texture(texture_diffuse1, texCoord);
 
-    //bad optimization
-    if (selected)
-    {
-        FragColor = vec4(1.0, 0.0, 0.0, 0.0);
-    }
-    else
-    {
-        FragColor = result;
-    }
+    FragColor = result;
 }

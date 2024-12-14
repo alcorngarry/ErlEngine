@@ -1,6 +1,6 @@
 #include"GameObject.h"
 
-GameObject::GameObject(unsigned int id, Model model, glm::vec3 pos, glm::vec3 size, glm::vec3 rotation) : GameModel(model), Position(pos), Size(size), Rotation(rotation)
+GameObject::GameObject(unsigned int id, Model* model, glm::vec3 pos, glm::vec3 size, glm::vec3 rotation) : GameModel(model), Position(pos), Size(size), Rotation(rotation)
 {
 	this->id = id;
 }

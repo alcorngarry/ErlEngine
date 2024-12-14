@@ -23,7 +23,7 @@ DebugMenu::~DebugMenu()
 	//delete pickingRenderer;
 }
 
-void DebugMenu::create_menu(std::vector<GameObject>& entities, Camera camera, float deltaTime)
+void DebugMenu::create_menu(std::vector<GameObject*> entities, Camera camera, float deltaTime)
 {
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
@@ -49,26 +49,26 @@ void DebugMenu::create_menu(std::vector<GameObject>& entities, Camera camera, fl
 	//	//ImGui::Text("X: %.2f", entity.Position.x);
 	//	//ImGui::Text("Y: %.2f", entity.Position.y);
 	//	//ImGui::Text("Z: %.2f", entity.Position.z);
-	//	ImGui::InputFloat(("X: %.2f" + std::to_string(i)).c_str(), &entity.Position.x, 1.0f, 1000.0f, "%.1f");
-	//	ImGui::InputFloat(("Y: %.2f" + std::to_string(i)).c_str(), &entity.Position.y, 1.0f, 1000.0f, "%.1f");
-	//	ImGui::InputFloat(("Z: %.2f" + std::to_string(i)).c_str(), &entity.Position.z, 1.0f, 1000.0f, "%.1f");
+	//	ImGui::InputFloat(("X: %.2f" + std::to_string(i)).c_str(), entity->Position.x, 1.0f, 1000.0f, "%.1f");
+	//	ImGui::InputFloat(("Y: %.2f" + std::to_string(i)).c_str(), entity->Position.y, 1.0f, 1000.0f, "%.1f");
+	//	ImGui::InputFloat(("Z: %.2f" + std::to_string(i)).c_str(), entity->Position.z, 1.0f, 1000.0f, "%.1f");
 
 	//	ImGui::Text("Size:");
-	//	ImGui::InputFloat(("Size X##" + std::to_string(i)).c_str(), &entity.Size.x, 1.0f, 100.0f, "%.1f");
-	//	ImGui::InputFloat(("Size Y##" + std::to_string(i)).c_str(), &entity.Size.y, 1.0f, 100.0f, "%.1f");
-	//	ImGui::InputFloat(("Size Z##" + std::to_string(i)).c_str(), &entity.Size.z, 1.0f, 100.0f, "%.1f");
+	//	ImGui::InputFloat(("Size X##" + std::to_string(i)).c_str(), entity->Size.x, 1.0f, 100.0f, "%.1f");
+	//	ImGui::InputFloat(("Size Y##" + std::to_string(i)).c_str(), entity->Size.y, 1.0f, 100.0f, "%.1f");
+	//	ImGui::InputFloat(("Size Z##" + std::to_string(i)).c_str(), entity->Size.z, 1.0f, 100.0f, "%.1f");
 
 	//	ImGui::Text("Rotation:");
-	//	ImGui::InputFloat(("Rotation X##" + std::to_string(i)).c_str(), &entity.Rotation.x, 1.0f, 180.0f, "%.1f");
-	//	ImGui::InputFloat(("Rotation Y##" + std::to_string(i)).c_str(), &entity.Rotation.y, 1.0f, 180.0f, "%.1f");
-	//	ImGui::InputFloat(("Rotation Z##" + std::to_string(i)).c_str(), &entity.Rotation.z, 1.0f, 180.0f, "%.1f");
+	//	ImGui::InputFloat(("Rotation X##" + std::to_string(i)).c_str(), entity->Rotation.x, 1.0f, 180.0f, "%.1f");
+	//	ImGui::InputFloat(("Rotation Y##" + std::to_string(i)).c_str(), entity->Rotation.y, 1.0f, 180.0f, "%.1f");
+	//	ImGui::InputFloat(("Rotation Z##" + std::to_string(i)).c_str(), entity->Rotation.z, 1.0f, 180.0f, "%.1f");
 
 	//	ImGui::Separator();
 	//}
 	int selectedIndex = Renderer::get_selected_index();
 	if (selectedIndex != -1)
 	{
-		GameObject& entity = entities[selectedIndex];
+		GameObject* entity = entities[selectedIndex];
 
 		ImGui::Text("Entity %zu", selectedIndex);
 
@@ -76,19 +76,19 @@ void DebugMenu::create_menu(std::vector<GameObject>& entities, Camera camera, fl
 		//ImGui::Text("X: %.2f", entity.Position.x);
 		//ImGui::Text("Y: %.2f", entity.Position.y);
 		//ImGui::Text("Z: %.2f", entity.Position.z);
-		ImGui::InputFloat(("X: %.2f" + std::to_string(selectedIndex)).c_str(), &entity.Position.x, 1.0f, 1000.0f, "%.1f");
-		ImGui::InputFloat(("Y: %.2f" + std::to_string(selectedIndex)).c_str(), &entity.Position.y, 1.0f, 1000.0f, "%.1f");
-		ImGui::InputFloat(("Z: %.2f" + std::to_string(selectedIndex)).c_str(), &entity.Position.z, 1.0f, 1000.0f, "%.1f");
+		ImGui::InputFloat(("X: %.2f" + std::to_string(selectedIndex)).c_str(), &entity->Position.x, 1.0f, 1000.0f, "%.1f");
+		ImGui::InputFloat(("Y: %.2f" + std::to_string(selectedIndex)).c_str(), &entity->Position.y, 1.0f, 1000.0f, "%.1f");
+		ImGui::InputFloat(("Z: %.2f" + std::to_string(selectedIndex)).c_str(), &entity->Position.z, 1.0f, 1000.0f, "%.1f");
 
 		ImGui::Text("Size:");
-		ImGui::InputFloat(("Size X##" + std::to_string(selectedIndex)).c_str(), &entity.Size.x, 1.0f, 100.0f, "%.1f");
-		ImGui::InputFloat(("Size Y##" + std::to_string(selectedIndex)).c_str(), &entity.Size.y, 1.0f, 100.0f, "%.1f");
-		ImGui::InputFloat(("Size Z##" + std::to_string(selectedIndex)).c_str(), &entity.Size.z, 1.0f, 100.0f, "%.1f");
+		ImGui::InputFloat(("Size X##" + std::to_string(selectedIndex)).c_str(), &entity->Size.x, 1.0f, 100.0f, "%.1f");
+		ImGui::InputFloat(("Size Y##" + std::to_string(selectedIndex)).c_str(), &entity->Size.y, 1.0f, 100.0f, "%.1f");
+		ImGui::InputFloat(("Size Z##" + std::to_string(selectedIndex)).c_str(), &entity->Size.z, 1.0f, 100.0f, "%.1f");
 
 		ImGui::Text("Rotation:");
-		ImGui::InputFloat(("Rotation X##" + std::to_string(selectedIndex)).c_str(), &entity.Rotation.x, 1.0f, 180.0f, "%.1f");
-		ImGui::InputFloat(("Rotation Y##" + std::to_string(selectedIndex)).c_str(), &entity.Rotation.y, 1.0f, 180.0f, "%.1f");
-		ImGui::InputFloat(("Rotation Z##" + std::to_string(selectedIndex)).c_str(), &entity.Rotation.z, 1.0f, 180.0f, "%.1f");
+		ImGui::InputFloat(("Rotation X##" + std::to_string(selectedIndex)).c_str(), &entity->Rotation.x, 1.0f, 180.0f, "%.1f");
+		ImGui::InputFloat(("Rotation Y##" + std::to_string(selectedIndex)).c_str(), &entity->Rotation.y, 1.0f, 180.0f, "%.1f");
+		ImGui::InputFloat(("Rotation Z##" + std::to_string(selectedIndex)).c_str(), &entity->Rotation.z, 1.0f, 180.0f, "%.1f");
 
 		ImGui::Separator();
 	}

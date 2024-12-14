@@ -10,7 +10,7 @@ class PongMap : public Map {
 	protected:
 		void load_players(AssetManager assetManager) override;
 	private:
-		void player_collision(Player* player);
+		void check_ball_collision(GameObject* entity);
 
 		int team_1_points = 0;
 		int team_2_points = 0;

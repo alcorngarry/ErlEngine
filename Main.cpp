@@ -7,9 +7,13 @@
 #include"Game.h"
 #include<GLFW/glfw3.h>
 
+void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+
 int main(int argc, char* argv[])
 {
 	GLFWwindow* window = Renderer::init_render();
+
+	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
 	Game partyGame = Game(window);
 
@@ -17,6 +21,8 @@ int main(int argc, char* argv[])
 
 	float lastFrame = 0.0f;
 	float deltaTime = 0.0f;
+
+	glEnable(GL_DEPTH_TEST);
 
 	// game loop
 	while (!glfwWindowShouldClose(window))
@@ -51,4 +57,9 @@ int main(int argc, char* argv[])
 	glfwTerminate();
 
 	return 0;
+}
+
+void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+	glViewport(0, 0, width, height);
 }

@@ -225,17 +225,17 @@ unsigned int Model::TextureFromFile(const char* path, const std::string& directo
 	return textureID;
 }
 
-glm::vec3 Model::getMinAABB()
+glm::vec3 Model::getMinAABB() const
 {
 	return minAABB;
 }
 
-glm::vec3 Model::getMaxAABB()
+glm::vec3 Model::getMaxAABB() const
 {
 	return maxAABB;
 }
 
-std::map<std::string, BoneInfo> Model::get_bone_info_map()
+std::map<std::string, BoneInfo> Model::get_bone_info_map() const
 {
 	return m_BoneInfoMap; 
 }

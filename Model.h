@@ -26,9 +26,9 @@ class Model
 		Model(char* path);
 
 		void draw(Shader& shader);
-		glm::vec3 getMinAABB();
-		glm::vec3 getMaxAABB();
-		std::map<std::string, BoneInfo> get_bone_info_map();
+		glm::vec3 getMinAABB() const;
+		glm::vec3 getMaxAABB() const;
+		std::map<std::string, BoneInfo> get_bone_info_map() const;
 		int& get_bone_count();
 
 	private:

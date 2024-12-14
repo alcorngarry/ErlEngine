@@ -9,7 +9,6 @@ struct AssimpNodeData
 {
 	glm::mat4 transformation;
 	std::string name;
-	int childrenCount;
 	std::vector<AssimpNodeData> children;
 };
 
@@ -22,10 +21,11 @@ class Animation
 
 		Bone* find_bone(const std::string& name);
 
-		float get_ticks_per_second();
-		float get_duration();
+		float get_ticks_per_second() const;
+		float get_duration() const;
 		const AssimpNodeData& get_root_node();
 		const std::map<std::string, BoneInfo>& get_bone_id_map();
+		glm::mat4 get_global_inverse() const;
 
 	private:
 		float m_Duration;
@@ -33,6 +33,7 @@ class Animation
 		std::vector<Bone> m_Bones;
 		AssimpNodeData m_RootNode;
 		std::map<std::string, BoneInfo> m_BoneInfoMap;
+		glm::mat4 m_GlobalInverse;
 
 		void read_missing_bones(const aiAnimation* animation, Model& model);
 		void read_heirarchy_data(AssimpNodeData& dest, const aiNode* src);

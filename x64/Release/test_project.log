@@ -1,0 +1,85 @@
+﻿  glad.c
+  imgui.cpp
+  imgui_demo.cpp
+  imgui_draw.cpp
+  imgui_impl_glfw.cpp
+  imgui_impl_opengl3.cpp
+  imgui_tables.cpp
+  imgui_widgets.cpp
+  Animation.cpp
+C:\Dev\opengl_code\test_project\Animation.cpp(19,24): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Dev\opengl_code\test_project\Animation.cpp(20,30): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Dev\opengl_code\test_project\Animation.cpp(46,9): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+C:\Dev\opengl_code\test_project\Animation.cpp(96,20): warning C4018: '<': signed/unsigned mismatch
+  Animator.cpp
+  AssetManager.cpp
+  BoardMap.cpp
+C:\Dev\opengl_code\test_project\BoardMap.cpp(50,64): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Dev\opengl_code\test_project\BoardMap.cpp(59,64): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Dev\opengl_code\test_project\BoardMap.cpp(68,64): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Dev\opengl_code\test_project\BoardMap.cpp(77,64): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Dev\opengl_code\test_project\BoardMap.cpp(85,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Dev\opengl_code\test_project\BoardMap.cpp(89,9): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+  Bone.cpp
+C:\Dev\opengl_code\test_project\Bone.cpp(13,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Dev\opengl_code\test_project\Bone.cpp(24,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Dev\opengl_code\test_project\Bone.cpp(35,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  Camera.cpp
+  CharacterController.cpp
+  DebugMenu.cpp
+  Game.cpp
+  GameObject.cpp
+  InputManager.cpp
+C:\Dev\opengl_code\test_project\InputManager.cpp(33,23): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Dev\opengl_code\test_project\InputManager.cpp(34,23): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Dev\opengl_code\test_project\InputManager.cpp(38,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Dev\opengl_code\test_project\InputManager.cpp(39,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Dev\opengl_code\test_project\InputManager.cpp(40,19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Dev\opengl_code\test_project\InputManager.cpp(41,19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Main.cpp
+  Map.cpp
+C:\Dev\opengl_code\test_project\Map.cpp(51,17): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Dev\opengl_code\test_project\Map.cpp(206,59): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Dev\opengl_code\test_project\Map.cpp(206,40): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Compiling...
+  Mesh.cpp
+  Model.cpp
+C:\Dev\opengl_code\test_project\Model.cpp(252,36): warning C4018: '<': signed/unsigned mismatch
+  Player.cpp
+C:\Dev\opengl_code\test_project\Player.cpp(15,52): warning C4267: '-=': conversion from 'size_t' to 'int', possible loss of data
+  PongMap.cpp
+  Renderer.cpp
+C:\Dev\opengl_code\test_project\Renderer.cpp(249,41): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
+C:\Dev\opengl_code\test_project\Renderer.cpp(249,15): warning C4244: 'argument': conversion from 'float' to 'GLint', possible loss of data
+  stb_image.cpp
+  test_project.cpp
+LINK : warning LNK4098: defaultlib 'MSVCRTD' conflicts with use of other libs; use /NODEFAULTLIB:library
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+C:\Dev\opengl_code\test_project\Bone.cpp(84): warning C4715: 'Bone::get_rotation_index': not all control paths return a value
+C:\Dev\opengl_code\test_project\Bone.cpp(94): warning C4715: 'Bone::get_scale_index': not all control paths return a value
+C:\Dev\opengl_code\test_project\Bone.cpp(74): warning C4715: 'Bone::get_position_index': not all control paths return a value
+  All 3351 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+glfw3.lib(context.obj) : warning LNK4099: PDB '' was not found with 'glfw3.lib(context.obj)' or at ''; linking object as if no debug info
+glfw3.lib(init.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(init.obj)' or at 'C:\Dev\opengl_code\test_project\x64\Release\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(input.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(input.obj)' or at 'C:\Dev\opengl_code\test_project\x64\Release\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(monitor.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(monitor.obj)' or at 'C:\Dev\opengl_code\test_project\x64\Release\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(platform.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(platform.obj)' or at 'C:\Dev\opengl_code\test_project\x64\Release\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(vulkan.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(vulkan.obj)' or at 'C:\Dev\opengl_code\test_project\x64\Release\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(window.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(window.obj)' or at 'C:\Dev\opengl_code\test_project\x64\Release\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(egl_context.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(egl_context.obj)' or at 'C:\Dev\opengl_code\test_project\x64\Release\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(osmesa_context.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(osmesa_context.obj)' or at 'C:\Dev\opengl_code\test_project\x64\Release\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(null_init.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(null_init.obj)' or at 'C:\Dev\opengl_code\test_project\x64\Release\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(null_monitor.obj) : warning LNK4099: PDB '' was not found with 'glfw3.lib(null_monitor.obj)' or at ''; linking object as if no debug info
+glfw3.lib(null_window.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(null_window.obj)' or at 'C:\Dev\opengl_code\test_project\x64\Release\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(null_joystick.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(null_joystick.obj)' or at 'C:\Dev\opengl_code\test_project\x64\Release\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(win32_module.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(win32_module.obj)' or at 'C:\Dev\opengl_code\test_project\x64\Release\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(win32_time.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(win32_time.obj)' or at 'C:\Dev\opengl_code\test_project\x64\Release\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(win32_thread.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(win32_thread.obj)' or at 'C:\Dev\opengl_code\test_project\x64\Release\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(win32_init.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(win32_init.obj)' or at 'C:\Dev\opengl_code\test_project\x64\Release\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(win32_joystick.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(win32_joystick.obj)' or at 'C:\Dev\opengl_code\test_project\x64\Release\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(win32_monitor.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(win32_monitor.obj)' or at 'C:\Dev\opengl_code\test_project\x64\Release\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(win32_window.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(win32_window.obj)' or at 'C:\Dev\opengl_code\test_project\x64\Release\glfw3.pdb'; linking object as if no debug info
+glfw3.lib(wgl_context.obj) : warning LNK4099: PDB 'glfw3.pdb' was not found with 'glfw3.lib(wgl_context.obj)' or at 'C:\Dev\opengl_code\test_project\x64\Release\glfw3.pdb'; linking object as if no debug info
+  test_project.vcxproj -> C:\Dev\opengl_code\test_project\x64\Release\test_project.exe

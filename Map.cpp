@@ -16,23 +16,23 @@ Map::Map()
 void Map::save()
 {
 	writeMap = std::ofstream{ fileName + ".txt" };
-	for (int i = 0; i < this->entities.size(); i++)
+	for (int i = 0; i < entities.size(); i++)
 	{
 		//don't save ball location
-		if (this->entities.at(i).id != 5)
+		if (entities[i]->id != 5)
 		{
-			writeMap << this->entities.at(i).id << ", "
-				<< this->entities.at(i).Position.x << "," << this->entities.at(i).Position.y << "," << this->entities.at(i).Position.z << ", "
-				<< this->entities.at(i).Size.x << "," << this->entities.at(i).Size.y << "," << this->entities.at(i).Size.z << ", "
-				<< this->entities.at(i).Rotation.x << "," << this->entities.at(i).Rotation.y << "," << this->entities.at(i).Rotation.z << std::endl;
+			writeMap << entities[i]->id << ", "
+				<< entities[i]->Position.x << "," << entities[i]->Position.y << "," << entities[i]->Position.z << ", "
+				<< entities[i]->Size.x << "," << entities[i]->Size.y << "," << entities[i]->Size.z << ", "
+				<< entities[i]->Rotation.x << "," << entities[i]->Rotation.y << "," << entities[i]->Rotation.z << std::endl;
 		}
 	}
-	for (GameObject light : lights)
+	for (GameObject* light : lights)
 	{
-		writeMap << light.id << ", "
-			<< light.Position.x << "," << light.Position.y << "," << light.Position.z << ", "
-			<< light.Size.x << "," << light.Size.y << "," << light.Size.z << ", "
-			<< light.Rotation.x << "," << light.Rotation.y << "," << light.Rotation.z << std::endl;
+		writeMap << light->id << ", "
+			<< light->Position.x << "," << light->Position.y << "," << light->Position.z << ", "
+			<< light->Size.x << "," << light->Size.y << "," << light->Size.z << ", "
+			<< light->Rotation.x << "," << light->Rotation.y << "," << light->Rotation.z << std::endl;
 	}
 
 	writeMap.close();
@@ -76,11 +76,11 @@ void Map::load(AssetManager assetManager)
 
 		if (id == 1)
 		{
-			this->lights.push_back(GameObject(id, *assetManager.get_model(id), glm::vec3(x, y, z), glm::vec3(sizeX, sizeY, sizeZ), glm::vec3(rotationX, rotationY, rotationZ)));
+			this->lights.push_back(new GameObject(id, assetManager.get_model(id), glm::vec3(x, y, z), glm::vec3(sizeX, sizeY, sizeZ), glm::vec3(rotationX, rotationY, rotationZ)));
 		}
 		else
 		{
-			this->entities.push_back(GameObject(id, *assetManager.get_model(id), glm::vec3(x, y, z), glm::vec3(sizeX, sizeY, sizeZ), glm::vec3(rotationX, rotationY, rotationZ)));
+			entities.push_back(new GameObject(id, assetManager.get_model(id), glm::vec3(x, y, z), glm::vec3(sizeX, sizeY, sizeZ), glm::vec3(rotationX, rotationY, rotationZ)));
 		} 
 	} 
 	readMap.close();
@@ -92,7 +92,7 @@ void Map::load_players(AssetManager assetManager)
 {
 	for (int i = 0; i < 4; i++)
 	{
-		players.push_back(Player(*assetManager.get_model(0), glm::vec3(0.0f) * 5.0f + glm::vec3(0, 3, 0), glm::vec3(2.0f)));
+		players.push_back(new Player(assetManager.get_model(0), glm::vec3(0.0f) * 5.0f + glm::vec3(0, 3, 0), glm::vec3(2.0f), glm::vec3(0.0f)));
 	}
 	/*player2 = new Player(*assetManager.get_model(0), glm::vec3(0.0f) * 5.0f + glm::vec3(0, 3, 0), glm::vec3(2.0f));
 	player3 = new Player(*assetManager.get_model(0), glm::vec3(0.0f) * 5.0f + glm::vec3(0, 3, 0), glm::vec3(2.0f));
@@ -102,11 +102,6 @@ void Map::load_players(AssetManager assetManager)
 
 void Map::draw(float deltaTime)
 {
-	if (State == MENU_OPEN)
-	{
-		Renderer::create_menu(deltaTime);
-	}
-
 	//if (isLight)
 	//{
 	//	for (int i = 0; i < this->lights.size(); i++)
@@ -115,10 +110,10 @@ void Map::draw(float deltaTime)
 	//	}
 	//}
 	//else {
-	//	for (int i = 0; i < this->entities.size(); i++)
+	//	for (int i = 0; i < entities.size(); i++)
 	//	{
 	//		renderer.shader.setBool("selected", i == debugMenu.get_selected_index());
-	//		this->entities.at(i).draw(renderer);
+	//		entities[i]->draw(renderer);
 	//	}
 
 		/*players.at(0).draw(renderer);
@@ -133,17 +128,22 @@ void Map::draw(float deltaTime)
 		//players.at(3).draw_bounding_box(renderer);
 	//}
 
-	Renderer::create_renderer(this->players, this->entities, this->lights, this->camera);
+	Renderer::render(players, entities, lights, camera);
+
+	if (State == MENU_OPEN)
+	{
+		Renderer::create_menu(deltaTime);
+	}
 }
 
 void Map::duplicate_model(int selectedIndex)
 {
-	this->entities.push_back(entities[selectedIndex]);
+	entities.push_back(entities[selectedIndex]);
 }
 
 void Map::remove_model(int selectedIndex)
 {
-	this->entities.erase(this->entities.begin() + selectedIndex);
+	entities.erase(entities.begin() + selectedIndex);
 }
 
 void Map::process_input(InputManager& inputManager, float deltaTime)
@@ -204,7 +204,7 @@ void Map::menu_input(InputManager& inputManager, float deltaTime)
 			//color picking lol. Slow but not noticeable especially since it's used for map building.
 
 			Renderer::select_entity(inputManager.xpos, inputManager.ypos);
-			//debugMenu.select_object(this->entities, this->camera, inputManager.xpos, inputManager.ypos);
+			//debugMenu.select_object(entities, this->camera, inputManager.xpos, inputManager.ypos);
 		}
 
 		if (inputManager.MouseButtons[GLFW_MOUSE_BUTTON_RIGHT])
@@ -219,27 +219,27 @@ void Map::menu_input(InputManager& inputManager, float deltaTime)
 		{
 			if (inputManager.Keys[GLFW_KEY_UP])
 			{
-				this->entities[selectedIndex].Position.y += .03f;
+				entities[selectedIndex]->Position.y += .03f;
 			}
 			if (inputManager.Keys[GLFW_KEY_DOWN])
 			{
-				this->entities[selectedIndex].Position.y -= .03f;
+				entities[selectedIndex]->Position.y -= .03f;
 			}
 			if (inputManager.Keys[GLFW_KEY_LEFT])
 			{
-				this->entities[selectedIndex].Position.x += .03f;
+				entities[selectedIndex]->Position.x += .03f;
 			}
 			if (inputManager.Keys[GLFW_KEY_RIGHT])
 			{
-				this->entities[selectedIndex].Position.x -= .03f;
+				entities[selectedIndex]->Position.x -= .03f;
 			}
 			if (inputManager.Keys[GLFW_KEY_J])
 			{
-				this->entities[selectedIndex].Position.z += .03f;
+				entities[selectedIndex]->Position.z += .03f;
 			}
 			if (inputManager.Keys[GLFW_KEY_K])
 			{
-				this->entities[selectedIndex].Position.z -= .03f;
+				entities[selectedIndex]->Position.z -= .03f;
 			}
 			if (inputManager.Keys[GLFW_KEY_N] && !inputManager.KeysProcessed[GLFW_KEY_N])
 			{
@@ -260,27 +260,27 @@ void Map::menu_input(InputManager& inputManager, float deltaTime)
 
 			if (inputManager.Keys[GLFW_KEY_1])
 			{
-				this->entities[selectedIndex].Size.y *= .03f;
+				entities[selectedIndex]->Size.y *= .03f;
 			}
 			if (inputManager.Keys[GLFW_KEY_2])
 			{
-				this->entities[selectedIndex].Size.y *= .03f;
+				entities[selectedIndex]->Size.y *= .03f;
 			}
 			if (inputManager.Keys[GLFW_KEY_3])
 			{
-				this->entities[selectedIndex].Size.x *= .03f;
+				entities[selectedIndex]->Size.x *= .03f;
 			}
 			if (inputManager.Keys[GLFW_KEY_4])
 			{
-				this->entities[selectedIndex].Size.x *= .03f;
+				entities[selectedIndex]->Size.x *= .03f;
 			}
 			if (inputManager.Keys[GLFW_KEY_5])
 			{
-				this->entities[selectedIndex].Size.z *= .03f;
+				entities[selectedIndex]->Size.z *= .03f;
 			}
 			if (inputManager.Keys[GLFW_KEY_6])
 			{
-				this->entities[selectedIndex].Size.z *= .03f;
+				entities[selectedIndex]->Size.z *= .03f;
 			}
 		}
 	}

@@ -1,0 +1,1 @@
+C:\Dev\opengl_code\test_project\x64\Release\test_project.exe

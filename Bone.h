@@ -31,12 +31,12 @@ class Bone
 public:
 	Bone(const std::string& name, int ID, const aiNodeAnim* channel);
 	void update(float animationTime);
-	glm::mat4 get_local_transform();
+	glm::mat4 get_local_transform() const;
 	std::string get_bone_name() const;
-	int get_bone_id();
-	int get_position_index(float animationTime);
-	int get_rotation_index(float animationTime);
-	int get_scale_index(float animationTime);
+	int get_bone_id() const;
+	int get_position_index(float animationTime) const;
+	int get_rotation_index(float animationTime) const;
+	int get_scale_index(float animationTime) const;
 
 private:
 	std::vector<KeyPosition> m_Positions;
@@ -50,7 +50,7 @@ private:
 	std::string m_Name;
 	int m_ID;
 
-	float get_scale_factor(float lastTimeStamp, float nextTimeStamp, float animationTime);
+	float get_scale_factor(float lastTimeStamp, float nextTimeStamp, float animationTime) const;
 	glm::mat4 interpolation_position(float animationTime);
 	glm::mat4 interpolation_rotation(float animationTime);
 	glm::mat4 interpolation_scaling(float animationTime);

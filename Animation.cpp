@@ -18,8 +18,10 @@ Animation::Animation(char* animationPath, Model* model)
 	auto animation = scene->mAnimations[0];
 	m_Duration = animation->mDuration;
 	m_TicksPerSecond = animation->mTicksPerSecond;
-	aiMatrix4x4 globalTransformation = scene->mRootNode->mTransformation;
-	globalTransformation = globalTransformation.Inverse();
+	
+	m_GlobalInverse = inverse(convert_mat4_to_glm(scene->mRootNode->mTransformation));
+	//scene->mRootNode->mTransformation.Inverse();
+	//globalTransformation = globalTransformation.Inverse();
 	read_heirarchy_data(m_RootNode, scene->mRootNode);
 	read_missing_bones(animation, *model);
 }
@@ -27,6 +29,11 @@ Animation::Animation(char* animationPath, Model* model)
 Animation::~Animation()
 {
 
+}
+
+glm::mat4 Animation::get_global_inverse() const
+{
+	return m_GlobalInverse;
 }
 
 Bone* Animation::find_bone(const std::string & name)
@@ -41,12 +48,12 @@ Bone* Animation::find_bone(const std::string & name)
 	else return &(*iter);
 }
 
-float Animation::get_ticks_per_second()
+float Animation::get_ticks_per_second() const
 {
 	return m_TicksPerSecond;
 }
 
-float Animation::get_duration()
+float Animation::get_duration() const
 {
 	return m_Duration;
 }
@@ -91,7 +98,7 @@ void Animation::read_heirarchy_data(AssimpNodeData & dest, const aiNode * src)
 
 	dest.name = src->mName.data;
 	dest.transformation = convert_mat4_to_glm(src->mTransformation);
-	dest.childrenCount = src->mNumChildren;
+	dest.children.reserve(src->mNumChildren);
 
 	for (int i = 0; i < src->mNumChildren; i++)
 	{

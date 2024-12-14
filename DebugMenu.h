@@ -19,7 +19,7 @@ class DebugMenu
 		~DebugMenu();
 	
 		//void select_object(std::vector<GameObject>& entities, Camera camera, float xpos, float ypos);
-		void create_menu(std::vector<GameObject>& entities, Camera camera, float deltaTime);
+		void create_menu(std::vector<GameObject*> entities, Camera camera, float deltaTime);
 		void shut_down();
 		//void deselect_index();
 		//int get_selected_index();
