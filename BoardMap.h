@@ -9,7 +9,7 @@ class BoardMap : public Map {
 		std::vector<glm::vec3> get_board_positions();
 		void update(float deltaTime) override;
 	private:
-		void load_players(AssetManager assetManager) override;
+		void load_players() override;
 		void process_input(InputManager& inputManager, float deltaTime) override;
 };
 

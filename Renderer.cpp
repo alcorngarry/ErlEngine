@@ -7,6 +7,7 @@ Shader* shaderProgram;
 Shader* lightShaderProgram;
 Shader* skinnedShaderProgram;
 Shader* pickingShaderProgram;
+Shader* cubemapShaderProgram;
 
 GLFWwindow* window;
 DebugMenu debugMenu;
@@ -60,19 +61,20 @@ GLFWwindow* Renderer::init_render()
 	lightShaderProgram = new Shader("light.vert.glsl", "light.frag.glsl");
 	skinnedShaderProgram = new Shader("skinned.vert.glsl", "skinned.frag.glsl");
 	pickingShaderProgram = new Shader("picking.vert.glsl", "picking.frag.glsl");
+	cubemapShaderProgram = new Shader("cubemap.vert.glsl", "cubemap.frag.glsl");
 	
 	return window;
 }
 
-void Renderer::render(std::vector<Player*> players, std::vector<GameObject*> entities, std::vector<GameObject*> lights, Camera& camera)
+void Renderer::render(std::vector<Player*> players, std::vector<GameObject*> entities, std::vector<GameObject*> lights, Camera& camera, SkyBox* skybox)
 {
 	m_players = players;
 	m_entities = entities;
 	m_lights = lights;
 	m_camera = camera;
 
-	view = glm::lookAt(camera.getCameraPos(), camera.getCameraPos() + camera.getCameraFront(), camera.getCameraUp());
-	projection = glm::perspective(glm::radians(45.0f), (float)windowWidth / (float)windowHeight, 0.1f, 10000.0f);
+	view = camera.get_view_matrix();
+	projection = camera.get_projection_matrix();
 
 	skinnedShaderProgram->use();
 	skinnedShaderProgram->setVec3("lightPos", lights[0]->Position);
@@ -98,12 +100,20 @@ void Renderer::render(std::vector<Player*> players, std::vector<GameObject*> ent
 	{
 		Renderer::draw_static(lightShaderProgram, light->GameModel, light->Position, light->Size, light->Rotation);
 	}
+
+
+	//performance wise set this last, also might cause issues with the view
+	cubemapShaderProgram->use();
+	cubemapShaderProgram->setInt("skybox", 0);
+	cubemapShaderProgram->setMat4("view", glm::mat4(glm::mat3(m_camera.get_view_matrix())));
+	cubemapShaderProgram->setMat4("projection", projection);
+	skybox->draw(cubemapShaderProgram);
 }
 
 void Renderer::draw_skinned(Model* model, glm::vec3 pos, glm::vec3 size, glm::vec3 rotation, std::vector<glm::mat4>* transform)
 {
-	glUniformMatrix4fv(glGetUniformLocation(skinnedShaderProgram->ID, "view"), 1, GL_FALSE, &view[0][0]);
-	glUniformMatrix4fv(glGetUniformLocation(skinnedShaderProgram->ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+	skinnedShaderProgram->setMat4("view", view);
+	skinnedShaderProgram->setMat4("projection", projection);
 
 	for (int i = 0; i < transform->size(); ++i)
 	{
@@ -124,8 +134,8 @@ void Renderer::draw_skinned(Model* model, glm::vec3 pos, glm::vec3 size, glm::ve
 
 void Renderer::draw_static(Shader* shader, Model* model, glm::vec3 pos, glm::vec3 size, glm::vec3 rotation)
 {
-	glUniformMatrix4fv(glGetUniformLocation(shader->ID, "view"), 1, GL_FALSE, &view[0][0]);
-	glUniformMatrix4fv(glGetUniformLocation(shader->ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+	shader->setMat4("view", view);
+	shader->setMat4("projection", projection);
 
 	glm::mat4 modelMat = glm::translate(glm::mat4(1.0f), pos);
 	
@@ -149,9 +159,9 @@ void Renderer::select_entity(float xpos, float ypos)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	pickingShaderProgram->use();
-	glEnableVertexAttribArray(0);
-	glUniformMatrix4fv(glGetUniformLocation(pickingShaderProgram->ID, "view"), 1, GL_FALSE, &view[0][0]);
-	glUniformMatrix4fv(glGetUniformLocation(pickingShaderProgram->ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+
+	pickingShaderProgram->setMat4("view", view);
+	pickingShaderProgram->setMat4("projection", projection);
 
 	for (int i = 0; i < m_entities.size(); i++)
 	{
@@ -204,7 +214,6 @@ void Renderer::deselect_index()
 
 void Renderer::draw_aabb(const glm::vec3& minAABB,const glm::vec3& maxAABB)
 {
-	// Define the vertices and indices for the faceless cube (edges only)
 	const GLfloat vertices[] = {
 		minAABB.x, minAABB.y, minAABB.z, // 0
 		minAABB.x, minAABB.y, maxAABB.z, // 1
@@ -216,7 +225,6 @@ void Renderer::draw_aabb(const glm::vec3& minAABB,const glm::vec3& maxAABB)
 		maxAABB.x, maxAABB.y,maxAABB.z  // 7
 	};
 
-	// Define the indices for drawing the edges
 	const GLuint indices[] = {
 		// Front face
 		0, 1, 1, 3, 3, 2, 2, 0,
@@ -228,7 +236,6 @@ void Renderer::draw_aabb(const glm::vec3& minAABB,const glm::vec3& maxAABB)
 		0, 4, 1, 5, 2, 6, 3, 7
 	};
 
-	// Create and bind VAO, VBO, and EBO
 	unsigned int VAO, VBO, EBO;
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
@@ -245,14 +252,12 @@ void Renderer::draw_aabb(const glm::vec3& minAABB,const glm::vec3& maxAABB)
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 
-	glBindVertexArray(0); // Unbind VAO
-
-	// Bind VAO and draw the cube
-	glBindVertexArray(VAO);
-	glDrawElements(GL_LINES, 24, GL_UNSIGNED_INT, 0); // Draw 24 lines (edges of the cube)
 	glBindVertexArray(0);
 
-	// Cleanup
+	glBindVertexArray(VAO);
+	glDrawElements(GL_LINES, 24, GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
+
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
 	glDeleteBuffers(1, &EBO);

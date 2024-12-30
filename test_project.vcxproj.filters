@@ -105,6 +105,9 @@
     <ClCompile Include="Animator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Skybox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="default.vert.glsl">
@@ -129,6 +132,12 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="skinned.frag.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cubemap.vert.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cubemap.frag.glsl">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
@@ -218,6 +227,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BoneInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

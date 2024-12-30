@@ -14,6 +14,11 @@ class GameObject {
 
 		//virtual void draw(Renderer& renderer);
 		virtual void update(float deltaTime);
+		glm::vec3 get_aabb_min() const;
+		glm::vec3 get_aabb_max() const;
+
+	private:
+		glm::vec3 local_to_world(const glm::vec3& localPos) const;
 		//void draw_bounding_box(Renderer& renderer);
 };
 

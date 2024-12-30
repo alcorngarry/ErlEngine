@@ -17,8 +17,8 @@ public:
     float yaw = -90.0f, pitch = 0.0f;
 
     void update();
-private:
     GLFWwindow* window;
+private:
     int windowWidth = 1024;
     int windowHeight = 768;
 };

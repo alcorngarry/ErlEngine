@@ -8,7 +8,7 @@ class PongMap : public Map {
 		void process_input(InputManager& inputManager, float deltaTime) override;
 		void update(float deltaTime) override;
 	protected:
-		void load_players(AssetManager assetManager) override;
+		void load_players() override;
 	private:
 		void check_ball_collision(GameObject* entity);
 

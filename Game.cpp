@@ -1,13 +1,10 @@
 #include "Game.h"
 
-AssetManager assetManager;
-
 bool isWireFrame = false;
 
 Game::Game(GLFWwindow* window) : State(GAME_ACTIVE)
 {
 	inputManager = InputManager(window);
-	//glfwGetWindowSize(window, &windowWidth, &windowHeight);
 }
 
 Game::~Game()
@@ -16,20 +13,13 @@ Game::~Game()
 
 void Game::init()
 {
-	/*lightRenderer = new Renderer(lightShaderProgram);
-	modelRenderer = new Renderer(shaderProgram);
-	skinnedRenderer = new Renderer(skinnedShaderProgram);*/
-
-	assetManager = AssetManager();
-	assetManager.load();
-
-	//debugMenu = DebugMenu(gameWindow);
+	AssetManager::load();
 
 	Maps.push_back(new BoardMap("test_map_1"));
 	Maps.push_back(new PongMap("test_map_2"));
-	this->level = 1;
+	this->level = 0;
 
-	Maps[level]->load(assetManager);
+	Maps[level]->load();
 }
 
 void Game::update(float deltaTime)
@@ -77,6 +67,4 @@ void Game::process_input(float deltaTime)
 void Game::render(float deltaTime)
 {
 	Maps[level]->draw(deltaTime);
-}
-
-
+} 

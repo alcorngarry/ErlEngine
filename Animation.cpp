@@ -20,8 +20,6 @@ Animation::Animation(char* animationPath, Model* model)
 	m_TicksPerSecond = animation->mTicksPerSecond;
 	
 	m_GlobalInverse = inverse(convert_mat4_to_glm(scene->mRootNode->mTransformation));
-	//scene->mRootNode->mTransformation.Inverse();
-	//globalTransformation = globalTransformation.Inverse();
 	read_heirarchy_data(m_RootNode, scene->mRootNode);
 	read_missing_bones(animation, *model);
 }

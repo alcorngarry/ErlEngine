@@ -40,3 +40,15 @@ void Camera::setCameraToLookAtOrigin() {
 	cameraFront = glm::normalize(glm::vec3(0.0f) - cameraPos); // Pointing to the origin
 	cameraUp = glm::vec3(0.0f, 1.0f, 0.0f); // Set a standard up vector
 }
+
+glm::mat4 Camera::get_view_matrix()
+{
+	return glm::lookAt(getCameraPos(), getCameraPos() + getCameraFront(), getCameraUp());
+	
+}
+
+glm::mat4 Camera::get_projection_matrix()
+{
+	//hard coded aspect ratio, figure out to transform this
+	return glm::perspective(glm::radians(45.0f), 1920.0f / 1080.0f, 0.1f, 10000.0f);
+}

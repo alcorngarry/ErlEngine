@@ -11,6 +11,7 @@ class Animator
 		void play_animation(Animation* pAnimation);
 		void calculate_bone_transform(const AssimpNodeData* node, const glm::mat4& parentTransform);
 		std::vector<glm::mat4>* get_final_bone_matrices();
+		void reset_animation();
 	private:
 		std::vector<glm::mat4> m_FinalBoneMatrices;
 		Animation* m_CurrentAnimation { nullptr };

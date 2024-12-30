@@ -6,7 +6,6 @@ Map::Map(std::string mapName) : State(MENU_CLOSED)
 {
 	fileName = mapName;
 	camera = Camera();
-	//debugMenu = debugMenu;
 }
 
 Map::Map()
@@ -38,7 +37,7 @@ void Map::save()
 	writeMap.close();
 }
 
-void Map::load(AssetManager assetManager)
+void Map::load()
 {
 	readMap.open(fileName + ".txt");
 	std::string line;
@@ -76,59 +75,35 @@ void Map::load(AssetManager assetManager)
 
 		if (id == 1)
 		{
-			this->lights.push_back(new GameObject(id, assetManager.get_model(id), glm::vec3(x, y, z), glm::vec3(sizeX, sizeY, sizeZ), glm::vec3(rotationX, rotationY, rotationZ)));
+			this->lights.push_back(new GameObject(id, AssetManager::get_model(id), glm::vec3(x, y, z), glm::vec3(sizeX, sizeY, sizeZ), glm::vec3(rotationX, rotationY, rotationZ)));
 		}
 		else
 		{
-			entities.push_back(new GameObject(id, assetManager.get_model(id), glm::vec3(x, y, z), glm::vec3(sizeX, sizeY, sizeZ), glm::vec3(rotationX, rotationY, rotationZ)));
+			entities.push_back(new GameObject(id, AssetManager::get_model(id), glm::vec3(x, y, z), glm::vec3(sizeX, sizeY, sizeZ), glm::vec3(rotationX, rotationY, rotationZ)));
 		} 
 	} 
 	readMap.close();
 
-	load_players(assetManager);
+	load_players();
+	load_skybox();
 }
 
-void Map::load_players(AssetManager assetManager)
+void Map::load_players()
 {
 	for (int i = 0; i < 4; i++)
 	{
-		players.push_back(new Player(assetManager.get_model(0), glm::vec3(0.0f) * 5.0f + glm::vec3(0, 3, 0), glm::vec3(2.0f), glm::vec3(0.0f)));
+		players.push_back(new Player(AssetManager::get_model(0), glm::vec3(0.0f) * 5.0f + glm::vec3(0, 3, 0), glm::vec3(2.0f), glm::vec3(0.0f)));
 	}
-	/*player2 = new Player(*assetManager.get_model(0), glm::vec3(0.0f) * 5.0f + glm::vec3(0, 3, 0), glm::vec3(2.0f));
-	player3 = new Player(*assetManager.get_model(0), glm::vec3(0.0f) * 5.0f + glm::vec3(0, 3, 0), glm::vec3(2.0f));
-	player4 = new Player(*assetManager.get_model(0), glm::vec3(0.0f) * 5.0f + glm::vec3(0, 3, 0), glm::vec3(2.0f));*/
 }
 
+void Map::load_skybox()
+{
+	skybox = AssetManager::get_sky_box();
+}
 
 void Map::draw(float deltaTime)
 {
-	//if (isLight)
-	//{
-	//	for (int i = 0; i < this->lights.size(); i++)
-	//	{
-	//		this->lights.at(i).draw(renderer);
-	//	}
-	//}
-	//else {
-	//	for (int i = 0; i < entities.size(); i++)
-	//	{
-	//		renderer.shader.setBool("selected", i == debugMenu.get_selected_index());
-	//		entities[i]->draw(renderer);
-	//	}
-
-		/*players.at(0).draw(renderer);
-		players.at(1).draw(renderer);
-		players.at(2).draw(renderer);
-		players.at(3).draw(renderer);*/
-
-		//doesn't work at the moment
-		//players.at(0).draw_bounding_box(renderer);
-		//players.at(1).draw_bounding_box(renderer);
-		//players.at(2).draw_bounding_box(renderer);
-		//players.at(3).draw_bounding_box(renderer);
-	//}
-
-	Renderer::render(players, entities, lights, camera);
+	Renderer::render(players, entities, lights, camera, skybox);
 
 	if (State == MENU_OPEN)
 	{
@@ -138,7 +113,7 @@ void Map::draw(float deltaTime)
 
 void Map::duplicate_model(int selectedIndex)
 {
-	entities.push_back(entities[selectedIndex]);
+	entities.push_back(new GameObject(*entities[selectedIndex]));
 }
 
 void Map::remove_model(int selectedIndex)
@@ -204,19 +179,30 @@ void Map::menu_input(InputManager& inputManager, float deltaTime)
 			//color picking lol. Slow but not noticeable especially since it's used for map building.
 
 			Renderer::select_entity(inputManager.xpos, inputManager.ypos);
-			//debugMenu.select_object(entities, this->camera, inputManager.xpos, inputManager.ypos);
+			//debugMenu.select_object(entities, this->camera, inputManager.xpos, inputManager.ypos
+			//check_intersection(inputManager.xpos, inputManager.ypos);
 		}
 
 		if (inputManager.MouseButtons[GLFW_MOUSE_BUTTON_RIGHT])
 		{
 			Renderer::deselect_index();
-			//debugMenu.deselect_index();
 		}
 
 		int selectedIndex = Renderer::get_selected_index();
-		//if (debugMenu.get_selected_index() != -1)
 		if (selectedIndex != -1)
 		{
+
+				// Calculate mouse delta (difference from last position)
+				float deltaX = inputManager.xpos - inputManager.lastX;
+				float deltaY = inputManager.ypos - inputManager.lastY;
+
+				// Convert the delta to world space (this depends on your camera setup, this is a basic example)
+				float moveSpeed = 1.0f; // You can adjust this speed based on your needs
+				glm::vec3 movement = glm::vec3(deltaX * moveSpeed, -deltaY * moveSpeed, 0.0f);
+
+				// Update the object's position
+				entities[selectedIndex]->Position += movement;
+			
 			if (inputManager.Keys[GLFW_KEY_UP])
 			{
 				entities[selectedIndex]->Position.y += .03f;
@@ -252,12 +238,6 @@ void Map::menu_input(InputManager& inputManager, float deltaTime)
 				inputManager.KeysProcessed[GLFW_KEY_R] = true;
 			}
 
-			if (inputManager.Keys[GLFW_KEY_R] && !inputManager.KeysProcessed[GLFW_KEY_R])
-			{
-				this->remove_model(selectedIndex);
-				inputManager.KeysProcessed[GLFW_KEY_R] = true;
-			}
-
 			if (inputManager.Keys[GLFW_KEY_1])
 			{
 				entities[selectedIndex]->Size.y *= .03f;
@@ -285,3 +265,81 @@ void Map::menu_input(InputManager& inputManager, float deltaTime)
 		}
 	}
 }
+
+//bool Map::AABBRayIntersection(const glm::vec3& rayOrigin, const glm::vec3& rayDir, const glm::vec3& min, const glm::vec3& max, float& tmin, float& tmax) {
+//	tmin = 0.0f;
+//	tmax = std::numeric_limits<float>::max();
+// 
+//	std::cout << "AABB Min: " << min.x << ", " << min.y << ", " << min.z << std::endl;
+//	std::cout << "AABB Max: " << max.x << ", " << max.y << ", " << max.z << std::endl;
+//
+//	// Loop over all three axes (X, Y, Z)
+//	for (int i = 0; i < 3; ++i) {
+//		float origin = rayOrigin[i];
+//		float direction = rayDir[i];
+//		float boxMin = min[i];
+//		float boxMax = max[i];
+//
+//		// Calculate tmin and tmax for each axis
+//		float t1 = (boxMin - origin) / direction;
+//		float t2 = (boxMax - origin) / direction;
+//
+//		// Ensure t1 is always the smaller value
+//		if (t1 > t2) {
+//			std::swap(t1, t2);
+//		}
+//
+//		// Update the global tmin and tmax based on the current axis' intersection
+//		tmin = std::max(tmin, t1);
+//		tmax = std::min(tmax, t2);
+//
+//		// If the tmin > tmax at any point, there's no intersection
+//		if (tmin > tmax) {
+//			return false;
+//		}
+//	}
+//
+//	return true;
+//}
+//
+//void Map::check_intersection(float x, float y)
+//{
+//	float tmin, tmax;
+//	bool hit = false;
+//
+//	//create mouse ray
+//	// ///////////////////////////////////
+//	 // Get the window's dimensions (optional: make sure you use the correct values for width and height)
+//	glm::vec4 viewport = glm::vec4(0, 0, 1920, 1080);  // Update with actual window size
+//
+//	// Calculate the inverse projection and view matrices
+//	glm::mat4 inverseProjection = glm::inverse(camera.get_projection_matrix());
+//	glm::mat4 inverseView = glm::inverse(camera.get_view_matrix());
+//
+//	// Map the mouse position (x, y) to normalized device coordinates (NDC)
+//	glm::vec3 near_point = glm::unProject(glm::vec3(x, y, 0.0f), inverseView, inverseProjection, viewport);
+//	glm::vec3 far_point = glm::unProject(glm::vec3(x, y, 1.0f), inverseView, inverseProjection, viewport);
+//
+//	// Create the ray direction from the near_point to the far_point
+//	glm::vec3 ray_dir = glm::normalize(far_point - near_point);
+//	////////////////////////////////////////
+//
+//	std::cout << "Ray origin: " << near_point.x << ", " << near_point.y << ", " << near_point.z << std::endl;
+//	std::cout << "Ray direction: " << ray_dir.x << ", " << ray_dir.y << ", " << ray_dir.z << std::endl;
+//
+//
+//	// Iterate over all game objects and check for intersection
+//	for (const auto& gameObject : entities) {
+//		// Get the AABB for the current GameObject
+//
+//		// Test for intersection with the AABB
+//		if (AABBRayIntersection(near_point, ray_dir, gameObject->get_aabb_min(), gameObject->get_aabb_max(), tmin, tmax)) {
+//			std::cout << "Ray intersects with GameObject at tmin = " << tmin << " and tmax = " << tmax << std::endl;
+//			hit = true;
+//		}
+//	}
+//
+//	if (!hit) {
+//		std::cout << "Ray did not intersect with any GameObject." << std::endl;
+//	}
+//}

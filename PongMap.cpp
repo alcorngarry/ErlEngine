@@ -53,14 +53,14 @@ void PongMap::update(float deltaTime)
 	entities[entities.size() - 1]->Position += ball_velocity * deltaTime;
 }
 
-void PongMap::load_players(AssetManager assetManager)
+void PongMap::load_players()
 {
-	players.push_back(new Player(assetManager.get_model(0), glm::vec3(0, 4, 20), glm::vec3(0.08f), glm::vec3(0.0f, 180.0f, 0.0f)));
-	players.push_back(new Player(assetManager.get_model(0), glm::vec3(15, 4, 40), glm::vec3(0.08f), glm::vec3(0.0f, 180.0f, 0.0f)));
-	players.push_back(new Player(assetManager.get_model(0), glm::vec3(0, 4, -20), glm::vec3(0.08f), glm::vec3(0.0f)));
-	players.push_back(new Player(assetManager.get_model(0), glm::vec3(15, 4, -40), glm::vec3(0.08f), glm::vec3(0.0f)));
+	players.push_back(new Player(AssetManager::get_model(0), glm::vec3(0, 4, 20), glm::vec3(2.0f), glm::vec3(0.0f, 90.0f, 0.0f)));
+	players.push_back(new Player(AssetManager::get_model(0), glm::vec3(15, 4, 40), glm::vec3(2.0f), glm::vec3(0.0f, 90.0f, 0.0f)));
+	players.push_back(new Player(AssetManager::get_model(0), glm::vec3(0, 4, -20), glm::vec3(2.0f), glm::vec3(0.0f, -90.0f, 0.0f)));
+	players.push_back(new Player(AssetManager::get_model(0), glm::vec3(15, 4, -40), glm::vec3(2.0f), glm::vec3(0.0f, -90.0f, 0.0f)));
 
-	entities.push_back(new GameObject(5, assetManager.get_model(5), glm::vec3(0.0f, 5.0f, 0.0f), glm::vec3(2, 3, 3), glm::vec3(0.0f)));
+	entities.push_back(new GameObject(5, AssetManager::get_model(5), glm::vec3(0.0f, 5.0f, 0.0f), glm::vec3(2, 3, 3), glm::vec3(0.0f)));
 }
 
 void PongMap::process_input(InputManager& inputManager, float deltaTime)
@@ -117,25 +117,16 @@ void PongMap::process_input(InputManager& inputManager, float deltaTime)
 		players[3]->velocity.x = 0;
 }
 
-glm::vec3 local_to_world(glm::vec3 localPos, const glm::vec3& position, const glm::vec3& scale)
-{
-	glm::mat4 modelMatrix = glm::translate(glm::mat4(1.0f), position);
-	modelMatrix = glm::scale(modelMatrix, scale);
-	glm::vec4 worldPos = modelMatrix * glm::vec4(localPos, 1.0f);
-
-	return glm::vec3(worldPos);
-}
-
 void PongMap::check_ball_collision(GameObject* entity)
 {
 	for (Player* player : players)
 	{
 		// Get the world space min and max AABBs for player1
-		glm::vec3 playerMinAABB = local_to_world(player->GameModel->getMinAABB(), player->Position, glm::vec3(0.08f));
-		glm::vec3 playerMaxAABB = local_to_world(player->GameModel->getMaxAABB(), player->Position, glm::vec3(0.08f));
+		/*glm::vec3 playerMinAABB = local_to_world(player->GameModel->getMinAABB(), player->Position, glm::vec3(0.08f));
+		glm::vec3 playerMaxAABB = local_to_world(player->GameModel->getMaxAABB(), player->Position, glm::vec3(0.08f));*/
 
-		if (entity->Position.x >= playerMinAABB.x && entity->Position.x <= playerMaxAABB.x
-			&& entity->Position.z >= playerMinAABB.z && entity->Position.z <= playerMaxAABB.z)
+		if (entity->Position.x >= player->get_aabb_min().x && entity->Position.x <= player->get_aabb_max().x
+			&& entity->Position.z >= player->get_aabb_min().z && entity->Position.z <= player->get_aabb_max().z)
 		{
 			ball_velocity *= -1;
 			ball_velocity += player->velocity;

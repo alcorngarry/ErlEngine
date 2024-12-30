@@ -181,6 +181,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PongMap.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="stb_image.cpp" />
     <ClCompile Include="test_project.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Dev\opengl_code\test_project\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -188,6 +189,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="cubemap.frag.glsl" />
+    <None Include="cubemap.vert.glsl" />
     <None Include="default.frag.glsl" />
     <None Include="default.vert.glsl" />
     <None Include="light.frag.glsl" />
@@ -226,6 +229,7 @@
     <ClInclude Include="PongMap.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="SkyBox.h" />
     <ClInclude Include="stb_image.h" />
   </ItemGroup>
   <ItemGroup>
