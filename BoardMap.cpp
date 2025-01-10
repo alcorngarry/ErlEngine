@@ -1,102 +1,125 @@
 #include"BoardMap.h"
 
+bool turnOver = false;
+//PlayerControls playerControls{ GLFW_KEY_UP, GLFW_KEY_DOWN, GLFW_KEY_SPACE, GLFW_KEY_LEFT, GLFW_KEY_RIGHT };
+
 BoardMap::BoardMap(std::string mapName) : Map(mapName)
 {
+	//think about it, set states for player turns.
+	//each player has a deck, implement deck logic -- mostly complete, needs more cards, and finite amount...maybe
+	//add types of spaces -- in progress
+	//add controller controls
+	//add item select system -- in progress
+	//need ui for items -- in progress
 }
 
 void BoardMap::update(float deltaTime)
 {
+	if (state == MENU_CLOSED)
+	{
+		camera.setCameraPos(players[currentPlayer]->Position + glm::vec3(-80.0f, 30.0f, 0.0f));
+		camera.setCameraFront(players[currentPlayer]->Position - camera.getCameraPos());
+	}
 	// move this to player update method !!!
-	if (players[0]->inMotion)
-	{	
-		players[0]->update(deltaTime);
-		players[0]->move_player(get_board_positions());
-	}
-	if (players[1]->inMotion)
+	if (players[currentPlayer]->inMotion)
 	{
-		players[1]->move_player(get_board_positions());
-		players[1]->update(deltaTime);
+		players[currentPlayer]->update(deltaTime);
+		players[currentPlayer]->move_player(get_board_objects());
+		turnOver = true;
 	}
-	if (players[2]->inMotion)
+	if (turnOver == true && !players[currentPlayer]->inMotion)
 	{
-		players[2]->move_player(get_board_positions());
-		players[2]->update(deltaTime);
-	}
-	if (players[3]->inMotion)
-	{
-		players[3]->move_player(get_board_positions());
-		players[3]->update(deltaTime);
+		turnOver = false;
+		//players[currentPlayer]->toggle_turn();
+		players[currentPlayer]->isTurn = false;
+
+		process_board_space(get_board_objects()[players[currentPlayer]->get_board_position()]->id);
+
+		currentPlayer = currentPlayer == players.size() - 1 ? 0 : currentPlayer += 1;
+
+		players[currentPlayer]->isTurn = true;
+
 	}
 }
 
-void BoardMap::process_input(InputManager& inputManager, float deltaTime)
+void BoardMap::draw(float deltaTime)
 {
+	Renderer::render(players, entities, lights, camera, skybox);
+
+	if (state == MENU_OPEN)
+	{
+		Renderer::create_menu(deltaTime, players[0]->moves);
+	}
+}
+
+void BoardMap::process_input(InputManager* inputManager, float deltaTime)
+{
+	inputManager->set_key_binding(GLFW_KEY_UP, new MoveUpCommand(players[currentPlayer], deltaTime));
+	inputManager->set_key_binding(GLFW_KEY_DOWN, new MoveDownCommand(players[currentPlayer], deltaTime));
+	inputManager->set_key_binding(GLFW_KEY_LEFT, new SelectCardLeftCommand(players[currentPlayer], deltaTime));
+	inputManager->set_key_binding(GLFW_KEY_RIGHT, new SelectCardRightCommand(players[currentPlayer], deltaTime));
+	inputManager->set_key_binding(GLFW_KEY_SPACE, new SelectCardCommand(players[currentPlayer], deltaTime));
+		/*keyBindings[GLFW_KEY_UP] = new MoveUpCommand();
+		keyBindings[GLFW_KEY_DOWN] = new MoveDownCommand();
+		keyBindings[GLFW_KEY_LEFT] = new SelectCardLeftCommand();
+		keyBindings[GLFW_KEY_RIGHT] = new SelectCardRightCommand();
+		keyBindings[GLFW_KEY_SPACE] = new SelectCardCommand();*/
+	inputManager->update();
 	menu_input(inputManager, deltaTime);
-	
-	if (inputManager.Keys[GLFW_KEY_SPACE])
-	{
-		if (players[0]->inMotion == false)
-		{
-			players[0]->inMotion = true;
-			players[0]->start_move((float)glfwGetTime(), roll_dice());
-		}
-	}
 
-	if (inputManager.Keys[GLFW_KEY_I])
-	{
-		if (players[1]->inMotion == false)
-		{
-			players[1]->inMotion = true;
-			players[1]->start_move((float)glfwGetTime(), roll_dice());
-		}
-	}
-
-	if (inputManager.Keys[GLFW_KEY_O])
-	{
-		if (players[2]->inMotion == false)
-		{
-			players[2]->inMotion = true;
-			players[2]->start_move((float)glfwGetTime(), roll_dice());
-		}
-	}
-
-	if (inputManager.Keys[GLFW_KEY_P])
-	{
-		if (players[3]->inMotion == false)
-		{
-			players[3]->inMotion = true;
-			players[3]->start_move((float)glfwGetTime(), roll_dice());
-		}
-	}
-}
-
-float BoardMap::roll_dice()
-{
-	srand(time(0));
-	int roll = rand() % 6;
-
-	std::cout << "rolled " << roll + 1 << std::endl;
-	return roll + 1;
+	players[currentPlayer]->process_player_input(inputManager, deltaTime);
 }
 
 void BoardMap::load_players()
 {
-	glm::vec3 startingPosition = get_board_positions()[0];
+	//add height buffer for character
+	glm::vec3 startingPosition = get_board_objects()[0]->Position + glm::vec3(0.0f, 1.0f, 0.0f);
 	for (int i = 0; i < 4; i++)
 	{
-		players.push_back(new Player(AssetManager::get_model(0), startingPosition, glm::vec3(2.0f), glm::vec3(0.0f)));
+		players.push_back(new Player(i, AssetManager::get_model(0), startingPosition, glm::vec3(2.0f), glm::vec3(0.0f), playerControls));
+		players[i]->init_deck();
+
+		if (i == currentPlayer)
+		{
+			players[i]->toggle_turn();
+		}
 	}
 }
 
-std::vector<glm::vec3> BoardMap::get_board_positions()
+void BoardMap::process_board_space(unsigned int boardId)
 {
-	std::vector<glm::vec3> output;
+	switch (boardId)
+	{
+		case 0: 
+			loadState = CHANGE_MAP;
+			break;
+		case 1:
+			players[currentPlayer]->add_groats(3);
+			std::cout << "added 3 groats to player: " << currentPlayer << ", total groats = " << players[currentPlayer]->groats << std::endl;
+			break;
+		case 2:
+			players[currentPlayer]->add_groats(6);
+			std::cout << "added 6 groats to player: " << currentPlayer << ", total groats = " << players[currentPlayer]->groats << std::endl;
+			break;
+		case 3:
+			players[currentPlayer]->remove_groats(3);
+			std::cout << "removed 3 groats to player: " << currentPlayer << ", total groats = " << players[currentPlayer]->groats << std::endl;
+			break;
+		default: 
+			std::cout << "error processing space" << std::endl;
+	}
+}
+
+//todo add indexes to auto fix order of paths
+std::vector<GameObject*> BoardMap::get_board_objects()
+{
+	std::vector<GameObject*> output;
 
 	for (GameObject* entity : entities)
 	{
-		if (entity->id == 4)
+		if (entity->id == 0 || entity->id == 1 || entity->id == 2 || entity->id == 3)
 		{
-			output.push_back(entity->Position + glm::vec3(0, 1, 0));
+			output.push_back(entity);
 		}
 	}
 	return output;

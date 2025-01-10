@@ -7,9 +7,9 @@
 #include<map>
 
 namespace AssetManager {
-		void load();
-		Model* get_model(unsigned int id);
-		SkyBox* get_sky_box();
+	void load();
+	Model* get_model(unsigned int id);
+	SkyBox* get_sky_box();
+	unsigned int get_card(unsigned int);
 };
-
 #endif // !ASSET_MANAGER_H

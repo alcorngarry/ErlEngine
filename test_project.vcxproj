@@ -178,21 +178,30 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="MoveDownCommand.cpp" />
+    <ClCompile Include="MoveUpCommand.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PongMap.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="SelectCardCommand.cpp" />
+    <ClCompile Include="SelectCardLeftCommand.cpp" />
+    <ClCompile Include="SelectCardRightCommand.cpp" />
     <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="stb_image.cpp" />
     <ClCompile Include="test_project.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Dev\opengl_code\test_project\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Dev\opengl_code\test_project\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <ClCompile Include="UIElement.cpp" />
+    <ClCompile Include="UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cubemap.frag.glsl" />
     <None Include="cubemap.vert.glsl" />
     <None Include="default.frag.glsl" />
     <None Include="default.vert.glsl" />
+    <None Include="interface.frag.glsl" />
+    <None Include="interface.vert.glsl" />
     <None Include="light.frag.glsl" />
     <None Include="light.vert.glsl" />
     <None Include="picking.frag.glsl" />
@@ -218,6 +227,7 @@
     <ClInclude Include="BoneInfo.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CharacterController.h" />
+    <ClInclude Include="Command.h" />
     <ClInclude Include="DebugMenu.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
@@ -225,16 +235,19 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="MoveDownCommand.h" />
+    <ClInclude Include="MoveUpCommand.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PongMap.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="SelectCardCommand.h" />
+    <ClInclude Include="SelectCardLeftCommand.h" />
+    <ClInclude Include="SelectCardRightCommand.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="stb_image.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\..\..\Users\alcor\Downloads\awesomeface.png" />
-    <Image Include="..\..\..\Users\alcor\Downloads\container.jpg" />
+    <ClInclude Include="UIElement.h" />
+    <ClInclude Include="UIManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

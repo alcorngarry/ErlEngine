@@ -1,15 +1,14 @@
 #include"Renderer.h"
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
 Shader* shaderProgram;
 Shader* lightShaderProgram;
 Shader* skinnedShaderProgram;
 Shader* pickingShaderProgram;
 Shader* cubemapShaderProgram;
+Shader* uiShaderProgram;
 
 GLFWwindow* window;
+UIManager* manager;
 DebugMenu debugMenu;
 
 std::vector<Player*> m_players;
@@ -62,6 +61,9 @@ GLFWwindow* Renderer::init_render()
 	skinnedShaderProgram = new Shader("skinned.vert.glsl", "skinned.frag.glsl");
 	pickingShaderProgram = new Shader("picking.vert.glsl", "picking.frag.glsl");
 	cubemapShaderProgram = new Shader("cubemap.vert.glsl", "cubemap.frag.glsl");
+	uiShaderProgram = new Shader("interface.vert.glsl", "interface.frag.glsl");
+
+	manager = new UIManager(uiShaderProgram, windowWidth, windowHeight);
 	
 	return window;
 }
@@ -76,13 +78,26 @@ void Renderer::render(std::vector<Player*> players, std::vector<GameObject*> ent
 	view = camera.get_view_matrix();
 	projection = camera.get_projection_matrix();
 
+	//draw first for environment mapping...
+	cubemapShaderProgram->use();
+	cubemapShaderProgram->setInt("skybox", 0);
+	cubemapShaderProgram->setMat4("view", glm::mat4(glm::mat3(m_camera.get_view_matrix())));
+	cubemapShaderProgram->setMat4("projection", projection);
+	skybox->draw();
+
 	skinnedShaderProgram->use();
 	skinnedShaderProgram->setVec3("lightPos", lights[0]->Position);
 	skinnedShaderProgram->setVec3("lightColor", glm::vec3(1.0f));
+	skinnedShaderProgram->setInt("skybox", 0);
 	for (Player* player : players)
 	{
 		draw_aabb(player->GameModel->getMinAABB(), player->GameModel->getMaxAABB());
 		Renderer::draw_skinned(player->GameModel, player->Position, player->Size, player->Rotation, player->transforms);
+
+		if (player->isTurn)
+		{
+			manager->load_elements(player->get_cards(), player->get_selected_card_index());
+		}
 	}
 
 	shaderProgram->use();
@@ -91,6 +106,7 @@ void Renderer::render(std::vector<Player*> players, std::vector<GameObject*> ent
 	for (int i = 0; i < entities.size(); i++)
 	{
 		shaderProgram->setBool("selected", i == Renderer::get_selected_index());
+		shaderProgram->setInt("objectId", entities[i]->id);
 		Renderer::draw_static(shaderProgram, entities[i]->GameModel, entities[i]->Position, entities[i]->Size, entities[i]->Rotation);
 	}
 
@@ -100,14 +116,20 @@ void Renderer::render(std::vector<Player*> players, std::vector<GameObject*> ent
 	{
 		Renderer::draw_static(lightShaderProgram, light->GameModel, light->Position, light->Size, light->Rotation);
 	}
+	//this logic might need to be moved out and add setting the render items in the game logic.
+	for (Player* player : players)
+	{
+		if (player->isTurn)
+		{
+			if (player->inMotion) {
+				unsigned int card[1] = { player->get_cards()[player->get_selected_card_index()] };
 
-
-	//performance wise set this last, also might cause issues with the view
-	cubemapShaderProgram->use();
-	cubemapShaderProgram->setInt("skybox", 0);
-	cubemapShaderProgram->setMat4("view", glm::mat4(glm::mat3(m_camera.get_view_matrix())));
-	cubemapShaderProgram->setMat4("projection", projection);
-	skybox->draw(cubemapShaderProgram);
+				manager->load_elements(card, 6);
+				manager->draw();
+			}
+			manager->draw();
+		}
+	}
 }
 
 void Renderer::draw_skinned(Model* model, glm::vec3 pos, glm::vec3 size, glm::vec3 rotation, std::vector<glm::mat4>* transform)
@@ -151,6 +173,11 @@ void Renderer::draw_static(Shader* shader, Model* model, glm::vec3 pos, glm::vec
 void Renderer::create_menu(float deltaTime)
 {
 	debugMenu.create_menu(m_entities, m_camera, deltaTime);
+}
+
+void Renderer::create_menu(float deltaTime, int roll)
+{
+	debugMenu.create_menu(m_entities, m_camera, deltaTime, roll);
 }
 
 void Renderer::select_entity(float xpos, float ypos)

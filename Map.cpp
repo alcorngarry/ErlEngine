@@ -2,7 +2,7 @@
 
 bool screenLock = false;
 
-Map::Map(std::string mapName) : State(MENU_CLOSED)
+Map::Map(std::string mapName) : state(MENU_CLOSED), loadState(KEEP_MAP)
 {
 	fileName = mapName;
 	camera = Camera();
@@ -42,12 +42,19 @@ void Map::load()
 	readMap.open(fileName + ".txt");
 	std::string line;
 	float x, y, z, sizeX, sizeY, sizeZ, rotationX, rotationY, rotationZ;
-	int id;
+	int id, boardSpaceId;
 
 	while (getline(readMap, line, ','))
 	{
 		// Parse id
 		id = std::stof(line);
+
+		//check space type 0 : blank, 1 : add3, 2 add6, 3 remove3
+		if (id == 4)
+		{
+			getline(readMap, line, ',');
+			boardSpaceId = std::stof(line);
+		}
 
 		//parse position
 		getline(readMap, line, ',');
@@ -73,13 +80,20 @@ void Map::load()
 		getline(readMap, line);
 		rotationZ = std::stof(line);
 
+		//if light
 		if (id == 1)
 		{
-			this->lights.push_back(new GameObject(id, AssetManager::get_model(id), glm::vec3(x, y, z), glm::vec3(sizeX, sizeY, sizeZ), glm::vec3(rotationX, rotationY, rotationZ)));
+			//set Id to 10 right now to avoid collisions with board space Idds
+			this->lights.push_back(new GameObject(10, AssetManager::get_model(id), glm::vec3(x, y, z), glm::vec3(sizeX, sizeY, sizeZ), glm::vec3(rotationX, rotationY, rotationZ)));
+		}
+		//if board space
+		else if (id == 4)
+		{
+			entities.push_back(new GameObject(boardSpaceId, AssetManager::get_model(id), glm::vec3(x, y, z), glm::vec3(sizeX, sizeY, sizeZ), glm::vec3(rotationX, rotationY, rotationZ)));
 		}
 		else
 		{
-			entities.push_back(new GameObject(id, AssetManager::get_model(id), glm::vec3(x, y, z), glm::vec3(sizeX, sizeY, sizeZ), glm::vec3(rotationX, rotationY, rotationZ)));
+			entities.push_back(new GameObject(11, AssetManager::get_model(id), glm::vec3(x, y, z), glm::vec3(sizeX, sizeY, sizeZ), glm::vec3(rotationX, rotationY, rotationZ)));
 		} 
 	} 
 	readMap.close();
@@ -92,7 +106,7 @@ void Map::load_players()
 {
 	for (int i = 0; i < 4; i++)
 	{
-		players.push_back(new Player(AssetManager::get_model(0), glm::vec3(0.0f) * 5.0f + glm::vec3(0, 3, 0), glm::vec3(2.0f), glm::vec3(0.0f)));
+		players.push_back(new Player(i, AssetManager::get_model(0), glm::vec3(0.0f) * 5.0f + glm::vec3(0, 3, 0), glm::vec3(2.0f), glm::vec3(0.0f), playerControls));
 	}
 }
 
@@ -105,7 +119,7 @@ void Map::draw(float deltaTime)
 {
 	Renderer::render(players, entities, lights, camera, skybox);
 
-	if (State == MENU_OPEN)
+	if (state == MENU_OPEN)
 	{
 		Renderer::create_menu(deltaTime);
 	}
@@ -121,56 +135,63 @@ void Map::remove_model(int selectedIndex)
 	entities.erase(entities.begin() + selectedIndex);
 }
 
-void Map::process_input(InputManager& inputManager, float deltaTime)
+void Map::process_input(InputManager* inputManager, float deltaTime)
 {
+	inputManager->update();
 	menu_input(inputManager, deltaTime);
 }
 
-void Map::menu_input(InputManager& inputManager, float deltaTime)
+void Map::menu_input(InputManager* inputManager, float deltaTime)
 {
-	if (inputManager.Keys[GLFW_KEY_M] && !inputManager.KeysProcessed[GLFW_KEY_M])
+	if (inputManager->Keys[GLFW_KEY_M] && !inputManager->KeysProcessed[GLFW_KEY_M])
 	{
 		//create debug menu
-		State = State == MENU_OPEN ? MENU_CLOSED : MENU_OPEN;
-		inputManager.KeysProcessed[GLFW_KEY_M] = true;
+		state = state == MENU_OPEN ? MENU_CLOSED : MENU_OPEN;
+		inputManager->KeysProcessed[GLFW_KEY_M] = true;
 	}
 
 	// move to menu mode eventually
-	if (State == MENU_OPEN)
+	if (state == MENU_OPEN)
 	{
-		if (inputManager.Keys[GLFW_KEY_F1] && !inputManager.KeysProcessed[GLFW_KEY_F1])
+		if (inputManager->Keys[GLFW_KEY_F1] && !inputManager->KeysProcessed[GLFW_KEY_F1])
 		{
 			screenLock = !screenLock;
-			inputManager.KeysProcessed[GLFW_KEY_F1] = true;
+			inputManager->KeysProcessed[GLFW_KEY_F1] = true;
+		}
+
+		if (inputManager->Keys[GLFW_KEY_F9] && !inputManager->KeysProcessed[GLFW_KEY_F9])
+		{
+			std::cout << "saved current map" << std::endl;
+			save();
 		}
 
 		if(!screenLock)
 		{
-			camera.setCameraFront(glm::normalize(glm::vec3(cos(glm::radians(inputManager.yaw)) * cos(glm::radians(inputManager.pitch)), sin(glm::radians(inputManager.pitch)), sin(glm::radians(inputManager.yaw)) * cos(glm::radians(inputManager.pitch)))));
+			camera.setCameraFront(glm::normalize(glm::vec3(cos(glm::radians(inputManager->yaw)) * cos(glm::radians(inputManager->pitch)), sin(glm::radians(inputManager->pitch)), sin(glm::radians(inputManager->yaw)) * cos(glm::radians(inputManager->pitch)))));
 
 			float cameraSpeed = static_cast<float>(150 * deltaTime);
 
-			if (inputManager.Keys[GLFW_KEY_W])
+			if (inputManager->Keys[GLFW_KEY_W])
 			{
 				camera.setCameraPos(camera.getCameraPos() + cameraSpeed * camera.getCameraFront());
 			}
-			if (inputManager.Keys[GLFW_KEY_A])
+			if (inputManager->Keys[GLFW_KEY_A])
 			{
 				camera.setCameraPos(camera.getCameraPos() - glm::normalize(glm::cross(camera.getCameraFront(), camera.getCameraUp())) * cameraSpeed);
 
 			}
-			if (inputManager.Keys[GLFW_KEY_S])
+			if (inputManager->Keys[GLFW_KEY_S])
 			{
 				camera.setCameraPos(camera.getCameraPos() - cameraSpeed * camera.getCameraFront());
 
 			}
-			if (inputManager.Keys[GLFW_KEY_D])
+			if (inputManager->Keys[GLFW_KEY_D])
 			{
 				camera.setCameraPos(camera.getCameraPos() + glm::normalize(glm::cross(camera.getCameraFront(), camera.getCameraUp())) * cameraSpeed);
 			}
 		}
 
-		if (inputManager.MouseButtons[GLFW_MOUSE_BUTTON_LEFT])
+		if (inputManager->MouseButtons[GLFW_MOUSE_BUTTON_LEFT])
 		{
 			//essentially the distance function squares the difference of each vertice(xyz) adds them up and returns the sqrroot.
 			//sqrt((objectcoord.x - objectpos.x) * *2 + (objectcoord.y - objectpos.y) * *2 + (objectcoord.z - objectpos.z)**2);
@@ -178,12 +199,12 @@ void Map::menu_input(InputManager& inputManager, float deltaTime)
 
 			//color picking lol. Slow but not noticeable especially since it's used for map building.
 
-			Renderer::select_entity(inputManager.xpos, inputManager.ypos);
-			//debugMenu.select_object(entities, this->camera, inputManager.xpos, inputManager.ypos
-			//check_intersection(inputManager.xpos, inputManager.ypos);
+			Renderer::select_entity(inputManager->xpos, inputManager->ypos);
+			//debugMenu.select_object(entities, this->camera, inputManager->xpos, inputManager->ypos
+			//check_intersection(inputManager->xpos, inputManager->ypos);
 		}
 
-		if (inputManager.MouseButtons[GLFW_MOUSE_BUTTON_RIGHT])
+		if (inputManager->MouseButtons[GLFW_MOUSE_BUTTON_RIGHT])
 		{
 			Renderer::deselect_index();
 		}
@@ -193,8 +214,8 @@ void Map::menu_input(InputManager& inputManager, float deltaTime)
 		{
 
 				// Calculate mouse delta (difference from last position)
-				float deltaX = inputManager.xpos - inputManager.lastX;
-				float deltaY = inputManager.ypos - inputManager.lastY;
+				float deltaX = inputManager->xpos - inputManager->lastX;
+				float deltaY = inputManager->ypos - inputManager->lastY;
 
 				// Convert the delta to world space (this depends on your camera setup, this is a basic example)
 				float moveSpeed = 1.0f; // You can adjust this speed based on your needs
@@ -203,62 +224,62 @@ void Map::menu_input(InputManager& inputManager, float deltaTime)
 				// Update the object's position
 				entities[selectedIndex]->Position += movement;
 			
-			if (inputManager.Keys[GLFW_KEY_UP])
+			if (inputManager->Keys[GLFW_KEY_UP])
 			{
 				entities[selectedIndex]->Position.y += .03f;
 			}
-			if (inputManager.Keys[GLFW_KEY_DOWN])
+			if (inputManager->Keys[GLFW_KEY_DOWN])
 			{
 				entities[selectedIndex]->Position.y -= .03f;
 			}
-			if (inputManager.Keys[GLFW_KEY_LEFT])
+			if (inputManager->Keys[GLFW_KEY_LEFT])
 			{
 				entities[selectedIndex]->Position.x += .03f;
 			}
-			if (inputManager.Keys[GLFW_KEY_RIGHT])
+			if (inputManager->Keys[GLFW_KEY_RIGHT])
 			{
 				entities[selectedIndex]->Position.x -= .03f;
 			}
-			if (inputManager.Keys[GLFW_KEY_J])
+			if (inputManager->Keys[GLFW_KEY_J])
 			{
 				entities[selectedIndex]->Position.z += .03f;
 			}
-			if (inputManager.Keys[GLFW_KEY_K])
+			if (inputManager->Keys[GLFW_KEY_K])
 			{
 				entities[selectedIndex]->Position.z -= .03f;
 			}
-			if (inputManager.Keys[GLFW_KEY_N] && !inputManager.KeysProcessed[GLFW_KEY_N])
+			if (inputManager->Keys[GLFW_KEY_N] && !inputManager->KeysProcessed[GLFW_KEY_N])
 			{
 				this->duplicate_model(selectedIndex);
-				inputManager.KeysProcessed[GLFW_KEY_N] = true;
+				inputManager->KeysProcessed[GLFW_KEY_N] = true;
 			}
-			if (inputManager.Keys[GLFW_KEY_R] && !inputManager.KeysProcessed[GLFW_KEY_R])
+			if (inputManager->Keys[GLFW_KEY_R] && !inputManager->KeysProcessed[GLFW_KEY_R])
 			{
 				this->remove_model(selectedIndex);
-				inputManager.KeysProcessed[GLFW_KEY_R] = true;
+				inputManager->KeysProcessed[GLFW_KEY_R] = true;
 			}
 
-			if (inputManager.Keys[GLFW_KEY_1])
+			if (inputManager->Keys[GLFW_KEY_1])
 			{
 				entities[selectedIndex]->Size.y *= .03f;
 			}
-			if (inputManager.Keys[GLFW_KEY_2])
+			if (inputManager->Keys[GLFW_KEY_2])
 			{
 				entities[selectedIndex]->Size.y *= .03f;
 			}
-			if (inputManager.Keys[GLFW_KEY_3])
+			if (inputManager->Keys[GLFW_KEY_3])
 			{
 				entities[selectedIndex]->Size.x *= .03f;
 			}
-			if (inputManager.Keys[GLFW_KEY_4])
+			if (inputManager->Keys[GLFW_KEY_4])
 			{
 				entities[selectedIndex]->Size.x *= .03f;
 			}
-			if (inputManager.Keys[GLFW_KEY_5])
+			if (inputManager->Keys[GLFW_KEY_5])
 			{
 				entities[selectedIndex]->Size.z *= .03f;
 			}
-			if (inputManager.Keys[GLFW_KEY_6])
+			if (inputManager->Keys[GLFW_KEY_6])
 			{
 				entities[selectedIndex]->Size.z *= .03f;
 			}

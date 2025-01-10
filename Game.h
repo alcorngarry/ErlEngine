@@ -28,7 +28,7 @@ class Game {
 		
 		std::vector<Map*> Maps;
 		GameState State;
-		InputManager inputManager;
+		InputManager* inputManager;
 
 		Game(GLFWwindow* window);
 		~Game();

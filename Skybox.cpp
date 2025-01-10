@@ -35,7 +35,7 @@ unsigned int SkyBox::load_cube_map(std::vector<std::string> textures)
 	return textureID;
 }
 
-void SkyBox::draw(Shader* shader)
+void SkyBox::draw()
 {
 	unsigned int skyboxVAO, skyboxVBO;
 	glGenVertexArrays(1, &skyboxVAO);

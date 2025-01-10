@@ -10,6 +10,7 @@ uniform sampler2D texture_diffuse1;
 uniform vec3 lightPos;
 uniform vec3 lightColor;
 uniform vec3 viewPos;
+uniform samplerCube skybox;
 
 void main()
 {
@@ -26,7 +27,7 @@ void main()
 
     float spec = pow(max(dot(viewDir, reflectDir), specularStrength), 256);
 
-    vec4 result = vec4(ambient + diffuse + spec, 1.0) * texture(texture_diffuse1, texCoord);
+    vec4 result = vec4(ambient + diffuse + spec, 1.0) * texture(texture_diffuse1, texCoord) * vec4(texture(skybox, reflectDir).rgb, 1.0);
 
     FragColor = result;
 }

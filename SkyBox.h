@@ -15,8 +15,9 @@ class SkyBox {
 		unsigned int id = -1;
 
 		SkyBox(std::vector<std::string> textures);
-		void draw(Shader* shader);
+		void draw();
 	private:
+		unsigned int skyboxVAO, skyboxVBO;
 		//ugly fix
 		float skyboxVertices[108] = {
 			-1.0f,  1.0f, -1.0f,
