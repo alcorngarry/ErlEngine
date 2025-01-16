@@ -5,7 +5,7 @@
 class PongMap : public Map {
 	public:
 		PongMap(std::string mapName);
-		void process_input(InputManager* inputManager, float deltaTime) override;
+		void set_controls(float deltaTime) override;
 		void update(float deltaTime) override;
 	protected:
 		void load_players() override;

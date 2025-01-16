@@ -1,5 +1,4 @@
 #include"Player.h"
-#include"InputManager.h"
 
 Player::Player(unsigned int playerId, Model* characterModel, glm::vec3 pos, glm::vec3 size, glm::vec3 rotation, PlayerControls controls) : GameObject(0, characterModel, pos, size, rotation)
 { 
@@ -7,7 +6,8 @@ Player::Player(unsigned int playerId, Model* characterModel, glm::vec3 pos, glm:
 	mation = new Animation((char*)"C:/Dev/assets/knight/knight_skinned_0/knight_impl1.dae", characterModel);
 	mator = new Animator(mation);
 	transforms = mator->get_final_bone_matrices();
-	this->controls = controls;
+	this->m_controls = controls;
+	state = INACTIVE;
 }
 
 void Player::move_player(std::vector<GameObject*> boardSpaces)
@@ -41,7 +41,6 @@ void Player::move_player(std::vector<GameObject*> boardSpaces)
 		mator->reset_animation();
 		transforms = mator->get_final_bone_matrices();
 		inMotion = false;
-		toggle_turn();
 
 		cards[selectedCardIndex] = draw_card();
 		selectedCardIndex = 0; //reset to start on card 1
@@ -61,46 +60,6 @@ void Player::update(float deltaTime)
 	mator->update_animation(deltaTime);
 }
 
-void Player::process_player_input(InputManager* inputManager, float deltaTime)
-{
-	if (inputManager->Keys[controls.select_card] && !inputManager->KeysProcessed[controls.select_card])
-	{
-		if (inMotion == false)
-		{
-			inMotion = true;
-			start_move((float)glfwGetTime(), cards[selectedCardIndex]);
-		}
-		inputManager->KeysProcessed[controls.select_card] = true;
-	}
-	if (inputManager->Keys[controls.move_up])
-	{
-		velocity.x = 100.0;
-		update(deltaTime);
-	}
-	else if (inputManager->Keys[controls.move_down])
-	{
-		velocity.x = -100.0;
-		update(deltaTime);
-	}
-	else {
-		velocity.x = 0;
-	}
-	// card select
-	if (inputManager->Keys[controls.left] && !inputManager->KeysProcessed[controls.left])
-	{
-		selectedCardIndex == 0 ? 0 : selectedCardIndex--;
-		std::cout << "Current card selected " << selectedCardIndex << std::endl;
-		inputManager->KeysProcessed[controls.left] = true;
-	}
-
-	if (inputManager->Keys[controls.right] && !inputManager->KeysProcessed[controls.right])
-	{
-		selectedCardIndex == 4 ? 4 : selectedCardIndex++;
-		std::cout << "Current card selected " << selectedCardIndex << std::endl;
-		inputManager->KeysProcessed[controls.right] = true;
-	}
-}
-
 unsigned int Player::get_board_position()
 {
 	return boardPosition;
@@ -112,15 +71,6 @@ void Player::start_move(float startTime, int moves)
 	// can set total moves if needed here.
 	this->moves = boardPosition + moves;
 }
-
-//float Player::roll_dice()
-//{
-//	srand(time(0));
-//	int roll = rand() % 6;
-//
-//	std::cout << "rolled " << roll + 1 << std::endl;
-//	return roll + 1;
-//}
 
 void Player::init_deck()
 {
@@ -163,12 +113,7 @@ void Player::remove_groats(unsigned int groats)
 	}
 }
 
-bool Player::is_turn()
+void Player::set_controls(PlayerControls controls)
 {
-	return isTurn;
-}
-
-void Player::toggle_turn()
-{
-	isTurn = !isTurn;
+	m_controls = controls;
 }

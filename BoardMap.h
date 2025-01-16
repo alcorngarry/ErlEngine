@@ -16,7 +16,7 @@ class BoardMap : public Map {
 	private:
 		unsigned int currentPlayer = 0;
 		void load_players() override;
-		void process_input(InputManager* inputManager, float deltaTime) override;
+		void set_controls(float deltaTime) override;
 		void process_board_space(unsigned int boardId);
 };
 

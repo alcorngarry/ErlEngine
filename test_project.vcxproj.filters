@@ -25,6 +25,12 @@
     <Filter Include="Header Files\Commands">
       <UniqueIdentifier>{b9cd4d7e-c983-4331-ad19-4c06580d53de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Commands\Camera">
+      <UniqueIdentifier>{ea1f0bc0-c2e5-4f48-b6c9-95f40016a998}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Commands\Camera">
+      <UniqueIdentifier>{b7f9fa35-580a-4e99-b331-7a8165d09a4e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test_project.cpp">
@@ -133,6 +139,36 @@
       <Filter>Source Files\Commands</Filter>
     </ClCompile>
     <ClCompile Include="SelectCardRightCommand.cpp">
+      <Filter>Source Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="SaveCommand.cpp">
+      <Filter>Source Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ToggleMenuCommand.cpp">
+      <Filter>Source Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveCameraRightCommand.cpp">
+      <Filter>Source Files\Commands\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveCameraBackwardCommand.cpp">
+      <Filter>Source Files\Commands\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveCameraLeftCommand.cpp">
+      <Filter>Source Files\Commands\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveCameraForwardCommand.cpp">
+      <Filter>Source Files\Commands\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectEntityCommand.cpp">
+      <Filter>Source Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="AddRemoveEntityCommand.cpp">
+      <Filter>Source Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveEntityCommand.cpp">
       <Filter>Source Files\Commands</Filter>
     </ClCompile>
   </ItemGroup>
@@ -287,6 +323,39 @@
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
     <ClInclude Include="SelectCardRightCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenMenuCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ToggleMenuCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveCameraRightCommand.h">
+      <Filter>Header Files\Commands\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveCameraBackwardCommand.h">
+      <Filter>Header Files\Commands\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveCameraLeftCommand.h">
+      <Filter>Header Files\Commands\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveCameraForwardCommand.h">
+      <Filter>Header Files\Commands\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectEntityCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="AddRemoveEntityCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveEntityCommand.h">
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
   </ItemGroup>

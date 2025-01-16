@@ -1,8 +1,5 @@
 #include"BoardMap.h"
 
-bool turnOver = false;
-//PlayerControls playerControls{ GLFW_KEY_UP, GLFW_KEY_DOWN, GLFW_KEY_SPACE, GLFW_KEY_LEFT, GLFW_KEY_RIGHT };
-
 BoardMap::BoardMap(std::string mapName) : Map(mapName)
 {
 	//think about it, set states for player turns.
@@ -11,77 +8,72 @@ BoardMap::BoardMap(std::string mapName) : Map(mapName)
 	//add controller controls
 	//add item select system -- in progress
 	//need ui for items -- in progress
+
+
+	// part deux
+	// fix camera follow system
+	// fix player orientation when traversing the map
+	// add groat ui elements and text
+	// add esc command end program
+	// add save command, if it doesn't already exist
 }
 
 void BoardMap::update(float deltaTime)
 {
-	if (state == MENU_CLOSED)
+	set_controls(deltaTime);
+	if (state == DEFAULT)
 	{
-		camera.setCameraPos(players[currentPlayer]->Position + glm::vec3(-80.0f, 30.0f, 0.0f));
-		camera.setCameraFront(players[currentPlayer]->Position - camera.getCameraPos());
+		camera->setCameraPos(players[currentPlayer]->Position + glm::vec3(-80.0f, 30.0f, 0.0f));
+		camera->setCameraFront(players[currentPlayer]->Position - camera->getCameraPos());
 	}
-	// move this to player update method !!!
 	if (players[currentPlayer]->inMotion)
 	{
 		players[currentPlayer]->update(deltaTime);
 		players[currentPlayer]->move_player(get_board_objects());
-		turnOver = true;
+		players[currentPlayer]->state = INACTIVE;
 	}
-	if (turnOver == true && !players[currentPlayer]->inMotion)
+	if (players[currentPlayer]->state == INACTIVE && !players[currentPlayer]->inMotion)
 	{
-		turnOver = false;
-		//players[currentPlayer]->toggle_turn();
-		players[currentPlayer]->isTurn = false;
-
 		process_board_space(get_board_objects()[players[currentPlayer]->get_board_position()]->id);
-
 		currentPlayer = currentPlayer == players.size() - 1 ? 0 : currentPlayer += 1;
-
-		players[currentPlayer]->isTurn = true;
-
+		players[currentPlayer]->state = ACTIVE;
 	}
 }
 
 void BoardMap::draw(float deltaTime)
 {
 	Renderer::render(players, entities, lights, camera, skybox);
-
-	if (state == MENU_OPEN)
-	{
-		Renderer::create_menu(deltaTime, players[0]->moves);
-	}
 }
 
-void BoardMap::process_input(InputManager* inputManager, float deltaTime)
+//remove delta time after fixing animation call structure
+void BoardMap::set_controls(float deltaTime)
 {
-	inputManager->set_key_binding(GLFW_KEY_UP, new MoveUpCommand(players[currentPlayer], deltaTime));
-	inputManager->set_key_binding(GLFW_KEY_DOWN, new MoveDownCommand(players[currentPlayer], deltaTime));
-	inputManager->set_key_binding(GLFW_KEY_LEFT, new SelectCardLeftCommand(players[currentPlayer], deltaTime));
-	inputManager->set_key_binding(GLFW_KEY_RIGHT, new SelectCardRightCommand(players[currentPlayer], deltaTime));
-	inputManager->set_key_binding(GLFW_KEY_SPACE, new SelectCardCommand(players[currentPlayer], deltaTime));
-		/*keyBindings[GLFW_KEY_UP] = new MoveUpCommand();
-		keyBindings[GLFW_KEY_DOWN] = new MoveDownCommand();
-		keyBindings[GLFW_KEY_LEFT] = new SelectCardLeftCommand();
-		keyBindings[GLFW_KEY_RIGHT] = new SelectCardRightCommand();
-		keyBindings[GLFW_KEY_SPACE] = new SelectCardCommand();*/
-	inputManager->update();
-	menu_input(inputManager, deltaTime);
-
-	players[currentPlayer]->process_player_input(inputManager, deltaTime);
+	for (Player* player : players)
+	{
+		if (player->state == ACTIVE)
+		{
+			//rework gamepad binding to bind player to gamepad.
+			InputManager::set_gamepad_binding(GLFW_GAMEPAD_BUTTON_DPAD_UP, new MoveUpCommand(players[currentPlayer], deltaTime));
+			InputManager::set_gamepad_binding(GLFW_GAMEPAD_BUTTON_DPAD_DOWN, new MoveDownCommand(players[currentPlayer], deltaTime));
+			InputManager::set_gamepad_binding(GLFW_GAMEPAD_BUTTON_DPAD_LEFT, new SelectCardLeftCommand(players[currentPlayer]));
+			InputManager::set_gamepad_binding(GLFW_GAMEPAD_BUTTON_DPAD_RIGHT, new SelectCardRightCommand(players[currentPlayer]));
+			InputManager::set_gamepad_binding(GLFW_GAMEPAD_BUTTON_A, new SelectCardCommand(players[currentPlayer]));
+		}
+	}
 }
 
 void BoardMap::load_players()
 {
 	//add height buffer for character
 	glm::vec3 startingPosition = get_board_objects()[0]->Position + glm::vec3(0.0f, 1.0f, 0.0f);
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 1; i++)
 	{
 		players.push_back(new Player(i, AssetManager::get_model(0), startingPosition, glm::vec3(2.0f), glm::vec3(0.0f), playerControls));
 		players[i]->init_deck();
 
 		if (i == currentPlayer)
 		{
-			players[i]->toggle_turn();
+			players[i]->state = ACTIVE;
 		}
 	}
 }
@@ -91,7 +83,7 @@ void BoardMap::process_board_space(unsigned int boardId)
 	switch (boardId)
 	{
 		case 0: 
-			loadState = CHANGE_MAP;
+			//loadState = CHANGE_MAP;
 			break;
 		case 1:
 			players[currentPlayer]->add_groats(3);

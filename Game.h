@@ -1,21 +1,18 @@
-#pragma once
 #ifndef GAME_H
 #define GAME_H
 #include<glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include"Shader.h"
-#include"Model.h"
 #include"Map.h"
 #include"BoardMap.h"
-#include"GameObject.h"
-#include"Player.h"
-#include"Renderer.h"
-#include"Camera.h"
-#include"AssetManager.h"
-#include"DebugMenu.h"
 #include"PongMap.h"
-#include"InputManager.h"
+#include"AssetManager.h"
+#include"SaveCommand.h"
+#include"MoveCameraBackwardCommand.h"
+#include"MoveCameraForwardCommand.h"
+#include"MoveCameraLeftCommand.h"
+#include"MoveCameraRightCommand.h"
+#include"SelectEntityCommand.h"
+#include"AddRemoveEntityCommand.h"
+#include"MoveEntityCommand.h"
 
 enum GameState {
 	GAME_ACTIVE,
@@ -24,19 +21,19 @@ enum GameState {
 
 class Game {
 	public:
-		unsigned int level;
-		
 		std::vector<Map*> Maps;
 		GameState State;
-		InputManager* inputManager;
+		short level;
 
 		Game(GLFWwindow* window);
 		~Game();
 
 		void init();
-		void process_input(float deltaTime);
 		void update(float deltaTime);
 		void render(float deltaTime);
-};
+		void set_debug_controls(float deltaTime);
+	private:
+		
+};	
 
 #endif // !GAME_H

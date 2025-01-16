@@ -1,6 +1,6 @@
 #include"SelectCardCommand.h"
 
-SelectCardCommand::SelectCardCommand(Player* player, float deltaTime) : player(player), deltaTime(deltaTime) {}
+SelectCardCommand::SelectCardCommand(Player* player) : player(player){}
 
 void SelectCardCommand::execute() {
     if (!player->inMotion) {

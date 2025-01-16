@@ -1,16 +1,10 @@
-#ifndef INPUT_MANAGER_H
-#define INPUT_MANAGER_H
+#pragma once
 #include<map>
 #include"MoveDownCommand.h"
 #include"MoveUpCommand.h"
 #include"SelectCardCommand.h"
 #include"SelectCardLeftCommand.h"
 #include"SelectCardRightCommand.h"
-
-struct GamepadState {
-    bool buttons[15] = { false };
-    float axes[6] = { 0.0f }; //(2 for left stick, 2 for right stick, 2 for triggers)
-};
 
 /*GLFW_GAMEPAD_BUTTON_A,
 GLFW_GAMEPAD_BUTTON_B,
@@ -34,28 +28,29 @@ GLFW_GAMEPAD_AXIS_RIGHT_Y,
 GLFW_GAMEPAD_AXIS_LEFT_TRIGGER
 GLFW_GAMEPAD_AXIS_RIGHT_TRIGGER*/
 
-class InputManager {
-public:
-    InputManager(GLFWwindow* window);
-
-    static bool Keys[1024];
-    static bool KeysProcessed[1024];
-    static bool MouseButtons[7];
-    GamepadState gamepadStates[4];
-
-    double xpos, ypos;
-    bool firstMouse = true;
-    float lastX, lastY;
-    float yaw = -90.0f, pitch = 0.0f;
-
-    void update();
-    GLFWwindow* m_window;
-    void update_cursor();
-    void set_key_binding(int key, Command* command);
-private:
-   
-    int windowWidth = 1920;
-    int windowHeight = 1080;
+struct GamepadState {
+    bool buttons[15] = { false };
+    float axes[6] = { 0.0f }; //(2 for left stick, 2 for right stick, 2 for triggers)
 };
 
-#endif // !INPUT_MANAGER_H
+namespace InputManager {
+    static bool Keys[1024] = { false };
+    static bool KeysProcessed[1024] = { false };
+    static bool MouseButtons[7] = { false };
+    static bool GamepadButtonsProcessed[15] = { false };
+    static GamepadState gamepadStates[4] = { false };
+
+    void init(GLFWwindow* window);
+    void update();
+    void update_cursor();
+    void set_key_binding(int key, Command* command);
+    void set_mouse_binding(int key, Command* command);
+    void set_gamepad_binding(int key, Command* command);
+
+    float get_xpos();
+    float get_last_xpos();
+    float get_ypos();
+    float get_last_ypos();
+    float get_yaw();
+    float get_pitch();
+};

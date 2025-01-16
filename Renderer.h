@@ -14,8 +14,8 @@
 #include "UIElement.h"
 
 namespace Renderer {
-	GLFWwindow* init_render();
-	void render(std::vector<Player*> players, std::vector<GameObject*> entities, std::vector<GameObject*> lights, Camera& camera, SkyBox* skybox);
+	void init_render(GLFWwindow* window);
+	void render(std::vector<Player*> players, std::vector<GameObject*> entities, std::vector<GameObject*> lights, Camera* camera, SkyBox* skybox);
 
 	void create_menu(float deltaTime);
 	void create_menu(float deltaTime, int roll);

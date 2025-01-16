@@ -20,7 +20,7 @@ DebugMenu::~DebugMenu()
 	//delete pickingRenderer;
 }
 
-void DebugMenu::create_menu(std::vector<GameObject*> entities, Camera camera, float deltaTime, int roll)
+void DebugMenu::create_menu(std::vector<GameObject*> entities, Camera* camera, float deltaTime, int roll)
 {
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
@@ -86,16 +86,16 @@ void DebugMenu::create_menu(std::vector<GameObject*> entities, Camera camera, fl
 		ImGui::Separator();
 	}
 
-	if (ImGui::Button("Plane" + roll)) {
-		// Code to execute when the button is clicked
-		// For example, print a message or trigger an action
-		printf("added plane\n");
-	}
+	//if (ImGui::Button("Plane" + roll)) {
+	//	// Code to execute when the button is clicked
+	//	// For example, print a message or trigger an action
+	//	printf("added plane\n");
+	//}
 
 	ImGui::Text("Camera Position:");
-	ImGui::Text("X: %.2f", camera.getCameraPos().x);
-	ImGui::Text("Y: %.2f", camera.getCameraPos().y);
-	ImGui::Text("Z: %.2f", camera.getCameraPos().z);
+	ImGui::Text("X: %.2f", camera->getCameraPos().x);
+	ImGui::Text("Y: %.2f", camera->getCameraPos().y);
+	ImGui::Text("Z: %.2f", camera->getCameraPos().z);
 
 
 

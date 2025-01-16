@@ -1,8 +1,2 @@
-﻿  InputManager.cpp
-C:\Dev\opengl_code\test_project\InputManager.cpp(96,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Dev\opengl_code\test_project\InputManager.cpp(97,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Dev\opengl_code\test_project\InputManager.cpp(101,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Dev\opengl_code\test_project\InputManager.cpp(102,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Dev\opengl_code\test_project\InputManager.cpp(103,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Dev\opengl_code\test_project\InputManager.cpp(104,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+﻿  Engine.cpp
   test_project.vcxproj -> C:\Dev\opengl_code\test_project\x64\Debug\test_project.exe

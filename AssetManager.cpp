@@ -60,6 +60,7 @@ void AssetManager::load()
 	assetMap[4] = new Model((char*)"C:/Dev/assets/step_platform/step_platform.obj");
 	assetMap[5] = new Model((char*)"C:/Dev/assets/ball/ball.obj");
 	assetMap[6] = new Model((char*)"C:/Dev/assets/goal.obj");
+	assetMap[7] = new Model((char*)"C:/Dev/assets/GameCube - Mario Party 7 - Sheep/Sheep/sheep.fbx");
 
 	load_sky_box();
 

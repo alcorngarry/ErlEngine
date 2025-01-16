@@ -2,21 +2,20 @@
 
 glm::vec3 ball_velocity(0.0f, 0.0f, 40.0f);
 int ballIndex = -1;
-//PlayerControls playerControls{ GLFW_KEY_UP, GLFW_KEY_DOWN, GLFW_KEY_SPACE, GLFW_KEY_LEFT, GLFW_KEY_RIGHT };
 
 PongMap::PongMap(std::string mapName) : Map(mapName)
 {
-	camera.setCameraPos(glm::vec3(-100, 100, 0));
+	camera->setCameraPos(glm::vec3(-100, 100, 0));
 }
 
 void PongMap::update(float deltaTime)
 {
-	if (state == MENU_CLOSED)
-	{
-		camera.setCameraPos(glm::vec3(-100, 100, 0));
-		camera.setCameraFront(glm::normalize(glm::vec3(0.0f) - camera.getCameraPos())); 
-		camera.setCameraUp(glm::vec3(0.0f, 1.0f, 0.0f));
-	}
+	//if (state == MENU_CLOSED)
+	//{
+		camera->setCameraPos(glm::vec3(-100, 100, 0));
+		camera->setCameraFront(glm::normalize(glm::vec3(0.0f) - camera->getCameraPos())); 
+		camera->setCameraUp(glm::vec3(0.0f, 1.0f, 0.0f));
+	//}
 	
 	if (abs(entities[ballIndex]->Position.z) > 50.0f)
 	{
@@ -46,7 +45,7 @@ void PongMap::update(float deltaTime)
 	check_ball_collision(entities[ballIndex]);
 
 	//need to figure new way to store objects, probably will transfer to xml......
-	entities[ballIndex]->Position += ball_velocity * deltaTime;
+	entities[ballIndex]->Position = glm::vec3(ball_velocity * deltaTime);
 }
 
 void PongMap::load_players()
@@ -60,17 +59,8 @@ void PongMap::load_players()
 	ballIndex = entities.size() - 1;
 }
 
-void PongMap::process_input(InputManager* inputManager, float deltaTime)
+void PongMap::set_controls(float deltaTime)
 {
-	menu_input(inputManager, deltaTime);
-
-	if (state == MENU_CLOSED)
-	{
-		players[0]->process_player_input(inputManager, deltaTime);
-		players[1]->process_player_input(inputManager, deltaTime);
-		players[2]->process_player_input(inputManager, deltaTime);
-		players[3]->process_player_input(inputManager, deltaTime);
-	}
 }
 
 void PongMap::check_ball_collision(GameObject* entity)

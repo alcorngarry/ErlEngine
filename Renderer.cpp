@@ -1,5 +1,7 @@
 #include"Renderer.h"
 
+UIManager* manager;
+
 Shader* shaderProgram;
 Shader* lightShaderProgram;
 Shader* skinnedShaderProgram;
@@ -7,55 +9,18 @@ Shader* pickingShaderProgram;
 Shader* cubemapShaderProgram;
 Shader* uiShaderProgram;
 
-GLFWwindow* window;
-UIManager* manager;
-DebugMenu debugMenu;
-
 std::vector<Player*> m_players;
 std::vector<GameObject*> m_entities, m_lights;
 
-Camera m_camera;
+Camera* m_camera;
+DebugMenu* debugMenu;
 
 glm::mat4 view, projection;
 
 int selectedIndex = -1;
-int windowWidth = 1920;
-int windowHeight = 1080;
 
-//eventually move this to an engine class....
-GLFWwindow* Renderer::init_render()
+void Renderer::init_render(GLFWwindow* window)
 {
-	glfwInit();
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-	void get_resolution();
-
-	const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-
-	window = glfwCreateWindow(mode->width, mode->height, "test_game", NULL, NULL);
-
-	if (window == NULL)
-	{
-		std::cout << "Failed to create GLFW window" << std::endl;
-		glfwTerminate();
-	}
-
-	glfwMakeContextCurrent(window);
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-	{
-		std::cout << "Failed to initialize GLAD" << std::endl;
-	}
-
-	glEnable(GL_DEPTH_TEST);
-
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-
-	debugMenu = DebugMenu(window);
-
 	shaderProgram = new Shader("default.vert.glsl", "default.frag.glsl");
 	lightShaderProgram = new Shader("light.vert.glsl", "light.frag.glsl");
 	skinnedShaderProgram = new Shader("skinned.vert.glsl", "skinned.frag.glsl");
@@ -63,25 +28,24 @@ GLFWwindow* Renderer::init_render()
 	cubemapShaderProgram = new Shader("cubemap.vert.glsl", "cubemap.frag.glsl");
 	uiShaderProgram = new Shader("interface.vert.glsl", "interface.frag.glsl");
 
-	manager = new UIManager(uiShaderProgram, windowWidth, windowHeight);
-	
-	return window;
+	manager = new UIManager(uiShaderProgram, 1920, 1080);
+	debugMenu = new DebugMenu(window);
 }
 
-void Renderer::render(std::vector<Player*> players, std::vector<GameObject*> entities, std::vector<GameObject*> lights, Camera& camera, SkyBox* skybox)
+void Renderer::render(std::vector<Player*> players, std::vector<GameObject*> entities, std::vector<GameObject*> lights, Camera* camera, SkyBox* skybox)
 {
 	m_players = players;
 	m_entities = entities;
 	m_lights = lights;
 	m_camera = camera;
 
-	view = camera.get_view_matrix();
-	projection = camera.get_projection_matrix();
+	view = camera->get_view_matrix();
+	projection = camera->get_projection_matrix();
 
-	//draw first for environment mapping...
+	//draw first for environment mapping
 	cubemapShaderProgram->use();
 	cubemapShaderProgram->setInt("skybox", 0);
-	cubemapShaderProgram->setMat4("view", glm::mat4(glm::mat3(m_camera.get_view_matrix())));
+	cubemapShaderProgram->setMat4("view", glm::mat4(glm::mat3(m_camera->get_view_matrix())));
 	cubemapShaderProgram->setMat4("projection", projection);
 	skybox->draw();
 
@@ -94,7 +58,7 @@ void Renderer::render(std::vector<Player*> players, std::vector<GameObject*> ent
 		draw_aabb(player->GameModel->getMinAABB(), player->GameModel->getMaxAABB());
 		Renderer::draw_skinned(player->GameModel, player->Position, player->Size, player->Rotation, player->transforms);
 
-		if (player->isTurn)
+		if (player->state == ACTIVE)
 		{
 			manager->load_elements(player->get_cards(), player->get_selected_card_index());
 		}
@@ -116,10 +80,11 @@ void Renderer::render(std::vector<Player*> players, std::vector<GameObject*> ent
 	{
 		Renderer::draw_static(lightShaderProgram, light->GameModel, light->Position, light->Size, light->Rotation);
 	}
-	//this logic might need to be moved out and add setting the render items in the game logic.
+
+	//this logic might need to be moved out and add setting the render items in the game logic. GOOD NOTE FOLLOW UP
 	for (Player* player : players)
 	{
-		if (player->isTurn)
+		if (player->state == ACTIVE)
 		{
 			if (player->inMotion) {
 				unsigned int card[1] = { player->get_cards()[player->get_selected_card_index()] };
@@ -172,12 +137,12 @@ void Renderer::draw_static(Shader* shader, Model* model, glm::vec3 pos, glm::vec
 
 void Renderer::create_menu(float deltaTime)
 {
-	debugMenu.create_menu(m_entities, m_camera, deltaTime);
+	debugMenu->create_menu(m_entities, m_camera, deltaTime);
 }
 
 void Renderer::create_menu(float deltaTime, int roll)
 {
-	debugMenu.create_menu(m_entities, m_camera, deltaTime, roll);
+	debugMenu->create_menu(m_entities, m_camera, deltaTime, roll);
 }
 
 void Renderer::select_entity(float xpos, float ypos)
@@ -208,17 +173,14 @@ void Renderer::select_entity(float xpos, float ypos)
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
 	unsigned char data[4];
-	std::cout << windowHeight << "\n";
-	glReadPixels(xpos, windowHeight - ypos - 1, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
+	glReadPixels(xpos, 1080 - ypos - 1, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
 
 	int pickedID = data[0] + (data[1] * 256) + (data[2] * 256 * 256);
-
-	std::cout << xpos << ", " << ypos << std::endl;
 
 	if (!(pickedID == 0x00ffffff))
 	{
 		std::ostringstream oss;
-		oss << "mesh " << pickedID;
+		oss << "selected mesh id: " << pickedID;
 		std::cout << oss.str() << std::endl;
 
 		selectedIndex = pickedID;
@@ -242,24 +204,19 @@ void Renderer::deselect_index()
 void Renderer::draw_aabb(const glm::vec3& minAABB,const glm::vec3& maxAABB)
 {
 	const GLfloat vertices[] = {
-		minAABB.x, minAABB.y, minAABB.z, // 0
-		minAABB.x, minAABB.y, maxAABB.z, // 1
-		minAABB.x, maxAABB.y, minAABB.z, // 2
-		minAABB.x, maxAABB.y, maxAABB.z, // 3
-		maxAABB.x, minAABB.y, minAABB.z, // 4
-		maxAABB.x, minAABB.y, maxAABB.z, // 5
-		maxAABB.x, maxAABB.y, minAABB.z, // 6
-		maxAABB.x, maxAABB.y,maxAABB.z  // 7
+		minAABB.x, minAABB.y, minAABB.z, 
+		minAABB.x, minAABB.y, maxAABB.z, 
+		minAABB.x, maxAABB.y, minAABB.z, 
+		minAABB.x, maxAABB.y, maxAABB.z, 
+		maxAABB.x, minAABB.y, minAABB.z, 
+		maxAABB.x, minAABB.y, maxAABB.z, 
+		maxAABB.x, maxAABB.y, minAABB.z, 
+		maxAABB.x, maxAABB.y,maxAABB.z  
 	};
 
 	const GLuint indices[] = {
-		// Front face
 		0, 1, 1, 3, 3, 2, 2, 0,
-
-		// Back face
 		4, 5, 5, 7, 7, 6, 6, 4,
-
-		// Sides
 		0, 4, 1, 5, 2, 6, 3, 7
 	};
 

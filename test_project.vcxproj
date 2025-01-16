@@ -171,6 +171,8 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CharacterController.cpp" />
     <ClCompile Include="DebugMenu.cpp" />
+    <ClCompile Include="AddRemoveEntityCommand.cpp" />
+    <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="InputManager.cpp" />
@@ -178,20 +180,28 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="MoveCameraBackwardCommand.cpp" />
+    <ClCompile Include="MoveCameraLeftCommand.cpp" />
+    <ClCompile Include="MoveCameraForwardCommand.cpp" />
+    <ClCompile Include="MoveCameraRightCommand.cpp" />
     <ClCompile Include="MoveDownCommand.cpp" />
+    <ClCompile Include="MoveEntityCommand.cpp" />
     <ClCompile Include="MoveUpCommand.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PongMap.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="SaveCommand.cpp" />
     <ClCompile Include="SelectCardCommand.cpp" />
     <ClCompile Include="SelectCardLeftCommand.cpp" />
     <ClCompile Include="SelectCardRightCommand.cpp" />
+    <ClCompile Include="SelectEntityCommand.cpp" />
     <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="stb_image.cpp" />
     <ClCompile Include="test_project.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Dev\opengl_code\test_project\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Dev\opengl_code\test_project\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <ClCompile Include="ToggleMenuCommand.cpp" />
     <ClCompile Include="UIElement.cpp" />
     <ClCompile Include="UIManager.cpp" />
   </ItemGroup>
@@ -229,23 +239,34 @@
     <ClInclude Include="CharacterController.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="DebugMenu.h" />
+    <ClInclude Include="AddRemoveEntityCommand.h" />
+    <ClInclude Include="Engine.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="MoveCameraBackwardCommand.h" />
+    <ClInclude Include="MoveCameraLeftCommand.h" />
+    <ClInclude Include="MoveCameraForwardCommand.h" />
+    <ClInclude Include="MoveCameraRightCommand.h" />
     <ClInclude Include="MoveDownCommand.h" />
+    <ClInclude Include="MoveEntityCommand.h" />
     <ClInclude Include="MoveUpCommand.h" />
+    <ClInclude Include="OpenMenuCommand.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PongMap.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="SaveCommand.h" />
     <ClInclude Include="SelectCardCommand.h" />
     <ClInclude Include="SelectCardLeftCommand.h" />
     <ClInclude Include="SelectCardRightCommand.h" />
+    <ClInclude Include="SelectEntityCommand.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="stb_image.h" />
+    <ClInclude Include="ToggleMenuCommand.h" />
     <ClInclude Include="UIElement.h" />
     <ClInclude Include="UIManager.h" />
   </ItemGroup>

@@ -8,7 +8,6 @@
 #include<vector>
 
 #include"Renderer.h"
-#include"InputManager.h"
 
 class DebugMenu
 {
@@ -17,7 +16,7 @@ class DebugMenu
 		DebugMenu();
 
 		~DebugMenu();
-		void create_menu(std::vector<GameObject*> entities, Camera camera, float deltaTime, int roll = -1);
+		void create_menu(std::vector<GameObject*> entities, Camera* camera, float deltaTime, int roll = -1);
 		void shut_down();
 };
 

@@ -5,11 +5,10 @@
 
 class SelectCardLeftCommand : public Command {
 public:
-    SelectCardLeftCommand(Player* player, float deltaTime);
+    SelectCardLeftCommand(Player* player);
     void execute() override;
 
 private:
     Player* player;
-    float deltaTime;
 };
 #endif // !SELECT_CARD_L_COMMAND_H

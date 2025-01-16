@@ -1,6 +1,6 @@
 #include"SelectCardLeftCommand.h"
 
-SelectCardLeftCommand::SelectCardLeftCommand(Player* player, float deltaTime) : player(player), deltaTime(deltaTime) {}
+SelectCardLeftCommand::SelectCardLeftCommand(Player* player) : player(player) {}
 
 void SelectCardLeftCommand::execute() {
 	if (player->selectedCardIndex > 0) {
