@@ -44,15 +44,12 @@ void Engine::run()
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
 	game = new Game(window);
-
-	//need some kind of editor class...eventually
-	InputManager::set_key_binding(GLFW_KEY_M, new ToggleMenuCommand(game));
-	//probably not keep this here
-	
-
 	game->init();
-
+	
+	//need some kind of editor class...eventually
 	InputManager::set_key_binding(GLFW_KEY_F9, new SaveCommand(game->Maps[game->level]));
+	InputManager::set_key_binding(GLFW_KEY_M, new ToggleMenuCommand(game));
+	InputManager::set_key_binding(GLFW_KEY_ESCAPE, new CloseWindowCommand(window));
 
 	start_game_loop();
 }

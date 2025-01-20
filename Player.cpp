@@ -15,6 +15,8 @@ void Player::move_player(std::vector<GameObject*> boardSpaces)
 	int nextPos = boardPosition == boardSpaces.size() - 1 ? 0 : boardPosition + 1;
 	float delta = 1.0f;
 
+	glm::vec3 buffer(0.0f, 1.0f, 0.0f);
+
   	if (boardPosition != moves)
 	{
 		if ((float)glfwGetTime() < startTime + delta)
@@ -25,19 +27,20 @@ void Player::move_player(std::vector<GameObject*> boardSpaces)
 			glm::vec3 direction = (boardSpaces[nextPos]->Position - boardSpaces[boardPosition]->Position);
 			glm::mat4 test = glm::mat4(1.0f);
 			glm::vec3 currPos = objectPos + direction * ((float)glfwGetTime() - startTime) / delta;
-
-			Position = currPos;
+			
+			Rotation = glm::vec3(0.0f, glm::degrees(std::atan2(direction.x, direction.z)), 0.0f);
+			Position = currPos + buffer;
 		}
 		else {
 			boardPosition = nextPos;
 			startTime = (float)glfwGetTime();
 
 			//figure rotation lol
-			Position = boardSpaces[boardPosition]->Position;
+			Position = boardSpaces[boardPosition]->Position + buffer;
 		}
 	}
 	else {
-		Position = boardSpaces[boardPosition]->Position;
+		Position = boardSpaces[boardPosition]->Position + buffer;
 		mator->reset_animation();
 		transforms = mator->get_final_bone_matrices();
 		inMotion = false;

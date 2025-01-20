@@ -170,6 +170,7 @@
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CharacterController.cpp" />
+    <ClCompile Include="CloseWindowCommand.cpp" />
     <ClCompile Include="DebugMenu.cpp" />
     <ClCompile Include="AddRemoveEntityCommand.cpp" />
     <ClCompile Include="Engine.cpp" />
@@ -237,7 +238,9 @@
     <ClInclude Include="BoneInfo.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CharacterController.h" />
+    <ClInclude Include="CloseWindowCommand.h" />
     <ClInclude Include="Command.h" />
+    <ClInclude Include="CountingSheep.h" />
     <ClInclude Include="DebugMenu.h" />
     <ClInclude Include="AddRemoveEntityCommand.h" />
     <ClInclude Include="Engine.h" />

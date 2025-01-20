@@ -81,10 +81,6 @@ void InputManager::update() {
             }
         }
     }
-
-    if (Keys[GLFW_KEY_ESCAPE]) {
-        glfwSetWindowShouldClose(m_window, true);
-    }
 }
 
 void InputManager::set_key_binding(int key, Command* command)

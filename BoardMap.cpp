@@ -9,34 +9,50 @@ BoardMap::BoardMap(std::string mapName) : Map(mapName)
 	//add item select system -- in progress
 	//need ui for items -- in progress
 
-
 	// part deux
-	// fix camera follow system
-	// fix player orientation when traversing the map
+	// fix camera follow system -- in progress
+	// fix player orientation when traversing the map --fixed
 	// add groat ui elements and text
-	// add esc command end program
-	// add save command, if it doesn't already exist
+	// add esc command end program --done
+	// add save command, if it doesn't already exist --save needs tweaking. the save file gets corrupt.
 }
 
 void BoardMap::update(float deltaTime)
 {
 	set_controls(deltaTime);
+
+	// Update the camera's position
+	// tan = a/h, h is what we want.
+	// a over tan gives u h
 	if (state == DEFAULT)
 	{
-		camera->setCameraPos(players[currentPlayer]->Position + glm::vec3(-80.0f, 30.0f, 0.0f));
+		if (players[currentPlayer]->inMotion)
+		{
+			float playerYRotation = glm::radians(players[currentPlayer]->Rotation.y);
+			glm::vec3 playerDirection = glm::vec3(sin(playerYRotation), 0.0f, cos(playerYRotation));
+			float distanceBehind = 80.0f;
+			float heightAbove = 30.0f;
+			glm::vec3 cameraOffset = (playerDirection * -distanceBehind) + glm::vec3(0.0f, heightAbove, 0.0f);
+
+			camera->setCameraPos(players[currentPlayer]->Position + cameraOffset);
+			players[currentPlayer]->update(deltaTime);
+			players[currentPlayer]->move_player(get_board_objects());
+			players[currentPlayer]->state = INACTIVE;
+		}
+		else {
+			//camera->setCameraPos(players[currentPlayer]->Position + glm::vec3(-80.0f, 30.0f, 0.0f));
+			glm::vec3 direction = players[currentPlayer]->Position - camera->getCameraPos();
+			players[currentPlayer]->Rotation = -1.0f * glm::vec3(0.0f, glm::degrees(std::atan2(direction.x, direction.z)), 0.0f);
+		}
+
 		camera->setCameraFront(players[currentPlayer]->Position - camera->getCameraPos());
-	}
-	if (players[currentPlayer]->inMotion)
-	{
-		players[currentPlayer]->update(deltaTime);
-		players[currentPlayer]->move_player(get_board_objects());
-		players[currentPlayer]->state = INACTIVE;
-	}
-	if (players[currentPlayer]->state == INACTIVE && !players[currentPlayer]->inMotion)
-	{
-		process_board_space(get_board_objects()[players[currentPlayer]->get_board_position()]->id);
-		currentPlayer = currentPlayer == players.size() - 1 ? 0 : currentPlayer += 1;
-		players[currentPlayer]->state = ACTIVE;
+
+		if (players[currentPlayer]->state == INACTIVE && !players[currentPlayer]->inMotion)
+		{
+			process_board_space(get_board_objects()[players[currentPlayer]->get_board_position()]->id);
+			currentPlayer = currentPlayer == players.size() - 1 ? 0 : currentPlayer += 1;
+			players[currentPlayer]->state = ACTIVE;
+		}
 	}
 }
 

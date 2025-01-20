@@ -31,6 +31,12 @@
     <Filter Include="Header Files\Commands\Camera">
       <UniqueIdentifier>{b7f9fa35-580a-4e99-b331-7a8165d09a4e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Maps">
+      <UniqueIdentifier>{56ddb281-5a23-4b29-af77-82cb140652e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Maps">
+      <UniqueIdentifier>{8b38c609-415b-4c1a-bbea-a7bb2ae62b86}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test_project.cpp">
@@ -99,13 +105,7 @@
     <ClCompile Include="AssetManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PongMap.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="InputManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BoardMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Bone.cpp">
@@ -170,6 +170,15 @@
     </ClCompile>
     <ClCompile Include="MoveEntityCommand.cpp">
       <Filter>Source Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="CloseWindowCommand.cpp">
+      <Filter>Source Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="BoardMap.cpp">
+      <Filter>Source Files\Maps</Filter>
+    </ClCompile>
+    <ClCompile Include="PongMap.cpp">
+      <Filter>Source Files\Maps</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -277,13 +286,7 @@
     <ClInclude Include="AssetManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PongMap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="InputManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BoardMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Animator.h">
@@ -357,6 +360,18 @@
     </ClInclude>
     <ClInclude Include="MoveEntityCommand.h">
       <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="CloseWindowCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="BoardMap.h">
+      <Filter>Header Files\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="PongMap.h">
+      <Filter>Header Files\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="CountingSheep.h">
+      <Filter>Header Files\Maps</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
